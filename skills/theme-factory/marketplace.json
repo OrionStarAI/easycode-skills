@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 19,
+    "name": "theme-factory",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我把同一份内容做成四种风格：电子杂志、瑞士极简、黑金和温暖手作，放在一张对比图里，方便我选择。"
+  },
+  "storage": {
+    "packageKey": "skills/theme-factory/theme-factory_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/theme-factory.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/19/e83fa991-aad9-4b8c-900e-f6ea4514a2df-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/19/1-3b7899d3222e44b0.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

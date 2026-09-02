@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 28,
+    "name": "mp-weixin-ops",
+    "version": "1.0.2",
+    "source": "upload",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我找一个今天的科技热点，写成一篇适合微信公众号发布的文章，配好标题、摘要、封面图和正文配图，最后保存成草稿。"
+  },
+  "storage": {
+    "packageKey": "skills/mp-weixin-ops/mp-weixin-ops_1.0.2.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/mp-weixin-ops.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/28/d1bc1e18-39c7-4cbd-89b0-5b6a4e824a65-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/28/1-abdd756901605e1a.webp",
+        "isLong": true
+      }
+    ],
+    "examples": []
+  }
+}

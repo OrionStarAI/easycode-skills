@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 29,
+    "name": "news-aggregator",
+    "version": "1.0.3",
+    "source": "upload",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我整理今天国内外重要的 AI 和科技新闻，挑 8 条最值得看的，并用几句话说明重点和影响。"
+  },
+  "storage": {
+    "packageKey": "skills/news-aggregator/news-aggregator_1.0.3.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/news-aggregator.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/29/ee16dbf0-1861-4576-a0b4-4e1f5f37aa8c-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/29/1-9e72728a34918db2.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

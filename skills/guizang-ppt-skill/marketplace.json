@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 26,
+    "name": "guizang-ppt-skill",
+    "version": "1.0.0",
+    "source": "upload",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我把一篇关于消费趋势的文章做成网页 PPT，保留封面、三条核心观点和结论，整体做成杂志风，打开网页就能播放。"
+  },
+  "storage": {
+    "packageKey": "skills/guizang-ppt-skill/guizang-ppt-skill_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/guizang-ppt-skill.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/26/b34b909d-8bf7-41ed-9679-3c397bd2feef-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/26/1-e8149fc10a1e3ee5.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

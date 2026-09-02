@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 13,
+    "name": "doc-coauthoring",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我一起写一份 AI 客服项目方案，先帮我列个目录，再和我逐步完善内容，最后整理成正式文档。"
+  },
+  "storage": {
+    "packageKey": "skills/doc-coauthoring/doc-coauthoring_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/doc-coauthoring.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}

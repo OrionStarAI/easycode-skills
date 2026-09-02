@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 9,
+    "name": "pdf",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我把这份经营数据整理成一份 PDF 报告，包含图表、重点结论和清晰的分页。"
+  },
+  "storage": {
+    "packageKey": "skills/pdf/pdf_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/pdf.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": [
+      {
+        "path": "assets/examples/ai-business-review-report.pdf",
+        "sourceKey": "skills/examples/9/86f3ffcc-59fc-45d6-9077-678e6d5a13dc.pdf",
+        "name": "ai-business-review-report.pdf",
+        "mimeType": "application/pdf"
+      }
+    ]
+  }
+}

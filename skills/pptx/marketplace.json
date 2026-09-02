@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 8,
+    "name": "pptx",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我做一份介绍 AI 工作流的 PPT，包含封面、关键数据、工作流程和总结，风格简洁现代，最后给我可编辑的 PPT 文件。"
+  },
+  "storage": {
+    "packageKey": "skills/pptx/pptx_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/pptx.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/8/6dcea6aa-df65-4981-b9c8-f23445c5d317-1.webp"
+      },
+      {
+        "path": "assets/previews/1.webp",
+        "sourceKey": "skills/previews/8/0da142b1-05fb-4af0-8b89-0211b3511946-2.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/8/1-4cedd4b1f21efeaf.webp",
+        "isLong": false
+      },
+      {
+        "path": "assets/preview-thumbnails/1.webp",
+        "sourceKey": "skills/preview-thumbnails/8/2-8a0cecbefdb470fc.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 7,
+    "name": "docx",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我写一份 AI 产品季度复盘报告，包含本季度成果、问题、数据和下季度计划，最后给我一个排版好的 Word 文件。"
+  },
+  "storage": {
+    "packageKey": "skills/docx/docx_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/docx.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/7/20f944bc-443b-4249-af03-02e0130ae7a9-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/7/1-a33b18640582e9b3.webp",
+        "isLong": false
+      }
+    ],
+    "examples": [
+      {
+        "path": "assets/examples/ai-product-quarterly-review.docx",
+        "sourceKey": "skills/examples/7/a4f647f3-0d4f-4655-bfd7-6c36b67b87d3.docx",
+        "name": "ai-product-quarterly-review.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      }
+    ]
+  }
+}

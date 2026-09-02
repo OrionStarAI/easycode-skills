@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 20,
+    "name": "web-artifacts-builder",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我做一个 AI 任务编排工作台，把任务输入、执行状态、结果和组件列表放在一个页面里，方便团队使用。"
+  },
+  "storage": {
+    "packageKey": "skills/web-artifacts-builder/web-artifacts-builder_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/web-artifacts-builder.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/20/60f89178-314a-4452-b0e1-7723f733fecc-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/20/1-875d71eb8688d095.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

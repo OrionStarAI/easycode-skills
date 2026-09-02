@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 16,
+    "name": "mcp-builder",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我做一个能连接项目管理工具的 MCP 服务，让我可以查询项目、创建任务和修改任务状态。"
+  },
+  "storage": {
+    "packageKey": "skills/mcp-builder/mcp-builder_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/mcp-builder.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}

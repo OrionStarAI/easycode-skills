@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 6,
+    "name": "xlsx",
+    "version": "1.0.1",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我把营销数据整理成一个运营复盘 Excel，展示触达、激活、订单和收入，再配一张趋势图。"
+  },
+  "storage": {
+    "packageKey": "skills/xlsx/xlsx_1.0.1.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/xlsx.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/6/cc95a9e0-41f8-4482-82d3-1b208589cbf8-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/6/1-f2a8d4a07a724ccf.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

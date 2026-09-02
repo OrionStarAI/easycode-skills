@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 11,
+    "name": "brand-guidelines",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我做一套 AI 产品的品牌视觉规范，包含颜色、字体、按钮和常用组件，整理成一页清晰的规范图。"
+  },
+  "storage": {
+    "packageKey": "skills/brand-guidelines/brand-guidelines_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/brand-guidelines.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/11/b3e72d99-3474-4104-8b86-6996a1d0afb7-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/11/1-58f0920084ee3cdd.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

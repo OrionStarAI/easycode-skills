@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 21,
+    "name": "webapp-testing",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我测试这个网页，重点看看登录、搜索、提交表单和手机上显示是否正常，并把发现的问题截图整理出来。"
+  },
+  "storage": {
+    "packageKey": "skills/webapp-testing/webapp-testing_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/webapp-testing.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 15,
+    "name": "internal-comms",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我写一封项目延期通知，说明延期原因、对大家的影响和接下来的安排，语气诚恳一些。"
+  },
+  "storage": {
+    "packageKey": "skills/internal-comms/internal-comms_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/internal-comms.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}

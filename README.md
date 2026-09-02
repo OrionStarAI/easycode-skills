@@ -6,7 +6,7 @@ It intentionally contains only the 18 skills that are currently externally avail
 
 ## Layout
 
-Each skill is stored as source under `skills/<skill-name>/` and has a root `SKILL.md` file. Runtime caches and package-manager dependencies are excluded so that the repository remains reviewable and is suitable for source control.
+Each skill is stored as source under `skills/<skill-name>/` and has a root `SKILL.md` file. Its committed `marketplace.json` preserves versioned Marketplace metadata: active state, usage example, icon, detail previews, preview thumbnails, example output files, and stable object-storage keys. Runtime caches and package-manager dependencies are excluded so that the repository remains reviewable and is suitable for source control.
 
 ## Publishing scope
 

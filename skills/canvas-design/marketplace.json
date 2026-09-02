@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 12,
+    "name": "canvas-design",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我做一张 AI 工作流配图，表现从想法到交付的过程，加入网络节点、流程箭头和数据面板，整体清爽有科技感。"
+  },
+  "storage": {
+    "packageKey": "skills/canvas-design/canvas-design_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/canvas-design.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/12/53befa02-5ab0-4780-804d-d971354b1fb8-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/12/1-ab1cb825372738d5.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

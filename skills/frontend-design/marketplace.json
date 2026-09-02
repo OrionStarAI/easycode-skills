@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 14,
+    "name": "frontend-design",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我设计一个 AI 项目管理工具的首页，要简洁好看，让人一眼能看到项目进度、待办事项和数据。"
+  },
+  "storage": {
+    "packageKey": "skills/frontend-design/frontend-design_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/frontend-design.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/14/3743e601-61f4-4759-9426-830dddd580ae-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/14/1-c8c62239e90fe92a.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}

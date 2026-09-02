@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "id": 33,
+    "name": "sanwan-whiteboard-ppt",
+    "version": "1.0.0",
+    "source": "upload",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我制作一套介绍猎豹移动董事长傅盛的板书风 PPT，包含他的个人经历、猎豹移动的发展历程、几次关键转型和 AI 方向，整体像白板手写，配一些彩色插画。"
+  },
+  "storage": {
+    "packageKey": "skills/sanwan-whiteboard-ppt/sanwan-whiteboard-ppt_1.0.0.zip"
+  },
+  "media": {
+    "icon": null,
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/33/8c3681f0-92bb-4b91-83ed-9975144975ae-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/33/1-4b70e584895e9a54.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}
