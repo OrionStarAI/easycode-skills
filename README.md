@@ -2,7 +2,7 @@
 
 This repository is the source backup for the skills currently published in the EasyCode Marketplace.
 
-It intentionally contains only the 18 skills that are currently externally available from the production marketplace. Personal, experimental, unpublished, and locally maintained skills are not included.
+It intentionally contains only the 19 skills that are currently externally available from the production marketplace. Personal, experimental, unpublished, and locally maintained skills are not included.
 
 ## Layout
 
