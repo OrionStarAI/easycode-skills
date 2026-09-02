@@ -1,4 +1,4 @@
-﻿---
+---
 name: install-python-windows
 description: >
   当用户在 Windows 上没有安装 Python 时，引导其从官网下载最新稳定版安装包，勾选 Add Python to PATH 完成安装，并验证环境变量已生效。
