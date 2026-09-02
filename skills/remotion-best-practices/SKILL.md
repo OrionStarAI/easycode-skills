@@ -1,7 +1,7 @@
 ---
 name: remotion-best-practices
-description: Comprehensive Remotion video-creation guidance: project setup, React compositions, rendering, captions, maps, Studio, upgrades, and documentation lookup.
-version: 4.0.520
+description: "Comprehensive Remotion video-creation guidance: project setup, React compositions, rendering, captions, maps, Studio, upgrades, and documentation lookup."
+version: 4.0.521
 category: 视频创作
 tags: remotion, video, react, animation, composition
 ---

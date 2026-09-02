@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "skill": {
     "name": "remotion-best-practices",
-    "version": "4.0.520",
+    "version": "4.0.521",
     "source": "git-sync",
     "active": true
   },
   "storage": {
-    "packageKey": "skills/remotion-best-practices/remotion-best-practices_4.0.520.zip"
+    "packageKey": "skills/remotion-best-practices/remotion-best-practices_4.0.521.zip"
   },
   "media": {
     "icon": {
