@@ -1,0 +1,17 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+service-account*.json
+
+# Generated and local files
+node_modules/
+__MACOSX/
+.DS_Store
+dist/
+build/
+coverage/
