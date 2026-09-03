@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "guizang-social-card-skill",
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我把这篇文章做成一套小红书 3:4 图文，采用瑞士风，包含封面、4 张内容卡和统一的结尾页。"
+  },
+  "storage": {
+    "packageKey": "skills/guizang-social-card-skill/guizang-social-card-skill_1.0.0.zip"
+  },
+  "media": {
+    "icon": null,
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}
