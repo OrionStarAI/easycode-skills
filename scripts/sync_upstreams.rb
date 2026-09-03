@@ -54,7 +54,14 @@ end
 
 def relative_files(directory, ref, source_root)
   prefix = source_root.sub(%r{/\z}, "")
-  files = git_output(directory, "ls-tree", "-r", "--name-only", ref, "--", prefix).lines.map(&:chomp)
+  command_args = ["ls-tree", "-r", "--name-only", ref]
+  # A dot means that the upstream skill lives at the repository root. Git
+  # does not prefix root-level paths with "./", so list the complete tree in
+  # that case instead of filtering for a literal dot path.
+  command_args += ["--", prefix] unless prefix == "." || prefix.empty?
+  files = git_output(directory, *command_args).lines.map(&:chomp)
+  return files.reject(&:empty?) if prefix == "." || prefix.empty?
+
   files.each_with_object([]) do |path, result|
     next if path.empty?
     if path == prefix

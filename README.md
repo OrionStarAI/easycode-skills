@@ -17,9 +17,9 @@
 
 ## 上游同步
 
-14 个技能在 `SKILL.md` 中声明了上游仓库、源码路径和已审核提交号。GitHub Actions 每天北京时间 10:00 检查上游，也可以手动运行 **Sync upstream skills**。发现更新后，Action 会在独立分支创建或更新 PR，供人工审核。
+15 个技能在 `SKILL.md` 中声明了上游仓库、源码路径和已审核提交号。GitHub Actions 每天北京时间 10:00 检查上游，也可以手动运行 **Sync upstream skills**。发现更新后，Action 会在独立分支创建或更新 PR，供人工审核。
 
-同步使用已审核提交号做三方合并：新增文件自动带入，未被本地修改的删除会同步，本地和上游同时修改的文本会保留冲突标记并等待处理。同步不会直接修改 EasyCode 后台，也不会直接写入 GCS。没有上游元数据的 5 个内部上传技能仍由普通 PR 手工维护。
+同步使用已审核提交号做三方合并：新增文件自动带入，未被本地修改的删除会同步，本地和上游同时修改的文本会保留冲突标记并等待处理。同步不会直接修改 EasyCode 后台，也不会直接写入 GCS。没有上游元数据的 4 个内部上传技能仍由普通 PR 手工维护。
 
 上游元数据示例：
 
@@ -38,7 +38,7 @@ author: anthropics
 
 每个 Pull Request 和推送到 `main` 都会运行 **Skill Gate**。门禁会用真实 YAML 解析器检查 `SKILL.md`，并校验 `marketplace.json`、媒体文件路径和数量、技能目录命名、上游提交号、常见凭据/私钥以及合并冲突标记。未加引号的 description 冒号等问题会在合并前失败。
 
-`main` 已设置分支保护，必须通过 `Validate skills` 才能合并。具体维护规则见 [docs/skill-sync.md](docs/skill-sync.md)。
+管理员应在 `main` 的分支保护或 Ruleset 中要求通过 `Validate skills` 后才能合并，并禁止绕过规则。组织迁移后请重新确认这项设置。具体维护规则见 [docs/skill-sync.md](docs/skill-sync.md)。
 
 ## 发布边界
 
