@@ -26,7 +26,7 @@ author: anthropics
 ---
 ```
 
-Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`。`upstreamSha` 是上一次已审核的基线提交，不使用浮动分支内容作为发布依据。未声明这些字段的技能（例如内部上传技能）不会被自动覆盖，仍由仓库维护者通过普通 PR 更新。
+Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`；`guizang-ppt-skill` 使用 `op7418/guizang-ppt-skill`，其源码位于上游仓库根目录，因此 `upstreamPath` 填 `.`。`upstreamSha` 是上一次已审核的基线提交，不使用浮动分支内容作为发布依据。未声明这些字段的技能（例如内部上传技能）不会被自动覆盖，仍由仓库维护者通过普通 PR 更新。
 
 同步脚本会：
 

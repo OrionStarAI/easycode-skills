@@ -4,7 +4,7 @@
     "id": 26,
     "name": "guizang-ppt-skill",
     "version": "1.0.0",
-    "source": "upload",
+    "source": "git-sync",
     "active": true,
     "deleted": false,
     "usageExample": "帮我把一篇关于消费趋势的文章做成网页 PPT，保留封面、三条核心观点和结论，整体做成杂志风，打开网页就能播放。"
