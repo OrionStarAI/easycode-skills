@@ -1,0 +1,30 @@
+name: Skill Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate skills
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Run parser regression test
+        run: ruby scripts/validate_skills.rb --self-test
+
+      - name: Validate skill tree
+        run: ruby scripts/validate_skills.rb

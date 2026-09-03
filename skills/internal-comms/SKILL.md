@@ -2,6 +2,10 @@
 name: internal-comms
 description: A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
 license: Complete terms in LICENSE.txt
+upstream: anthropics/skills
+upstreamPath: skills/internal-comms
+upstreamSha: 53048666b05b4799081517d00e09e0a2dd688678
+author: anthropics
 ---
 
 ## When to use this skill

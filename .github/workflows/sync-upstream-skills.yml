@@ -1,0 +1,55 @@
+name: Sync upstream skills
+
+on:
+  schedule:
+    # 02:00 UTC every day (北京时间 10:00).
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Check upstream repositories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Sync configured upstreams
+        id: sync
+        run: ruby scripts/sync_upstreams.rb
+
+      # A conflict is deliberately allowed to reach a review PR. The PR
+      # itself is blocked by Skill Gate until a maintainer resolves markers.
+      - name: Validate synchronized tree
+        if: steps.sync.outputs.conflicts != 'true'
+        run: ruby scripts/validate_skills.rb
+
+      - name: Open review PR
+        if: steps.sync.outputs.changed == 'true' || steps.sync.outputs.conflicts == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/sync-upstream-skills
+          delete-branch: true
+          commit-message: "chore: sync upstream skills"
+          title: "chore: sync upstream skills"
+          body: |
+            This PR was created by the scheduled upstream sync.
+
+            - Changed: ${{ steps.sync.outputs.changed }}
+            - Conflicts: ${{ steps.sync.outputs.conflicts }}
+
+            The workflow only prepares a reviewable source update. It does not
+            publish to EasyCode or write directly to object storage. Resolve
+            any conflict markers, wait for Skill Gate, and merge after review.

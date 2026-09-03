@@ -4,6 +4,10 @@ description: "Comprehensive Remotion video-creation guidance: project setup, Rea
 version: 4.0.521
 category: 视频创作
 tags: remotion, video, react, animation, composition
+upstream: remotion-dev/skills
+upstreamPath: skills/remotion-best-practices
+upstreamSha: 54e9b19a612897171e0b3b242e01c2badba4a272
+author: remotion-dev
 ---
 
 ## Preserve user changes
