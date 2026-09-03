@@ -5,7 +5,11 @@
 1. `SKILL.md` 中声明了 `upstream`、`upstreamPath` 和 `upstreamSha` 的技能，参加上游同步。
 2. GitHub Actions 每天 `02:00 UTC`（北京时间 `10:00`）检查上游，也可以在 Actions 页面手动运行 **Sync upstream skills**。
 3. 有更新时，Action 在 `chore/sync-upstream-skills` 分支创建或更新 PR。同步不会直接发布 Marketplace，也不会直接写 GCS。
-4. PR 必须通过 **Skill Gate** 才能合并。合并后仍按 EasyCode/OpenC3 的既有发布流程打 release tag。
+4. PR 必须通过 **Skill Gate** 才能合并；合并本身不会触发生产发布。需要上线时，再按 EasyCode/OpenC3 的既有发布流程打 release tag。
+
+## GitHub 仓库标签（暂不启用）
+
+当前仓库没有 tag 触发的发布 workflow，也不要求普通提交打 tag。GitHub 仓库标签未来可以用于生成固定版本技能包或通知 OpenC3，但这属于独立的发布流程，暂时不配置。
 
 ## 上游元数据
 
@@ -51,7 +55,7 @@ ruby scripts/validate_skills.rb
 ruby scripts/sync_upstreams.rb
 ```
 
-同步 PR 合并后，仍由管理员按照现有 OpenC3 发布配置打 `release-online-*` tag；对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
+同步 PR 合并后，仓库只完成源码备份和审查；生产版本仍由管理员按照现有 OpenC3 发布配置在内部发布仓库打 `release-online-*` tag。对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
 
 ## 让门禁真正阻断合并
 
