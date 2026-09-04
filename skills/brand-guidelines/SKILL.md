@@ -4,7 +4,7 @@ description: Applies Anthropic's official brand colors and typography to any sor
 license: Complete terms in LICENSE.txt
 upstream: anthropics/skills
 upstreamPath: skills/brand-guidelines
-upstreamSha: 53048666b05b4799081517d00e09e0a2dd688678
+upstreamSha: 41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f
 author: anthropics
 ---
 
