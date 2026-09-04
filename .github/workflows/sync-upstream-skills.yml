@@ -19,12 +19,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
-
       - name: Sync configured upstreams
         id: sync
         run: ruby scripts/sync_upstreams.rb
@@ -34,19 +34,17 @@ jobs:
       - name: Validate synchronized tree
         if: steps.sync.outputs.conflicts != 'true'
         run: ruby scripts/validate_skills.rb
-
       - name: Open review PR
         if: steps.sync.outputs.changed == 'true' || steps.sync.outputs.conflicts == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SKILLS_SYNC_TOKEN }}
           branch: chore/sync-upstream-skills
           delete-branch: true
           commit-message: "chore: sync upstream skills"
           title: "chore: sync upstream skills"
           body: |
             This PR was created by the scheduled upstream sync.
-
             - Changed: ${{ steps.sync.outputs.changed }}
             - Conflicts: ${{ steps.sync.outputs.conflicts }}
 
