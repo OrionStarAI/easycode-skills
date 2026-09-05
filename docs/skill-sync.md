@@ -76,7 +76,7 @@ ruby scripts/validate_skills.rb
 ruby scripts/sync_upstreams.rb
 ```
 
-同步 PR 合并后，仓库只完成源码备份和审查；生产版本仍由管理员按照现有 OpenC3 发布配置在内部发布仓库打 `release-online-*` tag。对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
+同步 PR 合并后，仓库只完成源码备份和审查；生产 EasyCode 服务按小时自动同步本仓库 `main`，将技能 ZIP 与媒体发布到对象存储并更新商城元数据，通常一小时内生效。`release-online-*` tag 位于 EasyCodeServer 仓库，只用于发布服务端代码，与本仓库的技能发布无关。对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
 
 ## 让门禁真正阻断合并
 

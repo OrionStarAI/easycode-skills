@@ -44,11 +44,11 @@ author: anthropics
 
 目前 GitHub 仓库**没有**单独的 tag 发布 workflow。普通提交、上游同步 PR 和生产发布是三件事：
 
-1. 合并通过门禁的技能源码；
-2. 按现有 OpenC3 发布流程在内部发布仓库打 `release-online-*` tag；
-3. OpenC3 负责构建、部署以及对象存储产物同步。
+1. 合并通过门禁的技能源码到 `main`；
+2. 生产环境的 EasyCode 服务按小时自动同步本仓库 `main`，打包技能 ZIP、更新 GCS 制品与商城元数据——合入后通常一小时内生效，不需要任何标签；
+3. 只有服务端代码变更才需要在 EasyCodeServer 仓库打 `release-online-*` tag 触发镜像构建与部署，与本仓库无关。
 
-`release-online-*` 不是本仓库普通提交的必需步骤；只有要推动生产商城版本时才使用。未来若需要 GitHub tag 直接生成发布包或通知 OpenC3，再单独增加发布 workflow。
+因此本仓库不需要为发布打 tag；未来若需要 GitHub tag 直接生成发布包或通知服务端，再单独增加发布 workflow。
 
 ## 本地检查
 
