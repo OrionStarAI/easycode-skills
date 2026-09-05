@@ -1,8 +1,11 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": null,
     "name": "doodle-anim-browser",
+    "displayName": {
+      "zh": "涂鸦动画·内置浏览器渲染",
+      "en": "Doodle Anim Browser Render"
+    },
     "version": "1.0.0",
     "source": "upload",
     "active": true,
@@ -13,7 +16,6 @@
     "packageKey": "skills/doodle-anim-browser/doodle-anim-browser_1.0.0.zip"
   },
   "media": {
-    "icon": null,
     "previews": [],
     "previewThumbnails": [],
     "examples": []
