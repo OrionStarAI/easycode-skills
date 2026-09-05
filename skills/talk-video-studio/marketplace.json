@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "talk-video-studio",
+    "displayName": {
+      "zh": "演讲视频工坊",
+      "en": "Talk Video Studio"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "把这篇文章做成一个会讲话的讲解视频：左边播 PPT，右边一个 AI 数字人讲师出镜讲解，带字幕，大概两分钟。"
+  },
+  "storage": {
+    "packageKey": "skills/talk-video-studio/talk-video-studio_1.0.0.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}
