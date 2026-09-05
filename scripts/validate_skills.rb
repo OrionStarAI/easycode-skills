@@ -131,6 +131,17 @@ else
     issue(issues, path, "skill.usageExample must be a non-empty string or null")
   end
 
+  %w[displayName description].each do |key|
+    next unless skill.key?(key)
+
+    value = skill[key]
+    unless value.is_a?(Hash) && non_empty_string?(value["zh"]) && non_empty_string?(value["en"])
+      issue(issues, path, "skill.#{key} must be an object with non-empty zh and en strings")
+      next
+    end
+    issue(issues, path, "skill.#{key}.zh must contain Chinese characters") unless value["zh"].match?(/\p{Han}/)
+  end
+
   storage = manifest["storage"]
   unless storage.is_a?(Hash) && non_empty_string?(storage["packageKey"])
     issue(issues, path, "storage.packageKey must be a non-empty string")

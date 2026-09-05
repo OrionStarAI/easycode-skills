@@ -3,6 +3,10 @@
   "skill": {
     "id": 16,
     "name": "mcp-builder",
+    "displayName": {
+      "zh": "MCP 服务器构建",
+      "en": "MCP Server Builder"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

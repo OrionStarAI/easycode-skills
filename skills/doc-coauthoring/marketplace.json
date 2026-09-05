@@ -3,6 +3,10 @@
   "skill": {
     "id": 13,
     "name": "doc-coauthoring",
+    "displayName": {
+      "zh": "文档协作撰写",
+      "en": "Documentation Co-authoring"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

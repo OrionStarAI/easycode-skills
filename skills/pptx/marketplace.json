@@ -3,6 +3,10 @@
   "skill": {
     "id": 8,
     "name": "pptx",
+    "displayName": {
+      "zh": "PPT 演示文稿",
+      "en": "PowerPoint Presentations"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

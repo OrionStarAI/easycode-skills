@@ -3,6 +3,10 @@
   "skill": {
     "id": 19,
     "name": "theme-factory",
+    "displayName": {
+      "zh": "主题工厂",
+      "en": "Theme Factory"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

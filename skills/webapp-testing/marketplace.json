@@ -3,6 +3,10 @@
   "skill": {
     "id": 21,
     "name": "webapp-testing",
+    "displayName": {
+      "zh": "Web 应用测试",
+      "en": "Web App Testing"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

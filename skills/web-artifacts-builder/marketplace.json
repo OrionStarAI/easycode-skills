@@ -3,6 +3,10 @@
   "skill": {
     "id": 20,
     "name": "web-artifacts-builder",
+    "displayName": {
+      "zh": "Web 组件构建器",
+      "en": "Web Artifacts Builder"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

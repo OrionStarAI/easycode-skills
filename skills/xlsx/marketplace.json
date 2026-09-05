@@ -3,6 +3,10 @@
   "skill": {
     "id": 6,
     "name": "xlsx",
+    "displayName": {
+      "zh": "电子表格",
+      "en": "Spreadsheets"
+    },
     "version": "1.0.1",
     "source": "git-sync",
     "active": true,
