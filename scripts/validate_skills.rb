@@ -131,6 +131,8 @@ else
     issue(issues, path, "skill.usageExample must be a non-empty string or null")
   end
 
+  issue(issues, path, "skill.displayName is required (bilingual zh/en)") unless skill.key?("displayName")
+
   %w[displayName description].each do |key|
     next unless skill.key?(key)
 
@@ -140,6 +142,7 @@ else
       next
     end
     issue(issues, path, "skill.#{key}.zh must contain Chinese characters") unless value["zh"].match?(/\p{Han}/)
+    issue(issues, path, "skill.#{key}.en must contain Latin letters (translate, don't copy the slug)") unless value["en"].match?(/[A-Za-z]/)
   end
 
   storage = manifest["storage"]
