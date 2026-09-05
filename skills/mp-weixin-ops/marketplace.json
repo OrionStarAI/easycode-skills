@@ -3,6 +3,10 @@
   "skill": {
     "id": 28,
     "name": "mp-weixin-ops",
+    "displayName": {
+      "zh": "微信公众号运营",
+      "en": "WeChat Official Account Ops"
+    },
     "version": "1.0.2",
     "source": "upload",
     "active": true,

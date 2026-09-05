@@ -3,6 +3,10 @@
   "skill": {
     "id": 9,
     "name": "pdf",
+    "displayName": {
+      "zh": "PDF 文档",
+      "en": "PDF Toolkit"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

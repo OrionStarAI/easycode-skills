@@ -3,6 +3,10 @@
   "skill": {
     "id": 7,
     "name": "docx",
+    "displayName": {
+      "zh": "Word 文档",
+      "en": "Word Documents"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

@@ -2,11 +2,19 @@
   "schemaVersion": 1,
   "skill": {
     "name": "guizang-social-card-skill",
+    "displayName": {
+      "zh": "归藏卡片",
+      "en": "Guizang Social Cards"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我把这篇文章做成一套小红书 3:4 图文，采用瑞士风，包含封面、4 张内容卡和统一的结尾页。"
+    "usageExample": "帮我把这篇文章做成一套小红书 3:4 图文，采用瑞士风，包含封面、4 张内容卡和统一的结尾页。",
+    "description": {
+      "zh": "生成归藏风格社交卡片：小红书 3:4 图文集、实况照片（Live Photo）动态卡片、素材优先的实况拼图、三连实况拼图、长视频转实况处理，以及微信公众号 21:9 + 1:1 封面组。",
+      "en": "Generate Guizang-style social card image sets, Live Photo motion cards, material-first Live Photo puzzle layouts, triple Live Photo collages, long-video-to-Live-Photo treatments, and WeChat official account cover pairs from articles, scripts, screenshots, product notes, subtitles, photos, or user-supplied videos. Use when the user asks for 小红书图文, Rednote/Xiaohongshu images, social cards, carousel images, 3:4 covers, Live Photo, 实况照片, 单视频实况拼图, 二宫格实况拼图, 三连实况拼图, 四宫格实况拼图, 微信公众号封面, WeChat 21:9 + 1:1 covers, Swiss Style, or magazine-style social images."
+    }
   },
   "storage": {
     "packageKey": "skills/guizang-social-card-skill/guizang-social-card-skill_1.0.0.zip"

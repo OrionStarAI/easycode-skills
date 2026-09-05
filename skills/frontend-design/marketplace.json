@@ -3,6 +3,10 @@
   "skill": {
     "id": 14,
     "name": "frontend-design",
+    "displayName": {
+      "zh": "前端设计",
+      "en": "Frontend Design"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

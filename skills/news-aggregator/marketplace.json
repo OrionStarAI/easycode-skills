@@ -3,6 +3,10 @@
   "skill": {
     "id": 29,
     "name": "news-aggregator",
+    "displayName": {
+      "zh": "新闻聚合器",
+      "en": "News Aggregator"
+    },
     "version": "1.0.3",
     "source": "upload",
     "active": true,
