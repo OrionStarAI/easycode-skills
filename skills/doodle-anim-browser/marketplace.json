@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "doodle-anim-browser",
+    "displayName": {
+      "zh": "涂鸦动画·内置浏览器渲染",
+      "en": "Doodle Anim Browser Render"
+    },
+    "version": "1.0.0",
+    "source": "upload",
+    "active": true,
+    "deleted": false,
+    "usageExample": "不装 Playwright，用内置浏览器把 doodle-anim 的涂鸦动画模板渲染成 MP4 视频。"
+  },
+  "storage": {
+    "packageKey": "skills/doodle-anim-browser/doodle-anim-browser_1.0.0.zip"
+  },
+  "media": {
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}
