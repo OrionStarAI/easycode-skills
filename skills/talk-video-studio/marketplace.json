@@ -16,6 +16,30 @@
     "packageKey": "skills/talk-video-studio/talk-video-studio_1.0.0.zip"
   },
   "media": {
-    "examples": []
+    "examples": [
+      {
+        "path": "assets/examples/climate-warming-talk.mp4",
+        "sourceKey": "skills/examples/talk-video-studio/climate-warming-talk.mp4",
+        "name": "气候变暖演讲成片（左 PPT + 右数字人 + 字幕，80s）"
+      }
+    ],
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/talk-video-studio/0.webp"
+      },
+      {
+        "path": "assets/previews/1.webp",
+        "sourceKey": "skills/previews/talk-video-studio/1.webp"
+      },
+      {
+        "path": "assets/previews/2.webp",
+        "sourceKey": "skills/previews/talk-video-studio/2.webp"
+      },
+      {
+        "path": "assets/previews/3.webp",
+        "sourceKey": "skills/previews/talk-video-studio/3.webp"
+      }
+    ]
   }
 }
