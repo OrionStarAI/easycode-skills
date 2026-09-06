@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我设计一个 AI 项目管理工具的首页，要简洁好看，让人一眼能看到项目进度、待办事项和数据。"
+    "usageExample": "帮我设计一个 AI 项目管理工具的首页，要简洁好看，让人一眼能看到项目进度、待办事项和数据。",
+    "description": {
+      "zh": "构建或改造 UI 时做出独特、有意图的视觉设计的指南，覆盖美学方向、字体排印，避免模板化的千篇一律默认样式。",
+      "en": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults."
+    }
   },
   "storage": {
     "packageKey": "skills/frontend-design/frontend-design_1.0.0.zip"

@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我测试这个网页，重点看看登录、搜索、提交表单和手机上显示是否正常，并把发现的问题截图整理出来。"
+    "usageExample": "帮我测试这个网页，重点看看登录、搜索、提交表单和手机上显示是否正常，并把发现的问题截图整理出来。",
+    "description": {
+      "zh": "使用 Playwright 与本地 Web 应用交互并测试的工具箱：验证前端功能、调试 UI 行为、截取浏览器截图、查看浏览器日志。",
+      "en": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs."
+    }
   },
   "storage": {
     "packageKey": "skills/webapp-testing/webapp-testing_1.0.0.zip"

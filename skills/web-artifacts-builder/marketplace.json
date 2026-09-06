@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我做一个 AI 任务编排工作台，把任务输入、执行状态、结果和组件列表放在一个页面里，方便团队使用。"
+    "usageExample": "帮我做一个 AI 任务编排工作台，把任务输入、执行状态、结果和组件列表放在一个页面里，方便团队使用。",
+    "description": {
+      "zh": "用现代前端技术（React、Tailwind CSS、shadcn/ui）构建复杂多组件 HTML 产出物的工具套件。适用于需要状态管理、路由或 shadcn 组件的复杂场景，不适合单文件 HTML/JSX。",
+      "en": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts."
+    }
   },
   "storage": {
     "packageKey": "skills/web-artifacts-builder/web-artifacts-builder_1.0.0.zip"
