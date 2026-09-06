@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "open-kimi-ppt",
+    "displayName": {
+      "zh": "Kimi 演示文稿工坊",
+      "en": "Open Kimi PPT"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "把这份调研报告做成一份 12 页的演示文稿，交付可编辑源文件和 PPTX。"
+  },
+  "storage": {
+    "packageKey": "skills/open-kimi-ppt/open-kimi-ppt_1.0.0.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}

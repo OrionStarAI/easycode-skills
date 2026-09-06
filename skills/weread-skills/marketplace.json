@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "weread-skills",
+    "displayName": {
+      "zh": "微信读书助手",
+      "en": "WeRead Assistant"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我看看微信读书书架上《思考，快与慢》的笔记划线，整理成本月读书摘要。"
+  },
+  "storage": {
+    "packageKey": "skills/weread-skills/weread-skills_1.0.0.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}
