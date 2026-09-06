@@ -2,6 +2,10 @@
   "schemaVersion": 1,
   "skill": {
     "name": "remotion-best-practices",
+    "displayName": {
+      "zh": "Remotion 视频创作最佳实践",
+      "en": "Remotion Best Practices"
+    },
     "version": "4.0.521",
     "source": "git-sync",
     "active": true

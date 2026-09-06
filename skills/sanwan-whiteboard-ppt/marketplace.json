@@ -3,6 +3,10 @@
   "skill": {
     "id": 33,
     "name": "sanwan-whiteboard-ppt",
+    "displayName": {
+      "zh": "三万同款板书 PPT",
+      "en": "Sanwan Whiteboard PPT"
+    },
     "version": "1.0.0",
     "source": "upload",
     "active": true,

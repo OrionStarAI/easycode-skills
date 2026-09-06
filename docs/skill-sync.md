@@ -36,6 +36,26 @@ Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`；`guizan
 - 对本地和上游同时修改的文本保留冲突标记，交给 PR 评审；
 - 只有无冲突时才更新 `upstreamSha`。
 
+## 双语展示名与描述
+
+商城后台的技能中文名以本仓库为事实源，在每个技能的 `marketplace.json` 中人工维护：
+
+```json
+{
+  "skill": {
+    "name": "guizang-social-card-skill",
+    "displayName": { "zh": "归藏卡片", "en": "Guizang Social Cards" },
+    "description": { "zh": "……", "en": "…" }
+  }
+}
+```
+
+- `displayName` 必填（zh/en 都为非空字符串，zh 必须含汉字）；服务端同步时优先采用它，覆盖后台已有值，因此后台的手工改名会在下次同步时被仓库值覆盖。
+- `description` 可选，适用于 `SKILL.md` 描述是英文或中英混排、不适合直接当中文简介展示的技能；同样以仓库值为准。
+- 未声明这两个字段时保持原有行为：沿用后台已存的翻译，仅在缺失时才由服务端机翻兜底。
+
+机翻只作为最后兜底的原因：技能目录名是英文 slug（如 `guizang-social-card-skill`），机翻结果不可控（"归藏"会被译成"鬼藏"），且生产环境访问翻译接口可能失败，失败时原文会同时占住 zh/en 两个字段。
+
 ## Skill Gate 检查项
 
 `ruby scripts/validate_skills.rb` 不依赖 npm 包，主要检查：
@@ -43,6 +63,7 @@ Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`；`guizan
 - `SKILL.md` 必须有可解析的 YAML frontmatter、`name`、`description`，且名称与目录一致；
 - 未加引号的 description 冒号等 YAML 语法错误；
 - `marketplace.json` 的 schema、技能名、版本、存储键、媒体数量和媒体路径；
+- `marketplace.json` 的 `displayName`/`description`（如声明）必须是含非空 zh/en 的对象，且 zh 含汉字；
 - 媒体文件不能逃逸技能目录，技能目录名称不能重复；
 - 常见 GitHub/GitLab/GCS/OpenAI 凭据、私钥和合并冲突标记；
 - 上游元数据的仓库格式、路径和提交号。
@@ -55,7 +76,7 @@ ruby scripts/validate_skills.rb
 ruby scripts/sync_upstreams.rb
 ```
 
-同步 PR 合并后，仓库只完成源码备份和审查；生产版本仍由管理员按照现有 OpenC3 发布配置在内部发布仓库打 `release-online-*` tag。对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
+同步 PR 合并后，仓库只完成源码备份和审查；生产 EasyCode 服务按小时自动同步本仓库 `main`，将技能 ZIP 与媒体发布到对象存储并更新商城元数据，通常一小时内生效。`release-online-*` tag 位于 EasyCodeServer 仓库，只用于发布服务端代码，与本仓库的技能发布无关。对象存储只作为发布产物和下载分发层，仓库是可审计的源代码备份。
 
 ## 让门禁真正阻断合并
 

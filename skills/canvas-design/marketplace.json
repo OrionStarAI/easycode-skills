@@ -3,6 +3,10 @@
   "skill": {
     "id": 12,
     "name": "canvas-design",
+    "displayName": {
+      "zh": "画布设计",
+      "en": "Canvas Design"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

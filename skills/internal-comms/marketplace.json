@@ -3,6 +3,10 @@
   "skill": {
     "id": 15,
     "name": "internal-comms",
+    "displayName": {
+      "zh": "内部沟通文档",
+      "en": "Internal Communications"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,

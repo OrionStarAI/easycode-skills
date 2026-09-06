@@ -3,6 +3,10 @@
   "skill": {
     "id": 11,
     "name": "brand-guidelines",
+    "displayName": {
+      "zh": "品牌设计规范",
+      "en": "Brand Guidelines"
+    },
     "version": "1.0.0",
     "source": "git-sync",
     "active": true,
