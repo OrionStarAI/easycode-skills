@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我一起写一份 AI 客服项目方案，先帮我列个目录，再和我逐步完善内容，最后整理成正式文档。"
+    "usageExample": "帮我一起写一份 AI 客服项目方案，先帮我列个目录，再和我逐步完善内容，最后整理成正式文档。",
+    "description": {
+      "zh": "引导用户走结构化流程共同撰写文档。当用户需要写文档、提案、技术规格、决策记录等结构化内容时使用，帮助高效传递上下文、迭代打磨内容并验证文档对读者有效。",
+      "en": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks."
+    }
   },
   "storage": {
     "packageKey": "skills/doc-coauthoring/doc-coauthoring_1.0.0.zip"
