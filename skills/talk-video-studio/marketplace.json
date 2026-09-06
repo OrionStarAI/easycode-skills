@@ -20,7 +20,9 @@
       {
         "path": "assets/examples/climate-warming-talk.mp4",
         "sourceKey": "skills/examples/talk-video-studio/climate-warming-talk.mp4",
-        "name": "气候变暖演讲成片（左 PPT + 右数字人 + 字幕，80s）"
+        "name": "climate-warming-talk.mp4",
+        "mimeType": "video/mp4",
+        "label": "气候变暖演讲成片（左 PPT + 右数字人 + 字幕，80s）"
       }
     ],
     "previews": [
