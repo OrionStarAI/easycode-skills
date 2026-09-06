@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "douyin-upload",
+    "displayName": {
+      "zh": "抖音发布助手",
+      "en": "Douyin Publisher"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "把 video-work 目录下的成片.mp4 发布到抖音，标题用讲稿第一句，带 #AI 标签。"
+  },
+  "storage": {
+    "packageKey": "skills/douyin-upload/douyin-upload_1.0.0.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}
