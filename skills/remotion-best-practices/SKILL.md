@@ -1,18 +1,13 @@
 ---
 name: remotion-best-practices
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/remotion-best-practices/SKILL.md
-description: "Comprehensive Remotion video-creation guidance: project setup, React compositions, rendering, captions, maps, Studio, upgrades, and documentation lookup."
+description: Router for all Remotion skills
 version: 4.0.521
 category: 视频创作
 tags: remotion, video, react, animation, composition
 upstream: remotion-dev/skills
 upstreamPath: skills/remotion-best-practices
-upstreamSha: 54e9b19a612897171e0b3b242e01c2badba4a272
+upstreamSha: f54682712abc4a68cdc7c41513bd3b3298829873
 author: remotion-dev
-=======
-description: Router for all Remotion skills
-version: 4.0.521
->>>>>>> /tmp/easycode-skill-sync-20260906-2358-rl5eb/remotion-dev_skills-current/skills/remotion-best-practices/SKILL.md
 ---
 
 ## Preserve user changes
