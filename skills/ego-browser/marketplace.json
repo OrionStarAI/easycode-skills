@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "ego-browser",
+    "displayName": {
+      "zh": "ego 浏览器自动化",
+      "en": "ego Browser Automation"
+    },
+    "description": {
+      "zh": "基于 ego lite 浏览器的网页自动化：在隔离的 Agent 空间里复用用户已登录的浏览器状态，完成打开网页、填表、点击、截图、抓取数据、测试 Web 应用等任务。需安装 ego lite 桌面应用（目前仅 macOS），未安装时会回落到内置浏览器工具。",
+      "en": "Chromium-based browser automation via the ego lite app: agents work in an isolated space reusing the user's logged-in browser state for navigation, forms, clicks, screenshots, scraping, and web app testing. Requires the ego lite desktop app (macOS); falls back to built-in browser tools when absent."
+    },
+    "version": "1.2.6",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "用 ego 浏览器打开我已经登录的 GitHub，把我仓库的 star 数和最近一次 release 抓下来。"
+  },
+  "storage": {
+    "packageKey": "skills/ego-browser/ego-browser_1.2.6.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}
