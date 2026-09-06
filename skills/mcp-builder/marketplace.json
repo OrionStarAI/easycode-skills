@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我做一个能连接项目管理工具的 MCP 服务，让我可以查询项目、创建任务和修改任务状态。"
+    "usageExample": "帮我做一个能连接项目管理工具的 MCP 服务，让我可以查询项目、创建任务和修改任务状态。",
+    "description": {
+      "zh": "构建高质量 MCP（Model Context Protocol）服务器的指南，让大模型通过精心设计的工具与外部服务交互。支持 Python（FastMCP）和 Node/TypeScript（MCP SDK）。",
+      "en": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK)."
+    }
   },
   "storage": {
     "packageKey": "skills/mcp-builder/mcp-builder_1.0.0.zip"

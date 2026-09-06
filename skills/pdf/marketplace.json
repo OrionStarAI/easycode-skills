@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我把这份经营数据整理成一份 PDF 报告，包含图表、重点结论和清晰的分页。"
+    "usageExample": "帮我把这份经营数据整理成一份 PDF 报告，包含图表、重点结论和清晰的分页。",
+    "description": {
+      "zh": "当用户需要处理 PDF 文件时使用：读取/提取文本与表格、合并拆分、旋转页面、加水印、新建 PDF、填写表单、加密解密、提取图片，以及对扫描件做 OCR 使其可搜索。只要提到 .pdf 文件或要产出 PDF 就应使用。",
+      "en": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill."
+    }
   },
   "storage": {
     "packageKey": "skills/pdf/pdf_1.0.0.zip"

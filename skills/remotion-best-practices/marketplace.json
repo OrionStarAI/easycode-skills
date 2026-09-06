@@ -8,7 +8,11 @@
     },
     "version": "4.0.521",
     "source": "git-sync",
-    "active": true
+    "active": true,
+    "description": {
+      "zh": "Remotion 视频制作全面指南：项目搭建、React 组合、渲染、字幕、地图、Studio、版本升级与文档查阅。",
+      "en": "Comprehensive Remotion video-creation guidance: project setup, React compositions, rendering, captions, maps, Studio, upgrades, and documentation lookup."
+    }
   },
   "storage": {
     "packageKey": "skills/remotion-best-practices/remotion-best-practices_4.0.521.zip"
