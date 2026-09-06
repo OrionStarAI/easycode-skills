@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "show-me",
+    "displayName": {
+      "zh": "画给我看",
+      "en": "Show Me"
+    },
+    "description": {
+      "zh": "对话中的轻量可视化讲解：用伪代码、调用树、组件树、文件树、Mermaid、diff 或单页 HTML 里最小的形态把当前话题讲清楚，少文字、直击要点。",
+      "en": "Concise in-conversation visual explanations: pseudocode, call trees, component trees, file trees, Mermaid, diffs, or a focused HTML artifact — always the smallest view that makes the point."
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "别光用文字解释，画给我看：这个保存流程的缓存逻辑是怎么回事。"
+  },
+  "storage": {
+    "packageKey": "skills/show-me/show-me_1.0.0.zip"
+  },
+  "media": {
+    "examples": []
+  }
+}
