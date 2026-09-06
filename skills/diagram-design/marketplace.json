@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "diagram-design",
+    "displayName": {
+      "zh": "图表设计大师",
+      "en": "Diagram Design"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "帮我画一张微服务架构图：客户端经网关到四个服务，服务共享一个数据库和缓存，做成适合放进技术文档的编辑风格，最后导出一张高清 PNG。",
+    "description": {
+      "zh": "按编辑级设计规范生成 39 种图表：架构图、流程图、时序图、状态机、ER 模型、甘特图、桑基图、鱼骨图、Wardley 地图等，输出自包含 HTML/SVG/PNG。支持重绘 draw.io 与 Mermaid 源图、从网站提取品牌色定制皮肤，内置复杂度预算与连线规则保证可读性。",
+      "en": "Create branded architecture, flowchart, sequence, state machine, ER, timeline, Gantt, Sankey, Wardley map and 30+ other diagram types as standalone HTML/SVG/PNG, following an opinionated editorial design system. Redraw .drawio or Mermaid sources; onboard brand tokens from a website."
+    }
+  },
+  "storage": {
+    "packageKey": "skills/diagram-design/diagram-design_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/diagram-design.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/diagram-design/0.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/diagram-design/0.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}
