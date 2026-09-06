@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我把同一份内容做成四种风格：电子杂志、瑞士极简、黑金和温暖手作，放在一张对比图里，方便我选择。"
+    "usageExample": "帮我把同一份内容做成四种风格：电子杂志、瑞士极简、黑金和温暖手作，放在一张对比图里，方便我选择。",
+    "description": {
+      "zh": "为产出物套用主题样式的工具箱，支持幻灯片、文档、报表、HTML 落地页等。内置 10 套配色/字体预设主题，可直接应用，也能即时生成新主题。",
+      "en": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly."
+    }
   },
   "storage": {
     "packageKey": "skills/theme-factory/theme-factory_1.0.0.zip"

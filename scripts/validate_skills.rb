@@ -293,7 +293,29 @@ skill_dirs.each do |skill_dir|
       names[metadata["name"]] = skill_path
     end
   end
-  validate_manifest(issues, skill_dir, skill_name)
+  manifest = validate_manifest(issues, skill_dir, skill_name)
+
+  # The marketplace renders the SKILL.md description unless the manifest declares
+  # a curated bilingual skill.description. An English-leading SKILL.md description
+  # therefore requires the manifest override, or the listing shows English only.
+  if non_empty_string?(metadata["description"]) && !metadata["description"].match?(/\p{Han}/)
+    manifest_path = File.join(skill_dir, "marketplace.json")
+    if manifest.is_a?(Hash)
+      skill = manifest["skill"]
+      declared = skill.is_a?(Hash) && skill.key?("description")
+    else
+      declared = File.file?(manifest_path) && begin
+        parsed = JSON.parse(File.read(manifest_path))
+        parsed.is_a?(Hash) && parsed["skill"].is_a?(Hash) && parsed["skill"].key?("description")
+      rescue JSON::ParserError
+        false
+      end
+    end
+    unless declared
+      issue(issues, skill_path,
+            "SKILL.md description has no Chinese characters; declare a bilingual skill.description in marketplace.json to localize the listing")
+    end
+  end
 end
 
 scan_for_secrets(issues)

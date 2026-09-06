@@ -11,7 +11,11 @@
     "source": "git-sync",
     "active": true,
     "deleted": false,
-    "usageExample": "帮我写一封项目延期通知，说明延期原因、对大家的影响和接下来的安排，语气诚恳一些。"
+    "usageExample": "帮我写一封项目延期通知，说明延期原因、对大家的影响和接下来的安排，语气诚恳一些。",
+    "description": {
+      "zh": "一套帮助撰写各类企业内部通讯的资源，采用公司惯用格式。当被要求写状态报告、管理层汇报、公司简报、FAQ、事故报告、项目进展等内部通讯时使用。",
+      "en": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.)."
+    }
   },
   "storage": {
     "packageKey": "skills/internal-comms/internal-comms_1.0.0.zip"
