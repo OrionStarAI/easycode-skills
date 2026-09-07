@@ -1,5 +1,6 @@
 ---
 name: install-python-windows
+category: 开发工具
 description: >
   当用户在 Windows 上没有安装 Python 时，引导其从官网下载最新稳定版安装包，勾选 Add Python to PATH 完成安装，并验证环境变量已生效。
   触发词：安装 Python、没有 Python、python 不是内部命令、找不到 python。

@@ -1,5 +1,6 @@
 ---
 name: talk-video-studio
+category: 视频与音频
 description: "把任意材料（一段话、文档、网址、一堆资料）制成行业大会演讲视频的完整流水线：知识文档 → HTML 动态 PPT → 演讲稿 → AI 数字人讲解视频（含声音+口型）→ 左 PPT 右人物带字幕的成片。用户说做成演讲视频/分享视频/数字人讲解/把文档或文章做成 PPT 再做成视频/做一个会讲话的 presenter 时使用，即使没提具体工具名。"
 upstream: tangshuang/skills
 upstreamPath: talk-video-studio
