@@ -1,5 +1,6 @@
 ---
 name: news-aggregator
+category: 阅读与知识
 version: 1.0.3
 description: 国内外社会、科技、军事新闻汇总。自动搜索、筛选、整理新闻要点。
 license: MIT

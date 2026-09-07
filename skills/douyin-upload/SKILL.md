@@ -1,5 +1,6 @@
 ---
 name: douyin-upload
+category: 视频与音频
 description: 当你需要登录抖音账号、检查 Cookie、上传视频或发布图文时使用本技能。基于 `uv run douyin` 执行，无需额外自定义脚本。
 tags:
   - Video

@@ -1,5 +1,6 @@
 ---
 name: mp-weixin-ops
+category: 社媒运营
 description: 微信公众号一站式运营 Skill。覆盖从热点调研、选题策划、文章写作、配图生成、封面制作、排版转换到推送草稿箱的完整工作流。触发词：写公众号文章、帮我写一篇、公众号运营、从选题到发布、推送草稿箱、帮我配图、生成封面、生成视频、公众号排版、content planning、publish to WeChat。所有子功能内置于 skills/ 子目录，无需单独安装。
 ---
 

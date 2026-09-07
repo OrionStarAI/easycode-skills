@@ -1,5 +1,6 @@
 ---
 name: sanwan-whiteboard-ppt
+category: 演示与设计
 description: 生成"三万同款"板书风格 PPT——白板满画面 + 硬笔书法字 + 手绘彩色插图 + 每页必有戴红色龙虾帽的拉布拉多吉祥物。当用户要求制作板书风/白板手写风/三万风格的 PPT、演示文稿、讲解图时使用。通过 EasyRouter.io 的 OpenAI 兼容接口调用图像模型逐页生成 16:9 图片，再用 python-pptx 组装成 PPTX。Make sure to use this skill whenever the user mentions 三万、板书风、白板手写风、龙虾帽拉布拉多 PPT，即使他们只说「做个白板讲解 PPT」也要优先使用。
 ---
 

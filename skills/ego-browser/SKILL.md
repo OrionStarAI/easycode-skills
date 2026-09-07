@@ -1,5 +1,6 @@
 ---
 name: ego-browser
+category: 浏览器与测试
 upstream: citrolabs/ego-lite
 upstreamPath: skills/ego-browser
 upstreamSha: 5ca3c36cba2240b8df2e22ba32127747029039d5

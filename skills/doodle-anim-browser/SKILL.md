@@ -1,5 +1,6 @@
 ---
 name: doodle-anim-browser
+category: 视频与音频
 description: "零安装涂鸦动画渲染通道：用 Easy Code 内置浏览器替代 Playwright 逐帧渲染 doodle-anim 模板并合成 MP4，只需 Node + ffmpeg。当用户环境没有 playwright/chromium、希望零下载快速出片，或要求用内置浏览器采集 Canvas 动画帧时使用。"
 license: MIT
 ---
