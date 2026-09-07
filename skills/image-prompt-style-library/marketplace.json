@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "image-prompt-style-library",
+    "displayName": {
+      "zh": "图像提示词风格库",
+      "en": "Image Prompt Style Library"
+    },
+    "version": "1.0.0",
+    "source": "git-sync",
+    "active": true,
+    "deleted": false,
+    "usageExample": "用 image-prompt-style-library 技能做一张 AI 大模型原理的信息图，或者把这张商品照片改成水墨古风海报提示词。",
+    "description": {
+      "zh": "基于 22 套工业级图像提示词模板的风格库技能：根据用户需求匹配模板并生成生产级图像提示词，默认可直接调用 NanoBanana 生图闭环交付。当用户要生成/改写/优化图像提示词、制作海报/信息图/UI截图/商品图/摄影图/插画/角色设定/古风图/出版文档图，或提到 image-prompt-style-library、图像风格库时使用。",
+      "en": "A style-library skill backed by 22 industrial-grade image prompt templates: match the user's intent to a template and produce production-ready image prompts, with a default closed loop that calls NanoBanana to render images directly. Use when the user wants to create, rewrite, or improve image-generation prompts, or make posters, infographics, UI screenshots, product shots, photography, illustrations, character sheets, classical Chinese art, or publishing graphics."
+    }
+  },
+  "storage": {
+    "packageKey": "skills/image-prompt-style-library/image-prompt-style-library_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/image-prompt-style-library.svg"
+    },
+    "previews": [
+      {
+        "path": "assets/previews/0.webp",
+        "sourceKey": "skills/previews/image-prompt-style-library-0.webp"
+      },
+      {
+        "path": "assets/previews/1.webp",
+        "sourceKey": "skills/previews/image-prompt-style-library-1.webp"
+      }
+    ],
+    "previewThumbnails": [
+      {
+        "path": "assets/preview-thumbnails/0.webp",
+        "sourceKey": "skills/preview-thumbnails/image-prompt-style-library-0.webp",
+        "isLong": false
+      },
+      {
+        "path": "assets/preview-thumbnails/1.webp",
+        "sourceKey": "skills/preview-thumbnails/image-prompt-style-library-1.webp",
+        "isLong": false
+      }
+    ],
+    "examples": []
+  }
+}
