@@ -1,5 +1,6 @@
 ---
 name: image-prompt-style-library
+category: 演示与设计
 description: 基于 22 套工业级图像提示词模板的风格库技能：根据用户需求匹配模板并生成生产级图像提示词，默认可直接调用 NanoBanana 生图闭环交付。当用户要生成/改写/优化图像提示词、制作海报/信息图/UI截图/商品图/摄影图/插画/角色设定/古风图/出版文档图，或提到 image-prompt-style-library、图像风格库时使用。
 ---
 
