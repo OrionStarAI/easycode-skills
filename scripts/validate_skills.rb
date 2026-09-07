@@ -16,6 +16,15 @@ SKILLS_ROOT = File.join(ROOT, "skills")
 MAX_PREVIEWS = 4
 MAX_EXAMPLES = 3
 MAX_TEXT_SCAN_BYTES = 10 * 1024 * 1024
+CANONICAL_CATEGORIES = %w[
+  文档办公
+  演示与设计
+  视频创作
+  社媒运营
+  开发工具
+  浏览器与测试
+  阅读与知识
+].freeze
 
 def relative_path(path)
   Pathname.new(path).relative_path_from(Pathname.new(ROOT)).to_s
@@ -178,6 +187,15 @@ def validate_frontmatter(issues, path, skill_name)
   issue(issues, path, "description must be a non-empty string") unless non_empty_string?(description)
   issue(issues, path, "name must match the directory #{skill_name.inspect}") if non_empty_string?(name) && name != skill_name
   issue(issues, path, "name must use kebab-case") if non_empty_string?(name) && name !~ /\A[a-z0-9]+(?:-[a-z0-9]+)*\z/
+
+  if data.key?("category")
+    category = data["category"]
+    if !non_empty_string?(category)
+      issue(issues, path, "category must be a non-empty string")
+    elsif !CANONICAL_CATEGORIES.include?(category.strip)
+      issue(issues, path, "category must be one of: #{CANONICAL_CATEGORIES.join(', ')}")
+    end
+  end
 
   if data.key?("tags") && !(
     (data["tags"].is_a?(Array) && data["tags"].all? { |tag| non_empty_string?(tag) }) ||
