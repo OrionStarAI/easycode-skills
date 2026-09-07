@@ -26,5 +26,8 @@ jobs:
       - name: Run parser regression test
         run: ruby scripts/validate_skills.rb --self-test
 
+      - name: Run upstream sync regression test
+        run: ruby scripts/sync_upstreams.rb --self-test
+
       - name: Validate skill tree
         run: ruby scripts/validate_skills.rb
