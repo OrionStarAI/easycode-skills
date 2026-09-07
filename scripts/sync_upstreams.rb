@@ -81,6 +81,10 @@ def binary_bytes?(bytes)
 end
 
 def safe_join(root, relative)
+  # `upstreamPath: .` is a valid root. Normalize it before comparing the
+  # expanded child path; otherwise a root ending in `/.` makes every file
+  # look like it escaped the repository (for example `.gitattributes`).
+  root = File.expand_path(root)
   path = File.expand_path(relative, root)
   unless path == root || path.start_with?("#{root}#{File::SEPARATOR}")
     raise SyncError, "refusing path outside repository: #{relative.inspect}"
@@ -134,6 +138,28 @@ def write_github_outputs(changed, conflicts)
     file.puts("changed=#{changed}")
     file.puts("conflicts=#{conflicts}")
   end
+end
+
+def run_self_test
+  Dir.mktmpdir("easycode-skill-sync-self-test-") do |root|
+    root_with_dot = File.join(root, ".")
+    expected = File.join(root, ".gitattributes")
+    actual = safe_join(root_with_dot, ".gitattributes")
+    raise "root-relative path was not normalized" unless actual == expected
+
+    begin
+      safe_join(root_with_dot, "../outside")
+      raise "path traversal was not rejected"
+    rescue SyncError
+      # Expected: safe_join must reject paths outside the repository root.
+    end
+  end
+  puts "[self-test] safe_join root normalization and traversal guard passed"
+end
+
+if ARGV.delete("--self-test")
+  run_self_test
+  exit 0
 end
 
 targets = []

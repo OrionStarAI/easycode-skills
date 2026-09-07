@@ -54,6 +54,7 @@ author: anthropics
 
 ```shell
 ruby scripts/validate_skills.rb --self-test
+ruby scripts/sync_upstreams.rb --self-test
 ruby scripts/validate_skills.rb
 ruby scripts/sync_upstreams.rb
 ```
