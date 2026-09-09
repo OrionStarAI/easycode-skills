@@ -1,14 +1,23 @@
 ---
 name: diagram-design
 category: 演示与设计
-description: "Create branded architecture, IT current-state, flowchart, sequence, state machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart (polar/radial lollipop), loop/flywheel, nested, tree, org chart, layer stack, Venn, pyramid/funnel, treemap, bar, line, Gantt and scatter charts, high-level, process, medallion, data flow, DP integration, DP security matrix, Sankey, fishbone, Wardley map, kanban, user journey, deployment, dependency graph, UML class, story map, or database schema diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg or Mermaid .mmd sources at a chosen size/detail; onboard brand tokens from a website; add semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling."
+description: Create branded architecture, IT current-state, flowchart, sequence, state
+  machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart
+  (polar/radial lollipop), loop/flywheel, nested, tree, org chart, layer stack, Venn,
+  pyramid/funnel, treemap, bar, line, Gantt and scatter charts, high-level, process,
+  medallion, data flow, DP integration, DP security matrix, Sankey, fishbone, Wardley
+  map, kanban, user journey, deployment, dependency graph, UML class, story map, or
+  database schema diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg
+  or Mermaid .mmd sources at a chosen size/detail; onboard brand tokens from a website;
+  add semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling.
 license: MIT
 upstream: cathrynlavery/diagram-design
 upstreamPath: skills/diagram-design
-upstreamSha: 4451eadc484d76aa860edf3289c16fcd082dcdbf
+upstreamSha: dcd9317ed9ec7477b20005544f36e3313664d815
 author: cathrynlavery
 metadata:
-  version: "2.6"
+  version: '2.6'
+---
 ---
 
 # Diagram Design
@@ -80,6 +89,7 @@ When behavior, state, enforcement, or risk carries the meaning, first load [`ref
 | Trust boundaries plus permitted/forbidden ingress or deploy paths | **Secure paved road** → Architecture |
 | Controls grouped by where they are enforced | **Governance / control catalog** → Layer stack |
 | Defenses compensate for prior gaps and residual risk propagates | **Compensating security layers** → Layer stack |
+| Hierarchical, ID-addressable decomposition needing per-block I/O, constraints, and a code link | **Traceable block decomposition** → Tree |
 
 The pattern owns semantic primitives and its tighter budget; the type owns layout grammar. Use [`references/animation.md`](references/animation.md) only when motion is requested or materially clarifies ordered change; static remains the default.
 
@@ -204,12 +214,12 @@ Type-specific anti-patterns live in each type reference linked in the guide.
 - **Arrow label** — Geist Mono, 8px — annotation on arrows
 - **Editorial aside** — Instrument Serif *italic*, 14px — callouts only
 
-**Korean labels** — Geist and Instrument Serif carry no Hangul. Extend the family on that `<text>`, budget 1em per Unicode wide or full-width character and the Latin advance for every other, and never set Hangul below 12px. Full rules in [`style-guide.md`](references/style-guide.md#korean-labels).
+**CJK labels** — Geist and Instrument Serif carry no Hangul or Han; extend the family and keep CJK at 12px+. Rules: [Korean](references/style-guide.md#korean-labels), [Chinese](references/style-guide.md#traditional-chinese-labels).
 
 **Mono is for technical content only** — never as a blanket "dev" font, and never JetBrains Mono.
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400&display=swap" rel="stylesheet">
 ```
 
 ---
@@ -492,7 +502,7 @@ Run before producing any diagram.
 - [ ] No vertical `writing-mode` text?
 - [ ] `viewBox` expanded for the legend strip (~60px)?
 - [ ] Every font size, coord, width, height, gap divisible by 4?
-- [ ] From the installed skill directory, did `python3 scripts/self_check.py <file>` pass? (Accessible-SVG contract, single-file safety, motion basics; ships with the skill.)
+- [ ] From the installed skill directory, did `python3 scripts/self_check.py <file>` pass? (Accessible-SVG contract, single-file safety, motion basics.)
 - [ ] If animated, does the complete static/no-JS frame work, does reduced motion hide/disable playback, and is the controller copied verbatim from `assets/template-motion.html`? From a repository checkout, also run `python3 <repo-root>/scripts/verify-motion.py path/to/generated.html` plus the skin linter; from an installed skill, manually check print and static-query states on top of the self-check.
 
 **Typography:**
@@ -548,7 +558,7 @@ An import is bounded by its source: never invent a component to fill a layout, a
 
 ### Output dials — format, size, detail level, audience
 
-Every imported diagram is shaped by four decisions. Full spec in [`references/output-spec.md`](references/output-spec.md); set them **before** drawing, since they change the deliverable, layout, density, and wording.
+Every imported diagram is shaped by four decisions, set **before** drawing — full spec in [`references/output-spec.md`](references/output-spec.md).
 
 | Dial | Options | Default |
 |---|---|---|
@@ -577,10 +587,10 @@ Every diagram is an accessible figure by default:
 
 1. Its `<svg>` carries `role="img"` and `aria-labelledby` naming the diagram's `<title>` and `<desc>`.
 2. `<title>` is the first child of `<svg>`, before `<defs>`. Assistive technology may ignore a title placed later.
-3. The IDs are prefixed per diagram and variant: `<slug>-title` / `<slug>-desc`, where the slug matches the file (`loop`, `loop-dark`, `loop-full`). Bare `title` / `desc` IDs are banned because two inline diagrams would create duplicate IDs and the second could be announced with the first diagram's name.
+3. The IDs are prefixed per diagram and variant: `<slug>-title` / `<slug>-desc`, where the slug matches the file (`loop`, `loop-dark`, `loop-full`). Bare `title` / `desc` IDs are banned — two inline diagrams would otherwise share one ID, and the second could be announced with the first's name.
 4. `<title>` is the short name of the subject — roughly the page `<h1>`, and about 60 characters or fewer.
 5. `<desc>` is one sentence stating what the diagram shows in terms a reader needs without the image. Describe the content, not the geometry: “Org chart showing a command center routing work to specialist agents and escalation owners,” not “A box at the top with five boxes below it.” A shape-by-shape narration is worse than no useful description.
-6. Decorative-only SVG, such as the specimen glyphs in `assets/icons.html`, carries `aria-hidden="true"` instead. Giving decorative marks accessible names adds noise.
+6. Decorative-only SVG, such as the specimen glyphs in `assets/icons.html`, carries `aria-hidden="true"` instead.
 
 ### Exporting to PNG / SVG
 
