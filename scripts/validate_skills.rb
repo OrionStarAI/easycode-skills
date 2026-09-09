@@ -316,7 +316,10 @@ skill_dirs.each do |skill_dir|
   # The marketplace renders the SKILL.md description unless the manifest declares
   # a curated bilingual skill.description. An English-leading SKILL.md description
   # therefore requires the manifest override, or the listing shows English only.
-  if non_empty_string?(metadata["description"]) && !metadata["description"].match?(/\p{Han}/)
+  # A malformed frontmatter file is already recorded by validate_frontmatter.
+  # Do not dereference nil here; let the gate report the actionable parse or
+  # conflict-marker error instead of masking it with NoMethodError.
+  if metadata && non_empty_string?(metadata["description"]) && !metadata["description"].match?(/\p{Han}/)
     manifest_path = File.join(skill_dir, "marketplace.json")
     if manifest.is_a?(Hash)
       skill = manifest["skill"]
