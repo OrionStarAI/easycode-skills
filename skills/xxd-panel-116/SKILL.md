@@ -1,12 +1,18 @@
 ---
 name: xxd-panel-116
 category: 演示与设计
-description: "Create XXD Panel 116 raster artwork by translating a source photograph into a pale paper-ground pastel-crayon doodle with coarse chalk contours, sparse symbols, friendly source-derived colours, and generous whitespace. Supports isolated image or directory inputs and strict 50:50 top-bottom or left-right comparisons, design-only work, and wallpapers. Use when the user invokes xxd-panel-116 or asks for this pale-background pastel-doodle editorial style."
+description: Create XXD Panel 116 raster artwork by translating a source photograph
+  into a pale paper-ground pastel-crayon doodle with coarse chalk contours, sparse
+  symbols, friendly source-derived colours, and generous whitespace. Supports isolated
+  image or directory inputs and strict 50:50 top-bottom or left-right comparisons,
+  design-only work, and wallpapers. Use when the user invokes xxd-panel-116 or asks
+  for this pale-background pastel-doodle editorial style.
 license: MIT
 upstream: nevertoday/xxd-panel-116
-upstreamPath: .
-upstreamSha: 7af6805b954b413b6b6c35a56c8df1bed0fca873
+upstreamPath: "."
+upstreamSha: e84372292c2b363a42f5ba5b3dd968baec3802b8
 author: nevertoday
+---
 ---
 
 # XXD Panel 116
