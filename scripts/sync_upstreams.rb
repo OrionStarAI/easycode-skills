@@ -17,6 +17,8 @@ SKILLS_ROOT = File.join(ROOT, "skills")
 
 class SyncError < StandardError; end
 
+MISSING_FRONTMATTER_VALUE = Object.new.freeze
+
 def parse_yaml(yaml)
   Psych.safe_load(
     yaml,
@@ -38,6 +40,84 @@ def parse_frontmatter(path)
   data
 rescue Psych::Exception => e
   raise "invalid YAML frontmatter: #{e.message.to_s.lines.first.to_s.strip}"
+end
+
+# Return the parsed frontmatter and the untouched body. Upstream skills do not
+# own the marketplace-only keys that we add locally (category, tags, upstream,
+# author, etc.), so a normal line-based git merge can report a conflict even
+# when the actual changes are independent. Keep this helper deliberately
+# conservative: if either side cannot be parsed, the caller falls back to the
+# existing git merge and leaves the conflict visible for review.
+def frontmatter_parts(bytes)
+  text = bytes.dup.force_encoding("UTF-8")
+  return nil unless text.valid_encoding?
+
+  lines = text.lines
+  return nil unless lines.first&.strip == "---"
+
+  closing = lines[1..]&.index { |line| line.strip == "---" }
+  return nil unless closing
+
+  data = parse_yaml(lines[1, closing].join)
+  return nil unless data.is_a?(Hash)
+
+  [data, lines[(closing + 1)..]&.join.to_s]
+rescue Psych::Exception
+  nil
+end
+
+def merge_frontmatter_values(base, local, upstream)
+  keys = []
+  [local, upstream, base].each do |values|
+    values.each_key { |key| keys << key unless keys.include?(key) }
+  end
+
+  merged = {}
+  keys.each do |key|
+    base_value = base.key?(key) ? base[key] : MISSING_FRONTMATTER_VALUE
+    local_value = local.key?(key) ? local[key] : MISSING_FRONTMATTER_VALUE
+    upstream_value = upstream.key?(key) ? upstream[key] : MISSING_FRONTMATTER_VALUE
+
+    value = if local_value == base_value
+              upstream_value
+            elsif upstream_value == base_value
+              local_value
+            elsif local_value == upstream_value
+              local_value
+            else
+              return nil
+            end
+    merged[key] = value unless value.equal?(MISSING_FRONTMATTER_VALUE)
+  end
+  merged
+end
+
+# Merge independently changed frontmatter fields while preserving the body
+# from whichever side changed it. This handles the common case where upstream
+# bumps `version` and the marketplace adds local metadata to the same header.
+# If both sides changed the body, return nil so git merge-file can provide the
+# normal three-way conflict for human review.
+def semantic_skill_text_merge(local_bytes, base_bytes, upstream_bytes)
+  local = frontmatter_parts(local_bytes)
+  base = frontmatter_parts(base_bytes)
+  upstream = frontmatter_parts(upstream_bytes)
+  return nil unless local && base && upstream
+
+  merged_frontmatter = merge_frontmatter_values(base[0], local[0], upstream[0])
+  return nil unless merged_frontmatter
+
+  body = if local[1] == base[1]
+           upstream[1]
+         elsif upstream[1] == base[1]
+           local[1]
+         elsif local[1] == upstream[1]
+           local[1]
+         else
+           return nil
+         end
+
+  yaml = Psych.dump(merged_frontmatter).sub(/\A---\s*\n/, "")
+  "---\n#{yaml}---\n#{body}"
 end
 
 def git_output(directory, *args)
@@ -154,6 +234,43 @@ def run_self_test
       # Expected: safe_join must reject paths outside the repository root.
     end
   end
+
+  base = <<~YAML
+    ---
+    name: sample
+    description: "Sample skill"
+    version: 1.0.0
+    ---
+
+    base body
+  YAML
+  local = <<~YAML
+    ---
+    name: sample
+    description: "Sample skill"
+    version: 1.0.0
+    category: 视频创作
+    upstream: example/skills
+    ---
+
+    base body
+  YAML
+  upstream = <<~YAML
+    ---
+    name: sample
+    description: "Sample skill"
+    version: 1.1.0
+    ---
+
+    upstream body
+  YAML
+  merged = semantic_skill_text_merge(local, base, upstream)
+  raise "semantic frontmatter merge did not resolve independent changes" unless merged
+  merged_data, = frontmatter_parts(merged)
+  raise "upstream version was not selected" unless merged_data["version"] == "1.1.0"
+  raise "local category was not preserved" unless merged_data["category"] == "视频创作"
+  raise "local upstream metadata was not preserved" unless merged_data["upstream"] == "example/skills"
+  raise "upstream body was not selected" unless merged.end_with?("upstream body\n")
   puts "[self-test] safe_join root normalization and traversal guard passed"
 end
 
@@ -256,11 +373,17 @@ Dir.mktmpdir("easycode-skill-sync-") do |temporary_root|
         end
 
         if File.file?(base_path)
-          merged, _stderr, status = git_capture(nil, "merge-file", "-p", local_path, base_path, source_path)
-          raise SyncError, "#{target[:name]}: git merge-file failed for #{relative}" if status.exitstatus && status.exitstatus > 1
-          write_bytes(local_path, merged)
-          skill_changed = true
-          skill_conflict = true if status.exitstatus == 1
+          semantic = relative == "SKILL.md" && semantic_skill_text_merge(local_bytes, bytes_for(base_path), source_bytes)
+          if semantic
+            write_bytes(local_path, semantic)
+            skill_changed = true
+          else
+            merged, _stderr, status = git_capture(nil, "merge-file", "-p", local_path, base_path, source_path)
+            raise SyncError, "#{target[:name]}: git merge-file failed for #{relative}" if status.exitstatus && status.exitstatus > 1
+            write_bytes(local_path, merged)
+            skill_changed = true
+            skill_conflict = true if status.exitstatus == 1
+          end
         else
           write_bytes(local_path, conflict_text(local_bytes, source_bytes, current_sha))
           skill_changed = true

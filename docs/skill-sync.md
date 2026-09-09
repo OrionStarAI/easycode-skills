@@ -32,9 +32,10 @@ Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`；`guizan
 
 - 拉取当前上游提交；
 - 用 `upstreamSha` 作为基线做文本三方合并；
+- 对 `SKILL.md` 的 YAML frontmatter 做字段级三方合并：上游版本、正文等上游字段接受更新，本地 `category`、`tags`、`upstream*`、`author` 等商城/同步字段保留；
 - 自动复制新增、删除且未被本地修改的文件；
 - 对本地和上游同时修改的文本保留冲突标记，交给 PR 评审；
-- 只有无冲突时才更新 `upstreamSha`。
+- 只有无冲突时才更新 `upstreamSha`。若同一个 frontmatter 字段或正文同时被双方修改，仍必须人工解决，避免静默覆盖本地内容。
 
 ## 双语展示名与描述
 
