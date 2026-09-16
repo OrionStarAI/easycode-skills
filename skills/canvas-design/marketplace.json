@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 12,
     "name": "canvas-design",
     "displayName": {
       "zh": "画布设计",
       "en": "Canvas Design"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我做一张 AI 工作流配图，表现从想法到交付的过程，加入网络节点、流程箭头和数据面板，整体清爽有科技感。",
     "description": {
       "zh": "运用设计理念在 .png 和 .pdf 文档中创作精美视觉作品。当用户要求制作海报、艺术品、设计稿或其他静态视觉作品时使用。只做原创设计，绝不抄袭他人作品以避免版权问题。",

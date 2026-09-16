@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 7,
     "name": "docx",
     "displayName": {
       "zh": "Word 文档",
       "en": "Word Documents"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我写一份 AI 产品季度复盘报告，包含本季度成果、问题、数据和下季度计划，最后给我一个排版好的 Word 文件。",
     "description": {
       "zh": "当用户需要创建、读取、编辑或处理 Word 文档（.docx）或 Word 模板（.dotx）时使用。涵盖：目录、标题、页码、信头等格式化排版，从 .docx/.dotx 提取或重组内容，插入/替换图片，查找替换，处理修订与批注，以及把内容转成正式 Word 文档。不适用于 PDF、表格或 Google Docs。",

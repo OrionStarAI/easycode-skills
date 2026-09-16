@@ -11,9 +11,6 @@
       "en": "Concise in-conversation visual explanations: pseudocode, call trees, component trees, file trees, Mermaid, diffs, or a focused HTML artifact — always the smallest view that makes the point."
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "别光用文字解释，画给我看：这个保存流程的缓存逻辑是怎么回事。"
   },
   "storage": {

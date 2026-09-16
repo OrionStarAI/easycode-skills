@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 6,
     "name": "xlsx",
     "displayName": {
       "zh": "电子表格",
       "en": "Spreadsheets"
     },
     "version": "1.0.1",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我把营销数据整理成一个运营复盘 Excel，展示触达、激活、订单和收入，再配一张趋势图。",
     "description": {
       "zh": "当电子表格文件是主要输入或输出时使用：打开、读取、编辑或修复 .xlsx/.xlsm/.xltx/.csv/.tsv（加列、算公式、格式化、图表、清洗数据）；从零或从其他数据源创建表格；表格格式间转换。当用户提到某个表格文件并要对它操作或基于它产出时即触发；也适用于把混乱表格数据整理成规范表格。交付物必须是表格文件。",

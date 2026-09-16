@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 11,
     "name": "brand-guidelines",
     "displayName": {
       "zh": "品牌设计规范",
       "en": "Brand Guidelines"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我做一套 AI 产品的品牌视觉规范，包含颜色、字体、按钮和常用组件，整理成一页清晰的规范图。",
     "description": {
       "zh": "将 Anthropic 官方品牌色与字体规范应用到任何需要 Anthropic 视觉风格的产出物上。当涉及品牌色或样式规范、视觉排版、公司设计标准时使用。",

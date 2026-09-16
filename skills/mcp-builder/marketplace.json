@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 16,
     "name": "mcp-builder",
     "displayName": {
       "zh": "MCP 服务器构建",
       "en": "MCP Server Builder"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我做一个能连接项目管理工具的 MCP 服务，让我可以查询项目、创建任务和修改任务状态。",
     "description": {
       "zh": "构建高质量 MCP（Model Context Protocol）服务器的指南，让大模型通过精心设计的工具与外部服务交互。支持 Python（FastMCP）和 Node/TypeScript（MCP SDK）。",

@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 27,
     "name": "install-python-windows",
     "displayName": {
       "zh": "Windows Python 安装",
       "en": "Install Python on Windows"
     },
     "version": "1.0.0",
-    "source": "upload",
-    "active": true,
-    "deleted": false,
     "usageExample": "我在 Windows 电脑上装 Python，帮我一步步完成安装，并检查命令行和 pip 是否能正常使用。"
   },
   "storage": {

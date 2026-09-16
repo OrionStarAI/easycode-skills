@@ -57,6 +57,12 @@ Remotion 技能使用相同格式，但来源是 `remotion-dev/skills`；`guizan
 
 机翻只作为最后兜底的原因：技能目录名是英文 slug（如 `guizang-social-card-skill`），机翻结果不可控（"归藏"会被译成"鬼藏"），且生产环境访问翻译接口可能失败，失败时原文会同时占住 zh/en 两个字段。
 
+## 发布状态与导出残留字段
+
+技能的上架/下架由商城后台管理，本仓库不参与：`marketplace.json` 里声明发布状态，只会让每小时的自动同步覆盖运营在后台做的下架操作（历史故障：`skill.active: true` 让每次同步把 `is_active` 写回 1，下架技能在一轮同步后重新上架）。
+
+因此 `skill` 块只允许声明 `name`、`version`、`displayName`、`description`、`usageExample`；`id`、`source`、`active`、`deleted` 是早期从数据库导出时写入的残留字段，门禁会直接拒绝，需要下架技能时在商城后台操作。
+
 ## 分类规范
 
 `SKILL.md` 的 `category` 是同步技能的分类事实源。当前只允许以下分类：
