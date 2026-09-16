@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "security-audit",
+    "displayName": {
+      "zh": "安全审计",
+      "en": "Security Audit"
+    },
+    "version": "1.0.0",
+    "usageExample": "对这个代码库做一次完整的安全审计，找出可被利用的漏洞并生成带修复建议的审计报告。",
+    "description": {
+      "zh": "Cloudflare 开源的代码库安全审计技能：通过侦察、覆盖率引导的并行猎洞、对抗式验证和独立复核六个阶段，对代码库、API、服务、CLI 工具、库和守护进程做漏洞挖掘与安全评审，输出带源码证据、安全复现步骤、优先级和最小修复方案的审计报告。",
+      "en": "Cloudflare's open-source security audit skill: finds vulnerabilities across codebases, APIs, services, CLI tools, libraries, and daemons via a six-phase workflow — reconnaissance, coverage-guided parallel hunting, adversarial validation, and independent review — producing reports with source evidence, safe reproduction, priority, and smallest effective fixes."
+    }
+  },
+  "storage": {
+    "packageKey": "skills/security-audit/security-audit_1.0.0.zip"
+  },
+  "media": {
+    "icon": {
+      "path": "assets/icon.svg",
+      "sourceKey": "skills/icons/security-audit.svg"
+    },
+    "previews": [],
+    "previewThumbnails": [],
+    "examples": []
+  }
+}
