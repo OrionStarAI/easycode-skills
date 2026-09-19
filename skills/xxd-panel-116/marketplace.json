@@ -6,7 +6,7 @@
       "zh": "粉彩涂鸦海报",
       "en": "Pastel Doodle Panel"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "usageExample": "把这张照片做成上下各一半的粉彩涂鸦海报，上半保留原图，下半转成奶油白纸底的蜡笔涂鸦风格，配一句治愈的中文短句，输出 3:4 竖版 PNG。",
     "description": {
       "zh": "把照片转译成高级治愈系设计海报：一半保留原始照片的艺术杂志质感，另一半重构为浅纸底粉彩蜡笔涂鸦——粗颗粒轮廓、极简符号、大量留白、少量打字机风短句。支持上下/左右严格 50:50 对照、纯设计模式、多设备壁纸包与目录批处理，每张图单轮独立生成，风格稳定。",
@@ -14,7 +14,7 @@
     }
   },
   "storage": {
-    "packageKey": "skills/xxd-panel-116/xxd-panel-116_1.0.0.zip"
+    "packageKey": "skills/xxd-panel-116/xxd-panel-116_1.0.1.zip"
   },
   "media": {
     "icon": {
