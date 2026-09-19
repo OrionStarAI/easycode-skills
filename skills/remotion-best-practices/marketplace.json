@@ -17,8 +17,8 @@
   },
   "media": {
     "icon": {
-      "path": "assets/remotion-icon.png",
-      "sourceKey": "skills/icons/remotion-best-practices.png"
+      "path": "assets/remotion-icon.svg",
+      "sourceKey": "skills/icons/remotion-best-practices.svg"
     },
     "previews": [],
     "previewThumbnails": [],

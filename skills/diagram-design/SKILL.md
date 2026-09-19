@@ -1,23 +1,11 @@
 ---
 name: diagram-design
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/diagram-design/SKILL.md
 category: 演示与设计
-description: Create branded architecture, IT current-state, flowchart, sequence, state
-  machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart
-  (polar/radial lollipop), loop/flywheel, nested, tree, org chart, layer stack, Venn,
-  pyramid/funnel, treemap, bar, line, Gantt and scatter charts, high-level, process,
-  medallion, data flow, DP integration, DP security matrix, Sankey, fishbone, Wardley
-  map, kanban, user journey, deployment, dependency graph, UML class, story map, or
-  database schema diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg
-  or Mermaid .mmd sources at a chosen size/detail; onboard brand tokens from a website;
-  add semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling.
-=======
 description: Create branded architecture, IT current-state, flowchart, sequence, state machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart (polar/radial lollipop), loop/flywheel, nested, tree, org chart, layer stack, Venn, pyramid/funnel, treemap, bar, waterfall, line, Gantt and scatter charts, high-level, process, medallion, data flow, DP integration, DP security matrix, Sankey, fishbone, Wardley map, kanban, user journey, deployment, dependency graph, UML class, story map, or database schema diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg, Mermaid .mmd, or Excalidraw .excalidraw sources at a chosen size/detail; onboard brand tokens from a website; add lifecycle phase maps, semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling.
->>>>>>> /tmp/easycode-skill-sync-20260919-2412-iveh3l/cathrynlavery_diagram-design-current/skills/diagram-design/SKILL.md
 license: MIT
 upstream: cathrynlavery/diagram-design
 upstreamPath: skills/diagram-design
-upstreamSha: dcd9317ed9ec7477b20005544f36e3313664d815
+upstreamSha: 8585047d16a7973f1c1a126e3eea3c38027e52d0
 author: cathrynlavery
 metadata:
   version: '2.6'
