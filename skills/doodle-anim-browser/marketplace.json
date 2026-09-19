@@ -7,9 +7,6 @@
       "en": "Doodle Anim Browser Render"
     },
     "version": "1.0.0",
-    "source": "upload",
-    "active": true,
-    "deleted": false,
     "usageExample": "不装 Playwright，用内置浏览器把 doodle-anim 的涂鸦动画模板渲染成 MP4 视频。"
   },
   "storage": {

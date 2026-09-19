@@ -26,6 +26,12 @@ CANONICAL_CATEGORIES = %w[
   阅读与知识
 ].freeze
 
+# Keys that only reached manifests through a database export. The sync worker
+# ignores them on purpose, and `active` used to be written back on every hourly
+# sync — silently re-publishing skills an operator had taken down. Reject them
+# so a stale export cannot re-enter the contract.
+REJECTED_SKILL_KEYS = %w[id source active deleted].freeze
+
 def relative_path(path)
   Pathname.new(path).relative_path_from(Pathname.new(ROOT)).to_s
 end
@@ -69,6 +75,12 @@ end
 
 def non_empty_string?(value)
   value.is_a?(String) && !value.strip.empty?
+end
+
+# Manifests only declare source and display metadata; anything the database
+# owns (identity and publishing state) is rejected, see REJECTED_SKILL_KEYS.
+def rejected_skill_keys(skill)
+  REJECTED_SKILL_KEYS.select { |key| skill.key?(key) }
 end
 
 def safe_relative_asset?(path)
@@ -132,9 +144,8 @@ else
 
   issue(issues, path, "skill.name must be #{skill_name.inspect}") unless skill["name"] == skill_name
   issue(issues, path, "skill.version must be a non-empty string") unless non_empty_string?(skill["version"])
-  issue(issues, path, "skill.source must be a non-empty string") unless non_empty_string?(skill["source"])
-  %w[active deleted].each do |key|
-    issue(issues, path, "skill.#{key} must be boolean") if skill.key?(key) && ![true, false].include?(skill[key])
+  rejected_skill_keys(skill).each do |key|
+    issue(issues, path, "skill.#{key} must not be declared: identity and publishing state are managed by the marketplace admin")
   end
   if skill.key?("usageExample") && !skill["usageExample"].nil? && !non_empty_string?(skill["usageExample"])
     issue(issues, path, "skill.usageExample must be a non-empty string or null")
@@ -287,6 +298,11 @@ def run_self_test
   data, = parse_frontmatter_text(good)
   abort "[self-test] quoted description did not parse" unless data["description"].include?(": project")
   puts "[self-test] YAML frontmatter colon guard passed"
+
+  residue = rejected_skill_keys({ "name" => "demo", "id" => 3, "active" => true })
+  abort "[self-test] residue guard missed an export field" unless residue == %w[id active]
+  abort "[self-test] residue guard rejected a clean manifest" unless rejected_skill_keys({ "name" => "demo" }).empty?
+  puts "[self-test] manifest residue guard passed"
 end
 
 run_self_test if ARGV.delete("--self-test")

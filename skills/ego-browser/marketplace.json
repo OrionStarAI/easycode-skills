@@ -11,9 +11,6 @@
       "en": "Chromium-based browser automation via the ego lite app: agents work in an isolated space reusing the user's logged-in browser state for navigation, forms, clicks, screenshots, scraping, and web app testing. Requires the ego lite desktop app (macOS); falls back to built-in browser tools when absent."
     },
     "version": "1.2.6",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "用 ego 浏览器打开我已经登录的 GitHub，把我仓库的 star 数和最近一次 release 抓下来。"
   },
   "storage": {

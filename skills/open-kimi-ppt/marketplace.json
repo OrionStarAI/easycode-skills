@@ -7,9 +7,6 @@
       "en": "Open Kimi PPT"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "把这份调研报告做成一份 12 页的演示文稿，交付可编辑源文件和 PPTX。",
     "description": {
       "zh": "创建、编辑、复刻、读取和导出演示文稿。任何 PPT 任务默认同时交付两份产物：(1) 自包含的 PPTD 工程目录（.pptd 清单 + pages/media 等依赖）；(2) 本地生成的 .pptx（内嵌字体、淡入翻页效果）。适用于演示文稿、PowerPoint、PPT/PPTX、幻灯片、信息图、海报等任务，除非用户明确指定其他格式。交付时使用绝对路径的本地文件/目录链接。",

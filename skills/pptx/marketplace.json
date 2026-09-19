@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 8,
     "name": "pptx",
     "displayName": {
       "zh": "PPT 演示文稿",
       "en": "PowerPoint Presentations"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我做一份介绍 AI 工作流的 PPT，包含封面、关键数据、工作流程和总结，风格简洁现代，最后给我可编辑的 PPT 文件。",
     "description": {
       "zh": "当任务以任何方式涉及 .pptx 或 .potx 文件（作为输入、输出或两者）时使用：创建幻灯片/路演稿/演示文稿，读取解析或提取文本，编辑修改现有演示文稿，合并拆分幻灯片文件，处理模板、版式、演讲者备注或批注。用户提到“幻灯片”“演示文稿”或 .pptx/.potx 文件名时即触发。",

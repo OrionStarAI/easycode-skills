@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 29,
     "name": "news-aggregator",
     "displayName": {
       "zh": "新闻聚合器",
       "en": "News Aggregator"
     },
     "version": "1.0.3",
-    "source": "upload",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我整理今天国内外重要的 AI 和科技新闻，挑 8 条最值得看的，并用几句话说明重点和影响。"
   },
   "storage": {

@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 13,
     "name": "doc-coauthoring",
     "displayName": {
       "zh": "文档协作撰写",
       "en": "Documentation Co-authoring"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我一起写一份 AI 客服项目方案，先帮我列个目录，再和我逐步完善内容，最后整理成正式文档。",
     "description": {
       "zh": "引导用户走结构化流程共同撰写文档。当用户需要写文档、提案、技术规格、决策记录等结构化内容时使用，帮助高效传递上下文、迭代打磨内容并验证文档对读者有效。",

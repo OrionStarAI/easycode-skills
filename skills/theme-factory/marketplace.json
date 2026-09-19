@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
   "skill": {
-    "id": 19,
     "name": "theme-factory",
     "displayName": {
       "zh": "主题工厂",
       "en": "Theme Factory"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我把同一份内容做成四种风格：电子杂志、瑞士极简、黑金和温暖手作，放在一张对比图里，方便我选择。",
     "description": {
       "zh": "为产出物套用主题样式的工具箱，支持幻灯片、文档、报表、HTML 落地页等。内置 10 套配色/字体预设主题，可直接应用，也能即时生成新主题。",
