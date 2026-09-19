@@ -1,12 +1,15 @@
 ---
 name: frontend-design
 category: 演示与设计
-description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+description: Guidance for distinctive, intentional visual design when building new
+  UI or reshaping an existing one. Helps with aesthetic direction, typography, and
+  making choices that don't read as templated defaults.
 license: Complete terms in LICENSE.txt
 upstream: anthropics/skills
 upstreamPath: skills/frontend-design
-upstreamSha: 41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f
+upstreamSha: 34040c9c568585f6929bedeaad110ad08f079624
 author: anthropics
+---
 ---
 
 # Frontend Design

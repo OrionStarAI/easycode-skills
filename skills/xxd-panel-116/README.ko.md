@@ -8,23 +8,36 @@
 
 </div>
 
-## 샘플 작품
+## 16:9 좌우 구성 예시
 
-아래 샘플은 서로 다른 원본 참고 이미지를 사용했습니다. Panel 116이 각 이미지를 독립적으로 한 번만 생성했으며 AI 메타데이터도 제거했습니다. 가로 샘플은 왼쪽 원본·오른쪽 디자인의 정확한 50:50, 세로 샘플은 위 원본·아래 디자인의 정확한 50:50입니다.
+서로 다른 원본 네 장으로 만든 16:9 완성 캔버스. 왼쪽은 실사, 오른쪽은 이 Panel 디자인, 정확히 50:50.
 
-**16:9 가로 · 좌우 50:50**
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-05.png" alt="XXD Panel 116 Sample 5"></td>
+    <td width="50%"><img src="./assets/examples/sample-06.png" alt="XXD Panel 116 Sample 6"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-07.png" alt="XXD Panel 116 Sample 7"></td>
+    <td width="50%"><img src="./assets/examples/sample-08.png" alt="XXD Panel 116 Sample 8"></td>
+  </tr>
+</table>
 
-| sample-05 | sample-06 |
-|---|---|
-| ![sample-05](assets/examples/sample-05.png) | ![sample-06](assets/examples/sample-06.png) |
-| ![sample-07](assets/examples/sample-07.png) | ![sample-08](assets/examples/sample-08.png) |
+## 3:4 상하 구성 예시
 
-**3:4 세로 · 상하 50:50**
+16:9 세트와 다른 원본 네 장으로 만든 3:4 상하 완성 캔버스. 위는 실사, 아래는 디자인, 정확히 50:50.
 
-| sample-09 | sample-10 |
-|---|---|
-| ![sample-09](assets/examples/sample-09.png) | ![sample-10](assets/examples/sample-10.png) |
-| ![sample-11](assets/examples/sample-11.png) | ![sample-12](assets/examples/sample-12.png) |
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-09.png" alt="XXD Panel 116 additional top-bottom sample 1"></td>
+    <td width="50%"><img src="./assets/examples/sample-10.png" alt="XXD Panel 116 additional top-bottom sample 2"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-11.png" alt="XXD Panel 116 additional top-bottom sample 3"></td>
+    <td width="50%"><img src="./assets/examples/sample-12.png" alt="XXD Panel 116 additional top-bottom sample 4"></td>
+  </tr>
+</table>
+
 
 ## 잘 맞는 상황과 해결하는 문제
 
@@ -44,46 +57,14 @@
 - 비교 레이아웃은 정확히 두 개의 50:50 영역만 사용하며 제목 띠, 하단 띠, 제3영역을 만들지 않습니다.
 - 현재 원본에서 한 번에 직접 생성하며 샘플, 중간 결과, 다른 Panel 결과를 다시 입력하지 않습니다.
 
-## 원본 프롬프트 · 5개 언어
+## 사용 팁
 
-[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
-
-중국어 파일은 사용자가 제공한 원문을 그대로 보존하며 런타임의 유일한 창작·미학 권위입니다. 다른 네 파일은 완전하고 충실한 열람용 번역이며 생성 지시를 되쓰지 않습니다.
-
-**핵심 특징:** 아주 옅은 종이 바탕 · 거친 파스텔 크레용 윤곽 · 최소 낙서 기호 · 작은 주체 · 사진에서 뽑은 2–4색 · 선명한 색선 · 넓은 예술 여백 · 빈티지 기계 인쇄체
-
-## 빠른 적합성 확인
-
-| 궁금한 점 | Panel 116의 답 |
-|---|---|
-| 사진과 디자인이 명확하게 이어지는가 | 위에는 실제 사진을, 아래에는 같은 주체의 낙서 번역을 둡니다. |
-| 추상화해도 원본을 알아볼 수 있는가 | 핵심 주제, 관계, 윤곽 흐름, 자세, 색 기억을 우선 보존합니다. |
-| 파스텔이 회색으로 흐려지지 않는가 | 아주 옅은 바탕, 선명한 색선, 소량의 부드러운 색면으로 대비를 유지합니다. |
-| 다양한 크기로 납품할 수 있는가 | 일반 비율, 정확한 픽셀, 네 가지 모드, 폴더 일괄 처리를 지원합니다. |
-
-## 사진을 결과물로 바꾸는 흐름
-
-```text
-주제와 관계 이해 → 윤곽·자세·방향·감정 추출 → 부차 세부 삭제 → 거친 크레용 선과 소량의 파스텔 면으로 재구성 → 옅은 종이와 최소 낙서 기호에 배치 → 여백과 절제된 기계 인쇄체로 마무리
-```
-
-## 완성작의 식별 특징
-
-- 배경은 밝고 깨끗한 거의 흰 종이색이며 모든 선과 색면보다 확실히 밝습니다.
-- 주체 윤곽은 굵고 느슨하며 건조하고, 가루 입자·끊김·옅어짐·미세한 떨림·열린 가장자리를 가집니다.
-- 주변 기호는 한두 획으로 표현하며 정교한 아이콘, 스티커, 독립 미니 일러스트가 되지 않습니다.
-- 주체는 작고 비대칭이며 가장자리 배치, 부유, 부분 크롭을 허용하고 여백 자체가 구도를 만듭니다.
-- 원본에서 친근하고 생생한 2–4색을 추출해 밝고 부드러운 파스텔 크레용 팔레트로 만듭니다.
-- 텍스트는 소량만 개입하며 자간이 살짝 불규칙한 빈티지 기계 인쇄체를 사용합니다.
-
-## 네 가지 출력 모드
-
-- `top-bottom`: 전폭 상하 두 영역만 사용합니다. 실제 사진은 위, 디자인은 아래에 정확히 50%씩 둡니다.
-- `left-right`: 전고 좌우 두 영역만 사용합니다. 실제 사진은 왼쪽, 디자인은 오른쪽에 정확히 50%씩 두며 상하 구도로 돌리지 않습니다.
-- `design-only`: 전체 캔버스에 Panel 116의 디자인 번역만 표시하고 사진은 보이지 않는 참고 자료로 사용합니다.
-- `wallpaper-pack`: 휴대폰, iPad, 데스크톱, 시계용 완성 이미지를 각각 만들며 `linked` 또는 `independent`를 선택합니다.
-
-모드와 크기는 여러 개 선택할 수 있습니다. `1:1`, `3:4`, `4:3`, `4:5`, `5:4`, `2:3`, `3:2`, `9:16`, `16:9`, `21:9`, `5:7`, `7:5`, 정확한 픽셀을 지원합니다. 텍스트는 모델 생성, 사용자 원문, 없음 중에서 선택합니다. 폴더 입력은 각 소스를 분리 처리하고 최종 PNG를 하나의 새 작업 폴더에 평면으로 저장합니다.
+- **선명한 사진 한 장부터 시작하세요:** 피사체, 동작, 관계가 잘 보이는 이미지를 고른 뒤 출력 방식과 비율을 정합니다.
+- **파라미터를 한 문장으로 연결하세요:** “상하 / 좌우 / 순수 디자인 + 16:9 / 3:4 / 휴대폰 배경화면”처럼 말하고 컴퓨터·태블릿·스마트워치 크기도 덧붙일 수 있습니다.
+- **남겨야 할 것을 분명히 하세요:** 인물, 사물, 동작, 관계, 문구를 지정하되 레이아웃을 지나치게 고정하지 않아야 스타일이 자연스럽게 설계합니다.
+- **텍스트 방식을 고르세요:** 이미지에서 지능적으로 생성하게 하거나, `--text exact --copy`로 정확한 문구를 고정하거나, `--text none`으로 글자를 없앨 수 있습니다.
+- **사진 영역과 디자인 영역을 설명하세요:** 상하·좌우에서는 사진을 남길 쪽과 다시 디자인할 쪽을 말하고, 순수 디자인·배경화면은 전체 캔버스를 다시 설계한다고 알려 주세요.
+- **한 장을 먼저 시험한 뒤 일괄 처리하세요:** 모드, 비율, 텍스트, 언어를 한 장에서 확인하고 같은 설정을 폴더에 적용합니다. 비교를 위해 한 번에 한 변수만 바꾸세요.
 
 ## 시작하기
 
@@ -102,34 +83,71 @@ npx skills add https://github.com/nevertoday/xxd-panel-116 --skill xxd-panel-116
 
 전체 실행 계약은 [SKILL.md](SKILL.md), 런타임 어댑터는 [영어](references/xxd-panel-116-prompt.en.md)와 [중국어](references/xxd-panel-116-prompt.zh-CN.md)를 확인하세요.
 
+## 원본 프롬프트 · 5개 언어
+
+[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
+
+중국어 파일은 사용자가 제공한 원문을 그대로 보존하며 런타임의 유일한 창작·미학 권위입니다. 다른 네 파일은 완전하고 충실한 열람용 번역이며 생성 지시를 되쓰지 않습니다.
+
+**핵심 특징:** 아주 옅은 종이 바탕 · 거친 파스텔 크레용 윤곽 · 최소 낙서 기호 · 작은 주체 · 사진에서 뽑은 2–4색 · 선명한 색선 · 넓은 예술 여백 · 빈티지 기계 인쇄체
+
+## 빠른 적합성 확인
+
+| 궁금한 점 | Panel 116의 답 |
+|---|---|
+| 사진과 디자인이 명확하게 이어지는가 | 위에는 실제 사진을, 아래에는 같은 주체의 낙서 번역을 둡니다. |
+| 추상화해도 원본을 알아볼 수 있는가 | 핵심 주제, 관계, 윤곽 흐름, 자세, 색 기억을 우선 보존합니다. |
+| 파스텔이 회색으로 흐려지지 않는가 | 아주 옅은 바탕, 선명한 색선, 소량의 부드러운 색면으로 대비를 유지합니다. |
+| 다양한 크기로 납품할 수 있는가 | 일반 비율, 정확한 픽셀, 네 가지 모드, 폴더 일괄 처리를 지원합니다. |
+
+## 네 가지 출력 모드
+
+- `top-bottom`: 전폭 상하 두 영역만 사용합니다. 실제 사진은 위, 디자인은 아래에 정확히 50%씩 둡니다.
+- `left-right`: 전고 좌우 두 영역만 사용합니다. 실제 사진은 왼쪽, 디자인은 오른쪽에 정확히 50%씩 두며 상하 구도로 돌리지 않습니다.
+- `design-only`: 전체 캔버스에 Panel 116의 디자인 번역만 표시하고 사진은 보이지 않는 참고 자료로 사용합니다.
+- `wallpaper-pack`: 휴대폰, iPad, 데스크톱, 시계용 완성 이미지를 각각 만들며 `linked` 또는 `independent`를 선택합니다.
+
+모드와 크기는 여러 개 선택할 수 있습니다. `1:1`, `3:4`, `4:3`, `4:5`, `5:4`, `2:3`, `3:2`, `9:16`, `16:9`, `21:9`, `5:7`, `7:5`, 정확한 픽셀을 지원합니다. 텍스트는 모델 생성, 사용자 원문, 없음 중에서 선택합니다. 폴더 입력은 각 소스를 분리 처리하고 최종 PNG를 하나의 새 작업 폴더에 평면으로 저장합니다.
+
 <!-- xxd-readme-ads:start -->
 ## XXD 소개
 
-XXD는 Xiaoxiaodong 브랜드 이름의 약자입니다. 제작 및 유지관리: [@xiaoxiaodong01](https://x.com/xiaoxiaodong01).
+XXD는 Xiaoxiaodong 브랜드 이름의 약자입니다. 이 프로젝트는 [@xiaoxiaodong01](https://x.com/xiaoxiaodong01)이 만들고 관리합니다.
 
-## 지원과 멤버십
+## Xiaoxiaodong 멀티플랫폼 멤버십 · CNY 699/년
 
-> **광고 안내:** 이 섹션의 QR 코드와 유료 멤버십·서비스 링크는 XXD의 홍보 정보입니다. 스캔이나 구매는 선택 사항이며, 오픈 소스 이용에는 영향을 주지 않습니다.
+> **광고 안내:** 아래 QR 코드와 멤버십·유료 서비스 링크는 XXD의 홍보 정보입니다. 스캔이나 구매는 선택 사항이며 오픈 소스 이용에는 영향을 주지 않습니다.
 
+연간 멤버십 하나로 **Knowledge Planet + XXD 회원 프롬프트 라이브러리 + 모든 General Skills 멤버십**을 함께 이용할 수 있습니다. 각각 따로 구매할 필요가 없습니다.
 
 <!-- xxd-panel-command-system:start -->
 
-모든 장군 Skills는 연 CNY 699 통합 멤버십에 포함되며 별도 구매가 필요하지 않습니다.
+### Skills가 함께 작동하는 방식
 
-| 등급 | Skill | 역할 |
+| 등급 | 포함 내용 | 역할 |
 |---|---|---|
-| **장군급** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | 사용 가능한 번호형 Skills 탐지, 이미지·주제·용도별 추천, 번호 지정 파견, 동일 입력의 여러 스타일 시안, 이미지 폴더의 일괄 배정과 개별 작업 파견. |
-| **병사급** | `xxd-panel-NNN` | 각 번호가 고유한 원본 프롬프트와 미학만 실행해 장군이 배정한 하나의 작업을 완성합니다. |
+| **General** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | 사용 가능한 번호형 Skills를 찾고, 이미지·주제·용도에 맞춰 추천하며, 여러 스타일과 일괄 작업을 정리합니다. |
+| **Soldier** | `xxd-panel-NNN` | 각 번호가 고유한 원본 프롬프트와 미학에 따라 General이 배정한 구체적인 작업을 완성합니다. |
 
 <!-- xxd-panel-command-system:end -->
 
-### 지식성구＋회원 프롬프트 라이브러리＋모든 장군 Skills 멤버십 · CNY 699/년
+### 회원 혜택
 
-[지식성구](https://wx.zsxq.com/group/15554814142882), [XXD 회원 프롬프트 라이브러리](https://vip.xiaoxiaodong.ai/), 모든 장군 Skills 멤버십은 하나의 회원권입니다. **연회비를 한 번 결제하면 세 가지 혜택을 모두 이용할 수 있으며 추가 구매는 필요하지 않습니다.**
+1. **WeChat 일대일 AI 학습·프로젝트 상담**
+   아래 QR 코드로 Xiaoxiaodong의 WeChat을 추가해 AI 학습, 도구, 실제 프로젝트를 일대일로 상담하고 실용적인 답변과 안내를 받을 수 있습니다. 대표적인 질문은 회원 자료로 정리됩니다.
+2. **계속 업데이트되는 회원 프롬프트 라이브러리**
+   [XXD 회원 프롬프트 라이브러리](https://vip.xiaoxiaodong.ai/)에는 현재 약 3만 2천 개의 프롬프트가 있으며, 10만 개 이상을 목표로 계속 확장합니다.
+3. **모든 General Skills와 사용 지원**
+   하나의 멤버십으로 모든 General Skills를 이용하고, 사용 중 도움이 필요할 때 안내와 Q&A를 받을 수 있습니다.
+4. **필요성이 높은 요청을 우선 검토**
+   회원이 제안한 수요가 높고 꼭 필요한 프롬프트와 Skills는 우선 검토하고 개발합니다.
 
-[Knowledge Planet](https://wx.zsxq.com/group/15554814142882) · [Member Prompt Library](https://vip.xiaoxiaodong.ai/)
+### 가입 방법
 
-<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="XXD WeChat" width="280"></a></p>
+- [회원 웹사이트에서 직접 가입](https://vip.xiaoxiaodong.ai/)할 수 있습니다.
+- 또는 아래 QR 코드로 Xiaoxiaodong의 WeChat을 추가해 일대일 가입 지원을 받을 수 있습니다.
+
+<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="Xiaoxiaodong 연락처" width="280"></a></p>
 <!-- xxd-readme-ads:end -->
 
 ## 라이선스
