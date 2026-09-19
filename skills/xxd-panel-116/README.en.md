@@ -8,23 +8,36 @@ Leave the photograph with a clear contour, easy colour, and a paper field that c
 
 </div>
 
-## Sample works
+## 16:9 Left–Right Samples
 
-The samples below use different original references. Panel 116 generated each one independently in a single pass, and AI metadata has been removed. Landscape samples are strict 50:50 left–right pairs with reality on the left and design on the right; portrait samples are strict 50:50 top–bottom pairs with reality above and design below.
+Four independent sources on complete 16:9 canvases: reality left, this Panel's design right, exact 50:50. English copy is generated from each photograph.
 
-**16:9 landscape · left–right 50:50**
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-05.png" alt="XXD Panel 116 Sample 5"></td>
+    <td width="50%"><img src="./assets/examples/sample-06.png" alt="XXD Panel 116 Sample 6"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-07.png" alt="XXD Panel 116 Sample 7"></td>
+    <td width="50%"><img src="./assets/examples/sample-08.png" alt="XXD Panel 116 Sample 8"></td>
+  </tr>
+</table>
 
-| sample-05 | sample-06 |
-|---|---|
-| ![sample-05](assets/examples/sample-05.png) | ![sample-06](assets/examples/sample-06.png) |
-| ![sample-07](assets/examples/sample-07.png) | ![sample-08](assets/examples/sample-08.png) |
+## 3:4 Top–Bottom Samples
 
-**3:4 portrait · top–bottom 50:50**
+Four further independent sources, different from the 16:9 set, regenerated as complete 3:4 top–bottom canvases. The original photograph remains above; the lower design follows this Panel's original brief.
 
-| sample-09 | sample-10 |
-|---|---|
-| ![sample-09](assets/examples/sample-09.png) | ![sample-10](assets/examples/sample-10.png) |
-| ![sample-11](assets/examples/sample-11.png) | ![sample-12](assets/examples/sample-12.png) |
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-09.png" alt="XXD Panel 116 additional top-bottom sample 1"></td>
+    <td width="50%"><img src="./assets/examples/sample-10.png" alt="XXD Panel 116 additional top-bottom sample 2"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-11.png" alt="XXD Panel 116 additional top-bottom sample 3"></td>
+    <td width="50%"><img src="./assets/examples/sample-12.png" alt="XXD Panel 116 additional top-bottom sample 4"></td>
+  </tr>
+</table>
+
 
 ## Best-fit situations and problems solved
 
@@ -44,46 +57,14 @@ What makes a photograph memorable is often not its information density, but one 
 - Holds paired layouts to exactly two 50:50 regions with no title band, footer, or third section.
 - Generates directly from each current original source, never from a sample, an intermediate result, or another Panel's output.
 
-## Original prompt · five languages
+## Usage tips
 
-[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
-
-The Chinese file preserves the user's original prompt verbatim and is the sole runtime creative and aesthetic authority. The other four files are complete, faithful reading translations and never rewrite the generation instructions.
-
-**Signature:** very pale paper ground · coarse pastel-crayon contours · minimal doodle symbols · small-scale subject · 2–4 source-derived colours · clear coloured lines · generous artistic whitespace · vintage mechanical type
-
-## Quick fit check
-
-| What you need to know | What Panel 116 gives you |
-|---|---|
-| A clear relationship between photograph and design? | The real photograph remains above while a doodled translation of the same subject answers it below. |
-| Recognition after abstraction? | It preserves the core theme, subject relationships, contour flow, pose, and colour memory first. |
-| Pastels that do not turn grey? | A very pale ground, clear coloured lines, and a few soft blocks maintain readable contrast. |
-| Flexible delivery sizes? | Common ratios, exact pixels, four modes, and directory batches are supported. |
-
-## Transformation logic
-
-```text
-understand theme and relationships → distil contour, pose, direction, and emotion → remove secondary detail → rebuild with coarse crayon lines and sparse pastel blocks → place on pale paper with minimal doodle symbols → finish with whitespace and restrained mechanical type
-```
-
-## Recognisable finished traits
-
-- A very pale, bright, clean near-white paper ground stays visibly lighter than all lines and colour areas.
-- Subject contours are coarse, relaxed, dry, powdery, intermittently faded, slightly shaky, and incompletely closed.
-- Surrounding symbols use one or only a few strokes; they never become polished icons, stickers, or standalone mini-illustrations.
-- The subject remains small, off-centre, edge-adjacent, suspended, or locally cropped while whitespace actively composes the page.
-- Two to four vivid, friendly colours distilled from the source become a bright, soft pastel-crayon palette.
-- Sparse text uses airy, slightly irregular vintage mechanical typography rather than a fixed title template.
-
-## Four output modes
-
-- `top-bottom`: exactly two full-width regions, reality above and design below, 50% each.
-- `left-right`: exactly two full-height regions, reality left and design right, 50% each; it never rotates into a top-bottom layout.
-- `design-only`: the full canvas contains only Panel 116's designed translation; the photograph remains a non-visible reference.
-- `wallpaper-pack`: creates complete artworks for phone, iPad, desktop, and watch, either `linked` as a coherent family or `independent` as four separate works.
-
-Modes and sizes may be combined. Supported sizes include `1:1`, `3:4`, `4:3`, `4:5`, `5:4`, `2:3`, `3:2`, `9:16`, `16:9`, `21:9`, `5:7`, `7:5`, and exact pixels. Text can be prompt-generated, user-exact, or absent. A directory is inventoried recursively and every source is isolated while sharing one set of delivery settings; final PNG files remain flat in one fresh task directory.
+- **Start with one clear photo:** choose a source whose subject, action, and relationships are easy to recognize before choosing the delivery format.
+- **Join the parameters in one sentence:** say “top-bottom / left-right / design-only + 16:9 / 3:4 / phone wallpaper”; you can also name desktop, tablet, or smartwatch sizes.
+- **State what must stay:** identify the people, objects, actions, relationships, and copy to preserve, while leaving room for the style to design the layout.
+- **Choose a text mode:** let the model write from the image, lock exact wording with `--text exact --copy`, or remove text completely with `--text none`.
+- **Clarify reality and design regions:** for top-bottom or left-right, say which region keeps the photograph and which region is redesigned; for design-only and wallpapers, say that the whole canvas is redesigned.
+- **Test one image before batching:** confirm mode, ratio, text, and language on one source, then reuse the settings for a folder; change one variable per iteration.
 
 ## Getting started
 
@@ -105,34 +86,71 @@ Common examples:
 
 See [SKILL.md](SKILL.md) for the full runtime contract and the [English](references/xxd-panel-116-prompt.en.md) or [Chinese](references/xxd-panel-116-prompt.zh-CN.md) runtime adapter.
 
+## Original prompt · five languages
+
+[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
+
+The Chinese file preserves the user's original prompt verbatim and is the sole runtime creative and aesthetic authority. The other four files are complete, faithful reading translations and never rewrite the generation instructions.
+
+**Signature:** very pale paper ground · coarse pastel-crayon contours · minimal doodle symbols · small-scale subject · 2–4 source-derived colours · clear coloured lines · generous artistic whitespace · vintage mechanical type
+
+## Quick fit check
+
+| What you need to know | What Panel 116 gives you |
+|---|---|
+| A clear relationship between photograph and design? | The real photograph remains above while a doodled translation of the same subject answers it below. |
+| Recognition after abstraction? | It preserves the core theme, subject relationships, contour flow, pose, and colour memory first. |
+| Pastels that do not turn grey? | A very pale ground, clear coloured lines, and a few soft blocks maintain readable contrast. |
+| Flexible delivery sizes? | Common ratios, exact pixels, four modes, and directory batches are supported. |
+
+## Four output modes
+
+- `top-bottom`: exactly two full-width regions, reality above and design below, 50% each.
+- `left-right`: exactly two full-height regions, reality left and design right, 50% each; it never rotates into a top-bottom layout.
+- `design-only`: the full canvas contains only Panel 116's designed translation; the photograph remains a non-visible reference.
+- `wallpaper-pack`: creates complete artworks for phone, iPad, desktop, and watch, either `linked` as a coherent family or `independent` as four separate works.
+
+Modes and sizes may be combined. Supported sizes include `1:1`, `3:4`, `4:3`, `4:5`, `5:4`, `2:3`, `3:2`, `9:16`, `16:9`, `21:9`, `5:7`, `7:5`, and exact pixels. Text can be prompt-generated, user-exact, or absent. A directory is inventoried recursively and every source is isolated while sharing one set of delivery settings; final PNG files remain flat in one fresh task directory.
+
 <!-- xxd-readme-ads:start -->
 ## About XXD
 
-XXD is Xiaoxiaodong's abbreviated brand name. Created and maintained by [@xiaoxiaodong01](https://x.com/xiaoxiaodong01).
+XXD is Xiaoxiaodong's abbreviated brand name. This project is created and maintained by [@xiaoxiaodong01](https://x.com/xiaoxiaodong01).
 
-## Support and membership
+## Xiaoxiaodong multi-platform membership · CNY 699/year
 
-> **Advertising disclosure:** QR codes and paid membership/service links in this section are XXD promotional content. Scanning or purchasing is optional and does not affect access to this open-source project.
+> **Advertising disclosure:** The QR code, membership, and paid-service links below are XXD promotional information. Scanning or purchasing is entirely optional and does not affect access to this open-source project.
 
+One annual membership unlocks three benefits together: **Knowledge Planet + the XXD Member Prompt Library + membership for all General Skills**. They are included in one membership; no separate purchase is required.
 
 <!-- xxd-panel-command-system:start -->
 
-All General Skills are included in the CNY 699/year membership; no separate purchase is required.
+### How the Skills work together
 
-| Level | Skill | Responsibility |
+| Level | Included | What it does |
 |---|---|---|
-| **General** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | Detect available numbered Skills; recommend by image, theme, or use; dispatch a chosen number; organize multi-style trials; and assign folders of images to individual jobs. |
-| **Soldiers** | `xxd-panel-NNN` | Each numbered Skill executes only its own original brief and aesthetic, completing the individual job assigned by the General. |
+| **General** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | Detects available numbered Skills, recommends them by image, theme, or use, and organizes multi-style and batch tasks. |
+| **Soldier** | `xxd-panel-NNN` | Each numbered Skill follows its own original brief and aesthetic to complete the specific task assigned by the General. |
 
 <!-- xxd-panel-command-system:end -->
 
-### Knowledge Planet + Member Prompt Library + All General Skills Membership · CNY 699/year
+### What you receive
 
-[Knowledge Planet](https://wx.zsxq.com/group/15554814142882), the [XXD Member Prompt Library](https://vip.xiaoxiaodong.ai/), and membership for all General Skills are one membership: **one annual payment unlocks all three benefits, with no second purchase required.**
+1. **One-to-one WeChat AI learning and project support**
+   Add Xiaoxiaodong on WeChat via the QR code below to discuss AI learning, tools, and real projects one to one, with practical guidance and answers. Representative questions may be organized into member resources.
+2. **A growing member prompt library**
+   The [XXD Member Prompt Library](https://vip.xiaoxiaodong.ai/) currently contains about 32,000 prompts and will keep expanding, with a goal of exceeding 100,000.
+3. **All General Skills and usage support**
+   One membership covers every General Skill, with usage guidance and Q&A when you need help.
+4. **Priority for high-need requests**
+   Frequently requested, high-need prompts and Skills are reviewed and developed first where appropriate.
 
-[Knowledge Planet](https://wx.zsxq.com/group/15554814142882) · [Member Prompt Library](https://vip.xiaoxiaodong.ai/)
+### How to join
 
-<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="XXD WeChat" width="280"></a></p>
+- [Activate membership on the member website](https://vip.xiaoxiaodong.ai/).
+- Or scan the QR code below to add Xiaoxiaodong on WeChat for one-to-one activation support.
+
+<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="Contact Xiaoxiaodong" width="280"></a></p>
 <!-- xxd-readme-ads:end -->
 
 ## License

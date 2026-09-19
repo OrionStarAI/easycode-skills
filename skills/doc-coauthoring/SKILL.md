@@ -1,11 +1,17 @@
 ---
 name: doc-coauthoring
 category: 文档办公
-description: Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
+description: Guide users through a structured workflow for co-authoring documentation.
+  Use when user wants to write documentation, proposals, technical specs, decision
+  docs, or similar structured content. This workflow helps users efficiently transfer
+  context, refine content through iteration, and verify the doc works for readers.
+  Trigger when user mentions writing docs, creating proposals, drafting specs, or
+  similar documentation tasks.
 upstream: anthropics/skills
 upstreamPath: skills/doc-coauthoring
-upstreamSha: 41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f
+upstreamSha: 34040c9c568585f6929bedeaad110ad08f079624
 author: anthropics
+---
 ---
 
 # Doc Co-Authoring Workflow

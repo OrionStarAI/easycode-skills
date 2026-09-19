@@ -1,12 +1,18 @@
 ---
 name: pdf
 category: 文档办公
-description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
+description: Use this skill whenever the user wants to do anything with PDF files.
+  This includes reading or extracting text/tables from PDFs, combining or merging
+  multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks,
+  creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images,
+  and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file
+  or asks to produce one, use this skill.
 license: Proprietary. LICENSE.txt has complete terms
 upstream: anthropics/skills
 upstreamPath: skills/pdf
-upstreamSha: 41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f
+upstreamSha: 34040c9c568585f6929bedeaad110ad08f079624
 author: anthropics
+---
 ---
 
 # PDF Processing Guide

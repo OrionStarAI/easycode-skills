@@ -8,23 +8,36 @@
 
 </div>
 
-## サンプル展示
+## 16:9 左右の作例
 
-以下のサンプルはそれぞれ異なる原画像を使い、Panel 116 が一枚ずつ独立した一回の生成で作成しました。AIメタデータは削除済みです。横長は左に実写、右にデザインを置く厳密な50:50、縦長は上に実写、下にデザインを置く厳密な50:50です。
+独立した4点の素材による 16:9 完成キャンバス。左が現実写真、右が本 Panel のデザイン、厳密に 50:50。
 
-**16:9 横長 · 左右 50:50**
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-05.png" alt="XXD Panel 116 Sample 5"></td>
+    <td width="50%"><img src="./assets/examples/sample-06.png" alt="XXD Panel 116 Sample 6"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-07.png" alt="XXD Panel 116 Sample 7"></td>
+    <td width="50%"><img src="./assets/examples/sample-08.png" alt="XXD Panel 116 Sample 8"></td>
+  </tr>
+</table>
 
-| sample-05 | sample-06 |
-|---|---|
-| ![sample-05](assets/examples/sample-05.png) | ![sample-06](assets/examples/sample-06.png) |
-| ![sample-07](assets/examples/sample-07.png) | ![sample-08](assets/examples/sample-08.png) |
+## 3:4 上下の作例
 
-**3:4 縦長 · 上下 50:50**
+16:9 組とは別の独立した4点で、3:4 上下の完成キャンバスを生成。上が現実写真、下がデザイン、厳密に 50:50。
 
-| sample-09 | sample-10 |
-|---|---|
-| ![sample-09](assets/examples/sample-09.png) | ![sample-10](assets/examples/sample-10.png) |
-| ![sample-11](assets/examples/sample-11.png) | ![sample-12](assets/examples/sample-12.png) |
+<table>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-09.png" alt="XXD Panel 116 additional top-bottom sample 1"></td>
+    <td width="50%"><img src="./assets/examples/sample-10.png" alt="XXD Panel 116 additional top-bottom sample 2"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="./assets/examples/sample-11.png" alt="XXD Panel 116 additional top-bottom sample 3"></td>
+    <td width="50%"><img src="./assets/examples/sample-12.png" alt="XXD Panel 116 additional top-bottom sample 4"></td>
+  </tr>
+</table>
+
 
 ## 向いている場面と解決する課題
 
@@ -44,46 +57,14 @@
 - 比較レイアウトを二つの50:50領域だけに固定し、タイトル帯や第三の帯を作りません。
 - 常に現在の原画像から一度で生成し、サンプルや中間結果、他 Panel の作品を再入力しません。
 
-## 原文プロンプト · 5言語
+## 使い方のコツ
 
-[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
-
-中国語ファイルはユーザーの原文を一字一句保存し、実行時の唯一の創作・美的権威です。他の4ファイルは完全で忠実な閲覧用翻訳であり、生成指示を書き換えません。
-
-**特徴語：** 極淡の紙面 · 粗いパステルクレヨン輪郭 · 最小限の落書き記号 · 小さな主体 · 写真由来2–4色 · 明快な色線 · 大きな余白 · 古い機械印字
-
-## クイック判定
-
-| 気になること | Panel 116 の答え |
-|---|---|
-| 写真とデザインの関係を明確にしたい | 上に実写を残し、同じ主体の落書き翻訳を下で応答させます。 |
-| 抽象化しても認識できるか | 主題、関係、輪郭の流れ、姿勢、色の記憶を優先して残します。 |
-| パステルが灰色にならないか | 極淡の背景、明快な色線、少量の柔らかな色面で可読性を保ちます。 |
-| サイズを柔軟にしたい | 一般的な比率、正確なピクセル、4モード、フォルダ一括に対応します。 |
-
-## 写真を作品に変える流れ
-
-```text
-主題と関係を理解 → 輪郭・姿勢・方向・感情を抽出 → 二次情報を削除 → 粗いクレヨン線と少量のパステル面で再構成 → 淡い紙面と簡素な落書き記号に配置 → 余白と控えめな機械印字で仕上げる
-```
-
-## 完成品の識別ポイント
-
-- 背景は明るく清潔なほぼ白い紙色で、主体の線と色面より明らかに明るい。
-- 輪郭は太く、乾いた粉状で、途切れや揺れ、閉じきらない端部を含む。
-- 周囲の記号は一筆か数筆の素朴な線で、精密なアイコンやステッカーにはしない。
-- 主体は小さく、偏心、端寄せ、浮遊、部分切り取りなどになり、余白自体が構図を作る。
-- 写真から親和性のある2–4色を抽出し、明るく柔らかなパステル色に整える。
-- 文字は少量の編集的介入にとどめ、字間の揺らぎを持つ古い機械印字を使う。
-
-## 4つの出力モード
-
-- `top-bottom`：全幅の上下2領域のみ。実写を上、デザインを下に置き、各50%。
-- `left-right`：全高の左右2領域のみ。実写を左、デザインを右に置き、各50%。上下構成へ回転しません。
-- `design-only`：全画面を Panel 116 のデザイン翻訳にし、写真は見えない参照にします。
-- `wallpaper-pack`：スマートフォン、iPad、デスクトップ、時計を端末ごとに生成。`linked` または `independent` を選べます。
-
-モードと比率は複数指定できます。`1:1`、`3:4`、`4:3`、`4:5`、`5:4`、`2:3`、`3:2`、`9:16`、`16:9`、`21:9`、`5:7`、`7:5`、正確なピクセルに対応します。文字はプロンプト生成、指定文の逐字使用、なしから選べます。フォルダ入力では各画像を分離して処理し、PNGを一つの新しいタスクフォルダへ置きます。
+- **まず一枚の見やすい写真から始める：** 主体・動作・関係が分かる画像を選んでから、出力形式と比率を決めます。
+- **パラメータを一文でつなぐ：** 「上下 / 左右 / デザインのみ + 16:9 / 3:4 / スマホ壁紙」のように指定し、PC・タブレット・スマートウォッチのサイズも追加できます。
+- **残したい内容を明示する：** 人物、物、動作、関係、文字を指定し、レイアウトを細かく縛りすぎずスタイルに任せます。
+- **文字の方法を選ぶ：** 画像から自動生成、`--text exact --copy` で逐字固定、または `--text none` で文字なしにできます。
+- **写真領域とデザイン領域を伝える：** 上下・左右では写真を残す側と再設計する側を指定し、デザインのみ・壁紙では全画面を再設計すると伝えます。
+- **一枚で試してから一括処理する：** モード、比率、文字、言語を一枚で確認し、同じ設定をフォルダに適用します。比較しやすいよう一度に一つだけ変更します。
 
 ## はじめに
 
@@ -102,34 +83,71 @@ npx skills add https://github.com/nevertoday/xxd-panel-116 --skill xxd-panel-116
 
 完全な実行契約は [SKILL.md](SKILL.md)、実行アダプターは[英語](references/xxd-panel-116-prompt.en.md)／[中国語](references/xxd-panel-116-prompt.zh-CN.md)を参照してください。
 
+## 原文プロンプト · 5言語
+
+[简体中文](references/original-prompt/zh-CN.md) · [English](references/original-prompt/en.md) · [日本語](references/original-prompt/ja.md) · [한국어](references/original-prompt/ko.md) · [العربية](references/original-prompt/ar.md)
+
+中国語ファイルはユーザーの原文を一字一句保存し、実行時の唯一の創作・美的権威です。他の4ファイルは完全で忠実な閲覧用翻訳であり、生成指示を書き換えません。
+
+**特徴語：** 極淡の紙面 · 粗いパステルクレヨン輪郭 · 最小限の落書き記号 · 小さな主体 · 写真由来2–4色 · 明快な色線 · 大きな余白 · 古い機械印字
+
+## クイック判定
+
+| 気になること | Panel 116 の答え |
+|---|---|
+| 写真とデザインの関係を明確にしたい | 上に実写を残し、同じ主体の落書き翻訳を下で応答させます。 |
+| 抽象化しても認識できるか | 主題、関係、輪郭の流れ、姿勢、色の記憶を優先して残します。 |
+| パステルが灰色にならないか | 極淡の背景、明快な色線、少量の柔らかな色面で可読性を保ちます。 |
+| サイズを柔軟にしたい | 一般的な比率、正確なピクセル、4モード、フォルダ一括に対応します。 |
+
+## 4つの出力モード
+
+- `top-bottom`：全幅の上下2領域のみ。実写を上、デザインを下に置き、各50%。
+- `left-right`：全高の左右2領域のみ。実写を左、デザインを右に置き、各50%。上下構成へ回転しません。
+- `design-only`：全画面を Panel 116 のデザイン翻訳にし、写真は見えない参照にします。
+- `wallpaper-pack`：スマートフォン、iPad、デスクトップ、時計を端末ごとに生成。`linked` または `independent` を選べます。
+
+モードと比率は複数指定できます。`1:1`、`3:4`、`4:3`、`4:5`、`5:4`、`2:3`、`3:2`、`9:16`、`16:9`、`21:9`、`5:7`、`7:5`、正確なピクセルに対応します。文字はプロンプト生成、指定文の逐字使用、なしから選べます。フォルダ入力では各画像を分離して処理し、PNGを一つの新しいタスクフォルダへ置きます。
+
 <!-- xxd-readme-ads:start -->
 ## XXD について
 
-XXD は Xiaoxiaodong のブランド名略称です。作成・管理： [@xiaoxiaodong01](https://x.com/xiaoxiaodong01).
+XXD は Xiaoxiaodong のブランド名略称です。本プロジェクトの作成・管理：[@xiaoxiaodong01](https://x.com/xiaoxiaodong01)。
 
-## サポートとメンバーシップ
+## Xiaoxiaodong マルチプラットフォーム会員 · 年額 CNY 699
 
-> **広告表示：** このセクションのQRコードおよび有料会員・サービスのリンクはXXDのプロモーション情報です。スキャンや購入は任意であり、オープンソースの利用には影響しません。
+> **広告表示：** 以下のQRコード、会員および有料サービスのリンクはXXDの広告情報です。スキャンや購入は任意であり、オープンソースの利用には影響しません。
 
+年額会員ひとつで、**Knowledge Planet＋XXD会員プロンプトライブラリ＋すべてのGeneral Skills会員**の3つを利用できます。別々に購入する必要はありません。
 
 <!-- xxd-panel-command-system:start -->
 
-すべての将軍 Skills は年額 CNY 699 の共通会員特典に含まれ、別途購入は不要です。
+### Skills の連携方法
 
-| 階級 | Skill | 担当 |
+| 区分 | 含まれるもの | 役割 |
 |---|---|---|
-| **将軍級** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | 利用可能な番号付き Skills の検出、画像・テーマ・用途からの推薦、番号指定の派遣、同一素材の複数スタイル試作、フォルダー画像の一括割り当てと個別派遣。 |
-| **兵士級** | `xxd-panel-NNN` | 各番号が固有の原文プロンプトと美学だけを実行し、将軍から渡された一つの仕事を完成させます。 |
+| **General** | [`xxd-panel-all`](https://github.com/xiaoxiaodong-ai/xxd-panel-all) | 利用可能な番号付きSkillsを検出し、画像・テーマ・用途から推薦し、複数スタイルや一括タスクを整理します。 |
+| **Soldier** | `xxd-panel-NNN` | 各番号が固有の原文プロンプトと美学に従い、Generalから割り当てられた具体的な作業を完成させます。 |
 
 <!-- xxd-panel-command-system:end -->
 
-### 知識星球＋会員プロンプトライブラリ＋全将軍 Skills 会員 · 年額 CNY 699
+### 会員の内容
 
-[知識星球](https://wx.zsxq.com/group/15554814142882)、[XXD 会員プロンプトライブラリ](https://vip.xiaoxiaodong.ai/)、全将軍 Skills 会員は同じ会員権です。**一度の年額決済で3つの特典をすべて利用でき、二重の購入は不要です。**
+1. **WeChatでの一対一AI学習・プロジェクト相談**
+   下のQRコードからXiaoxiaodongのWeChatを追加し、AI学習、ツール、実際のプロジェクトについて一対一で相談できます。代表的な質問は会員向けコンテンツに整理されます。
+2. **継続更新する会員プロンプトライブラリ**
+   [XXD会員プロンプトライブラリ](https://vip.xiaoxiaodong.ai/)には現在約3.2万件のプロンプトがあり、10万件超を目標に継続して拡充します。
+3. **すべてのGeneral Skillsと利用サポート**
+   ひとつの会員で全General Skillsを利用でき、使い方に困ったときは案内やQ&Aを受けられます。
+4. **必要性の高い要望を優先**
+   会員から寄せられた頻度と必要性の高いプロンプトやSkillsは、優先して検討・開発します。
 
-[Knowledge Planet](https://wx.zsxq.com/group/15554814142882) · [Member Prompt Library](https://vip.xiaoxiaodong.ai/)
+### 開設方法
 
-<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="XXD WeChat" width="280"></a></p>
+- [会員サイトから自分で開設](https://vip.xiaoxiaodong.ai/)できます。
+- または下のQRコードからXiaoxiaodongのWeChatを追加し、一対一で開設サポートを受けられます。
+
+<p align="center"><a href="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png"><img src="https://xiaoxiaodong.pages.dev/assets/wechat-qr.png" alt="Xiaoxiaodongへの連絡" width="280"></a></p>
 <!-- xxd-readme-ads:end -->
 
 ## ライセンス
