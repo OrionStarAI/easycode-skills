@@ -6,11 +6,11 @@
       "zh": "网页 PPT 生成",
       "en": "Guizang Web PPT"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "usageExample": "帮我把一篇关于消费趋势的文章做成网页 PPT，保留封面、三条核心观点和结论，整体做成杂志风，打开网页就能播放。"
   },
   "storage": {
-    "packageKey": "skills/guizang-ppt-skill/guizang-ppt-skill_1.0.0.zip"
+    "packageKey": "skills/guizang-ppt-skill/guizang-ppt-skill_1.0.1.zip"
   },
   "media": {
     "icon": {
