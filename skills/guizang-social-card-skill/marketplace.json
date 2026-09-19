@@ -7,9 +7,6 @@
       "en": "Guizang Social Cards"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "帮我把这篇文章做成一套小红书 3:4 图文，采用瑞士风，包含封面、4 张内容卡和统一的结尾页。",
     "description": {
       "zh": "生成归藏风格社交卡片：小红书 3:4 图文集、实况照片（Live Photo）动态卡片、素材优先的实况拼图、三连实况拼图、长视频转实况处理，以及微信公众号 21:9 + 1:1 封面组。",
