@@ -7,9 +7,6 @@
       "en": "Guizang Product Video"
     },
     "version": "1.0.0",
-    "source": "git-sync",
-    "active": true,
-    "deleted": false,
     "usageExample": "我们刚发布了 v2.3.0，更新内容在 CHANGELOG.md 里。帮我把这次更新做成一支 45 秒左右的横版宣传片：复用产品自己的界面组件和配色，配上原创音乐和动作音效，最后交付 MP4 和可复现的工程目录。",
     "description": {
       "zh": "制作代码驱动的软件版本更新宣传片（release notes video、changelog promo）。从真实更新提炼卖点，复用产品组件和设计语言，完成分镜、代码原创配乐、动作音效、渲染与验收。",
