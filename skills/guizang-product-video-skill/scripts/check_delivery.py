@@ -119,8 +119,12 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
         if required-linked:issue.append('Key actions without SFX: '+', '.join(sorted(required-linked)))
         if production and final_video and mix_report is None:errors.append('Final video needs --mix-report evidence of BGM + SFX assembly; audio stream existence is insufficient')
     motion=plan.get('motion')
-    if not isinstance(motion,dict):
-        issue.append('Record the user decision on UI motion and camera zoom in plan.motion');motion={}
+    if motion is None:
+        # Plans made before this question existed stay valid; the decision still has to be recorded.
+        warnings.append('plan.motion is not recorded; ask for the UI motion and camera zoom decision once and rerun the check')
+        motion={}
+    elif not isinstance(motion,dict):
+        issue.append('plan.motion must be an object');motion={}
     elif not all(isinstance(motion.get(key),bool) for key in ['uiEffects','cameraMove']):
         issue.append('plan.motion needs boolean uiEffects and cameraMove')
     if (motion.get('uiEffects') is False or motion.get('cameraMove') is False) and not nonempty(motion.get('exceptionReason')):
@@ -139,8 +143,10 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
             issue.append(label+' declares a UI state animation the user declined')
     if motion.get('cameraMove') is True and plan['duration']>=30 and not camera_moves:
         warnings.append('Camera zoom in/out was confirmed but no shot records one; review the camera plan or record the change')
-    if not isinstance(plan.get('voiceoverRequired'),bool):
-        issue.append('voiceoverRequired must explicitly record the user decision on narration')
+    if plan.get('voiceoverRequired') is None:
+        warnings.append('voiceoverRequired is not recorded; ask for the narration decision once and rerun the check')
+    elif not isinstance(plan['voiceoverRequired'],bool):
+        issue.append('voiceoverRequired must be a boolean user decision')
     elif plan['voiceoverRequired'] is False:
         if not nonempty(plan.get('voiceoverExceptionReason')):
             issue.append('Declining voiceover needs voiceoverExceptionReason documenting the user request')
@@ -156,7 +162,6 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
                 label='voiceover line '+str(index)
                 if not isinstance(line,dict):issue.append(label+' must be an object');continue
                 if not nonempty(line.get('text')):issue.append(label+' needs its spoken text')
-                if not nonempty(line.get('file')):issue.append(label+' needs its generated file')
                 if not number(line.get('at')) or not number(line.get('duration')) or line['duration']<=0:
                     issue.append(label+' needs measured at and duration');continue
                 span=spans.get(line.get('shot'))
@@ -180,7 +185,7 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
             entries=[report['master'],report['sfxStem'],report['music'],*([report['musicStem']] if 'musicStem' in report else []),*([report['voiceStem']] if report.get('voiceStem') else []),*report['cues']]
             if plan.get('voiceoverRequired'):
                 if not report.get('voiceover'):errors.append('Narrated film needs voiceover evidence in the mix report')
-                else:entries.extend([report['voiceover'],*report['voiceover'].get('lines',[])])
+                else:entries.extend([report['voiceover'],*[line for line in report['voiceover'].get('lines',[]) if line.get('sha256')]])
             for entry in entries:
                 if not isinstance(entry.get('sha256'),str):errors.append('Mix asset is missing its hash: '+str(entry.get('file')))
                 elif digest(base/entry['file'])!=entry['sha256']:errors.append('Mix asset hash mismatch: '+entry['file'])

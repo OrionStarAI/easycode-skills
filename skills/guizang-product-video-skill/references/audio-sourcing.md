@@ -85,6 +85,9 @@ python3 <skill-dir>/scripts/make_voiceover.py --plan plan.json --output <video-d
 
 脚本按 `lines[].text` 生成 `assets/voice/line-NN.wav`，按每句的 `at` 拼成 `assets/voice/voiceover.wav`，并把实测时长、文件哈希和可粘回 plan 的 `planSnippet` 写进 `evidence/voiceover.json`。
 
+`audio.voiceover.file` 是真正进混音的那条人声轨：`gain` 是它的整体音量，`lines[]` 只提供时间表（让位窗口、镜头对齐和逐句证据）。因此换成人声录音时直接替换这个文件即可，逐句的 `lines[].file` 只是生成过程的留档，缺了不影响混音。
+
+
 旁白的写法：
 
 - 是写给人听的句子，不是标题的复述。一句放一到两个信息点，写完念一遍再改。

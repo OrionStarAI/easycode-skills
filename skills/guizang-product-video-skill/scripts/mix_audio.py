@@ -159,14 +159,11 @@ def mix(plan_path):
     filters.append(''.join(f'[c{i}]' for i in range(len(cues)))+f'amix=inputs={len(cues)}:normalize=0,apad,atrim=duration={duration}[sfx]')
     # Float stem preserves summed transients until mastering; no early hard clipping.
     run([*inputs,'-filter_complex',';'.join(filters),'-map','[sfx]','-c:a','pcm_f32le','-ar','48000',str(stem)])
-    voice_stem=voice_stem_path if voiceLines else None
+    voice_stem=voice_stem_path if voiceover else None
     if voice_stem:
-        voice_inputs=[];voice_filters=[]
-        for i,line in enumerate(voiceLines):
-            voice_inputs += ['-i',str((base/line['file']).resolve())]
-            voice_filters.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo,volume={line.get('gain',1)},adelay={round(line['at']*1000)}:all=1[v{i}]")
-        voice_filters.append(''.join(f'[v{i}]' for i in range(len(voiceLines)))+f'amix=inputs={len(voiceLines)}:normalize=0,aformat=channel_layouts=stereo,apad,atrim=duration={duration}[voice]')
-        run([*voice_inputs,'-filter_complex',';'.join(voice_filters),'-map','[voice]','-c:a','pcm_f32le','-ar','48000',str(voice_stem)])
+        # The assembled track is the voice source that enters the mix; lines carry the timing map and the per-line evidence.
+        voice_filters=f"aresample=48000,aformat=channel_layouts=stereo,volume={voiceover.get('gain',1)},apad,atrim=duration={duration}"
+        run(['-i',str((base/voiceover['file']).resolve()),'-af',voice_filters,'-c:a','pcm_f32le','-ar','48000',str(voice_stem)])
     windows=duck_windows(audio,cues,duration)+voice_windows(audio,voiceLines,duration)
     envelope=duck_expression(windows)
     bg_filters=f"aresample=48000,asetnsamples=n=240:p=0,volume='{music.get('gain',1)}*({envelope})':eval=frame,afade=t=in:d=0.025,afade=t=out:st={max(0,duration-.5)}:d=0.5,atrim=duration={duration}"
@@ -198,7 +195,7 @@ def mix(plan_path):
     voiceover_entry=None
     if voiceover:
         voiceover_entry={**{k:v for k,v in voiceover.items() if k!='lines'},'sha256':sha((base/voiceover['file']).resolve()),
-                         'lines':[{**line,'sha256':sha((base/line['file']).resolve())} for line in voiceLines]}
+                         'lines':[{**line,**({'sha256':sha((base/line['file']).resolve())} if isinstance(line.get('file'),str) and (base/line['file']).is_file() else {})} for line in voiceLines]}
     report={'planSha256':sha(plan_path),'music':{**music,'sha256':sha(music_path)},'cues':[{**c,'sha256':sha((base/c['file']).resolve())} for c in cues],
             'voiceover':voiceover_entry,
             'master':{'file':'assets/master.wav','sha256':sha(master)},'sfxStem':{'file':'assets/sfx-stem.wav','sha256':sha(stem)},

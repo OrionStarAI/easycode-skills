@@ -153,7 +153,7 @@ def assemble(lines, duration, target):
     args = ['ffmpeg', '-v', 'error', '-y']
     for line in lines:
         args += ['-i', str(line['path'])]
-    filters = ['[%d:a]aresample=%d,adelay=%d:all=1[l%d]' % (index, SAMPLE_RATE, round(line['at'] * 1000), index)
+    filters = ['[%d:a]aresample=%d,volume=%s,adelay=%d:all=1[l%d]' % (index, SAMPLE_RATE, line.get('gain', 1), round(line['at'] * 1000), index)
                for index, line in enumerate(lines)]
     voices = ''.join('[l%d]' % index for index in range(len(lines)))
     filters.append(voices + 'amix=inputs=%d:normalize=0,apad,atrim=duration=%s[voice]' % (len(lines), duration))
@@ -250,6 +250,7 @@ def main():
                 raise RuntimeError('All transports failed for line %d:\n  %s' % (position, '\n  '.join(failures)))
             line_duration = duration_of(target)
             records.append({'index': position, 'shot': line['shot'], 'at': line['at'], 'duration': round(line_duration, 3),
+                            'gain': line.get('gain', 1),
                             'text': line['text'], 'textSha256': sha256_bytes(line['text'].encode('utf-8')),
                             'file': str(target.relative_to(project)), 'sha256': sha256_file(target),
                             'sampleRate': SAMPLE_RATE, 'path': target})
