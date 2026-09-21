@@ -20,6 +20,8 @@ class Delivery(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name).resolve()
         (self.root/'evidence.md').write_text('Release evidence fixture')
         self.plan={'demo':False,'style':'repo','duration':5,'fps':30,'width':1920,'height':1080,'audioRequired':False,'audioExceptionReason':'User requested a silent version',
+            'voiceoverRequired':False,'voiceoverExceptionReason':'User requested a silent version',
+            'motion':{'uiEffects':True,'cameraMove':True},
             'typography':{'mode':'bilingual','zhStyle':'sans-serif','zhFont':'Noto Sans CJK','enFont':'Georgia'},
             'shots':[{'id':'feature','start':0,'end':5,'type':'detail','headline':'切换模型，继续对话','headlineEn':'Switch models','claim':True,'source':['file:evidence.md'],
                 'plainExplanation':'切换模型后，可以带着之前的对话继续工作。','description':'切换模型后，对话内容会保留。','component':'src/selector.tsx','actions':[]}]}
@@ -65,6 +67,91 @@ class Delivery(unittest.TestCase):
         self.assertEqual(delivery.source_file(str(repo/'release.md'),self.root,None),repo/'release.md')
     def test_external_evidence_not_treated_as_file(self):
         self.plan['shots'][0]['source']=['https://example.org/release.md','tag:v1.0','commit:abc123'];self.assertEqual(self.errors(),[])
+    def test_voiceover_exception_required(self):
+        self.plan['voiceoverRequired']=False
+        for value in [None,'','   ']:
+            self.plan['voiceoverExceptionReason']=value
+            self.assertTrue(any('voiceoverExceptionReason' in x for x in self.errors()))
+    def test_voiceover_needs_file_and_lines(self):
+        self.plan['voiceoverRequired']=True
+        self.assertTrue(any('audio.voiceover.file' in x for x in self.errors()))
+        self.plan['audio']={'voiceover':{'file':'assets/voice/voiceover.wav','lines':[]}}
+        self.assertTrue(any('audio.voiceover.lines' in x for x in self.errors()))
+    def test_voiceover_line_outside_its_shot_warns(self):
+        self.plan['voiceoverRequired']=True
+        self.plan['audio']={'voiceover':{'file':'assets/voice/voiceover.wav','lines':[
+            {'shot':'feature','at':4.0,'duration':2.5,'text':'切换模型后，对话会保留。','file':'assets/voice/line-01.wav'}]}}
+        result=delivery.check(self.plan,project_dir=self.root)
+        self.assertEqual(result['errors'],[])
+        self.assertTrue(any('shot' in w and ('outside' in w or 'longer' in w) for w in result['warnings']))
+    def test_motion_exception_required(self):
+        self.plan['motion']={'uiEffects':True,'cameraMove':False}
+        self.assertTrue(any('motion.exceptionReason' in x for x in self.errors()))
+    def test_shot_camera_move_conflicts_with_user_choice(self):
+        self.plan['motion']={'uiEffects':True,'cameraMove':False,'exceptionReason':'User asked for a static camera'}
+        self.plan['shots'][0]['motion']={'camera':'push-in'}
+        self.assertTrue(any('camera move the user declined' in x for x in self.errors()))
+    def test_missing_motion_and_narration_only_warn(self):
+        # Plans made before these questions existed must keep passing; the reminder is a warning.
+        del self.plan['motion']
+        del self.plan['voiceoverRequired']
+        del self.plan['voiceoverExceptionReason']
+        result=delivery.check(self.plan,project_dir=self.root)
+        self.assertEqual(result['errors'],[])
+        self.assertTrue(any('plan.motion' in item for item in result['warnings']))
+        self.assertTrue(any('voiceoverRequired' in item for item in result['warnings']))
+
+
+def mean_volume(path):
+    output=subprocess.run(['ffmpeg','-hide_banner','-i',str(path),'-af','volumedetect','-f','null','-'],capture_output=True,text=True).stderr
+    for line in output.splitlines():
+        if 'mean_volume' in line:return float(line.split('mean_volume:')[1].strip().split()[0])
+    raise AssertionError('volumedetect reported no mean_volume')
+
+
+class VoiceMix(unittest.TestCase):
+    """Exercises the real narrated mix path, which the plan-only checks cannot cover."""
+    @unittest.skipUnless(shutil.which('ffmpeg') and shutil.which('ffprobe'),'FFmpeg needed for the narrated mix regression')
+    def test_voice_layer_uses_the_assembled_track_and_its_gain(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);(root/'assets/sfx').mkdir(parents=True);(root/'assets/voice').mkdir(parents=True)
+            def tone(path,frequency,duration,channels=1):
+                subprocess.run(['ffmpeg','-v','error','-y','-f','lavfi','-i','sine=frequency=%d:duration=%s:sample_rate=48000'%(frequency,duration),'-ac',str(channels),str(path)],check=True)
+            tone(root/'assets/music.wav',300,2,2)
+            tone(root/'assets/voice/voiceover.wav',700,2)
+            tone(root/'assets/voice/line-01.wav',700,1)
+            shutil.copy(ROOT/'assets/audio/sfx/click.wav',root/'assets/sfx/click.wav')
+            plan={'demo':True,'style':'repo','duration':2,'fps':30,'width':1920,'height':1080,'audioRequired':True,'sfxRequired':True,'voiceoverRequired':True,
+                  'motion':{'uiEffects':True,'cameraMove':True},
+                  'shots':[{'id':'intro','start':0,'end':2,'type':'title','headline':'旁白进混音','claim':False,'source':[],
+                            'description':'旁白进混音。','descriptionAt':0,'plainExplanation':'旁白进混音。',
+                            'actions':[{'id':'line-appear','at':0.8,'action':'重点行出现','soundRequired':True}]}],
+                  'audio':{'ducking':{'enabled':True},'music':{'file':'assets/music.wav','gain':0.6},
+                           'voiceover':{'file':'assets/voice/voiceover.wav','gain':1.0,
+                                        'lines':[{'shot':'intro','at':0.2,'duration':1.0,'text':'旁白进混音。','file':'assets/voice/line-01.wav'}]},
+                           'cues':[{'at':0.8,'actionId':'line-appear','file':'assets/sfx/click.wav','gain':0.8,'role':'sfx','kind':'click'}]}}
+            plan_path=root/'plan.json'
+            def mix_with(gain):
+                plan['audio']['voiceover']['gain']=gain
+                plan_path.write_text(json.dumps(plan,ensure_ascii=False))
+                subprocess.run([sys.executable,str(ROOT/'scripts/mix_audio.py'),str(plan_path)],capture_output=True,check=True)
+                report=json.loads((root/'evidence/audio-mix.json').read_text())
+                stem=root/('stem-%s.wav'%gain);shutil.copy(root/'assets/voice-stem.wav',stem)
+                return report,stem
+            loud,loud_stem=mix_with(1.0)
+            (root/'assets/voice/line-01.wav').unlink()
+            quiet,quiet_stem=mix_with(0.4)
+            self.assertTrue(loud.get('voiceStem'),'a narrated mix keeps an isolated voice stem')
+            self.assertEqual(loud['normalization']['requested']['integratedLufs'],-14)
+            self.assertIn('voice',{window['kind'] for window in loud['ducking']['windows']})
+            self.assertEqual(loud['voiceover']['file'],'assets/voice/voiceover.wav')
+            self.assertIn('sha256',loud['voiceover'])
+            self.assertTrue(any(line.get('sha256') for line in loud['voiceover']['lines']),'per-line evidence keeps its hash')
+            self.assertFalse(any(line.get('sha256') for line in quiet['voiceover']['lines']),'missing per-line files remain optional evidence')
+            # 1.0 versus 0.4 is about 8 dB, so the overall gain has to reach the mixed voice track.
+            self.assertLess(mean_volume(quiet_stem),mean_volume(loud_stem)-5)
+
+
 class Preflight(unittest.TestCase):
     def probe(self,project,launch_ok=True):
         def fake_run(args,cwd=None,timeout=30):

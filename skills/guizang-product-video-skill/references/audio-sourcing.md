@@ -66,6 +66,38 @@ PY
 
 需要调整内置音色时才修改/运行 `scripts/make_sfx.py --output <new-sfx-dir>`，不要覆盖已经选定的外部素材。whoosh/sweep 的响亮落点位于文件中间，应试听/检查波形后设置 `syncOffset`；文件开始不等于声音落点。
 
+## 需要旁白时按句生成
+
+需求确认阶段已经问过用户要不要旁白。只有用户要的时候才做，不要默认给每支片子加旁白。
+
+旁白用 EasyRouter 上的 Gemini TTS 生成。在 [EasyRouter](https://ezr.sh/) 申请 key 后只放进环境变量 `EASYROUTER_API_KEY` 或视频工程的 `.env`（`.env` 已在忽略规则里）。key 不写进 `plan.json`、证据文件或提交记录，`evidence/voiceover.json` 里只记 `apiKeySource`。没有 key 时如实说明并等用户提供，不假装生成成功，也不要静默换成别的音色或服务。
+
+按镜头逐句生成，而不是整段一次生成：每句的起点要贴镜头和卡点，改一句只重录那一句，总长度也不会失控。
+
+实测记录（2026-09-21）：`https://llm-endpoint.net/v1` 当时返回 102 个模型，其中可用的 TTS 是 `gemini-3.1-flash-tts-preview` 和 `gpt-4o-mini-tts`；不带 `-preview` 的 `gemini-3.1-flash-tts` 会返回 `model_not_found`。脚本走 OpenAI 兼容的 `/audio/speech`，把返回的音频转成 48 kHz 单声道 WAV。模型列表和可用性会变，制作前仍要用 `--list-models` 核对一次。
+
+```sh
+# 先查网关实际提供的 TTS 模型 id，不要凭记忆写死。
+python3 <skill-dir>/scripts/make_voiceover.py --list-models
+# 按 plan.json 的 audio.voiceover.lines 逐句生成、拼装并写证据。
+python3 <skill-dir>/scripts/make_voiceover.py --plan plan.json --output <video-dir>
+```
+
+脚本按 `lines[].text` 生成 `assets/voice/line-NN.wav`，按每句的 `at` 拼成 `assets/voice/voiceover.wav`，并把实测时长、文件哈希和可粘回 plan 的 `planSnippet` 写进 `evidence/voiceover.json`。
+
+`audio.voiceover.file` 是真正进混音的那条人声轨：`gain` 是它的整体音量，`lines[]` 只提供时间表（让位窗口、镜头对齐和逐句证据）。因此换成人声录音时直接替换这个文件即可，逐句的 `lines[].file` 只是生成过程的留档，缺了不影响混音。
+
+
+旁白的写法：
+
+- 是写给人听的句子，不是标题的复述。一句放一到两个信息点，写完念一遍再改。
+- 句长跟着镜头时长走：中文约每秒 6–9 字是预警线，读不完就删词或加长镜头，不要靠加速。
+- `at` 默认落在所属镜头内，句尾留一点余量；如果为了叙事有意跨镜头或超出镜头时长，脚本只给出告警，需要结合画面、字幕和听感人工确认。
+- 只讲有来源的事实，旁白里的数字和效果主张同样要能追溯到变更记录。
+- 音色按产品和受众选（Gemini 预置音色，如 Aoede、Kore、Puck、Charon），一部片子只用一个音色。
+
+用户不要旁白时，在 plan 里记 `voiceoverRequired: false` 和 `voiceoverExceptionReason`（写用户的依据），不要一声不响地跳过。
+
 ## 4. 留下来源，再进入混音
 
 工程 `evidence/audio-selection.json` 简要记录：
