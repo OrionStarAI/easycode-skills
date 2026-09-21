@@ -9,7 +9,7 @@
 ```sh
 python3 <skill-dir>/scripts/init_project.py --output <video-dir> --style repo --repo <repo-dir>
 cd <video-dir>
-python3 <skill-dir>/scripts/check_environment.py --project . --engine browser
+python3 <skill-dir>/scripts/check_environment.py --project . --engine browser --voiceover <yes|no|undecided>
 # ready:true 跳过安装；缺项时按 references/onboarding.md 补齐后复查。
 npm run build
 npm run render -- --still 4 --output evidence/frame-04.png

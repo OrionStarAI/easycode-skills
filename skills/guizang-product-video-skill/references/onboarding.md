@@ -1,6 +1,6 @@
 # 依赖安装（仅有缺项时读取）
 
-先确认风格并初始化视频目录，再运行 `check_environment.py --project <video-dir>`。Python 不存在时先补 Python。检查脚本只用标准库，缺依赖也可运行并列出需要安装的项目。
+先确认风格并初始化视频目录，再运行 `check_environment.py --project <video-dir> --voiceover <第 1 步的旁白答案>`。Python 不存在时先补 Python。检查脚本只用标准库，缺依赖也可运行并列出需要安装的项目。
 
 ## 安装范围与验证
 
@@ -88,12 +88,19 @@ npx hyperframes browser ensure
 
 ## 旁白（可选）
 
-画外音不引入新的系统依赖，仍是 Python 与 FFmpeg，只多一个 EasyRouter key（在 https://ezr.sh/ 申请）。key 放环境变量 `EASYROUTER_API_KEY` 或视频工程的 `.env`，不要提交。缺 key 时不要把旁白写成已完成，说明情况并等用户提供；申请 key 不是必装步骤，用户不要旁白时整段可跳过。
+画外音不引入新的系统依赖，仍是 Python 与 FFmpeg，只多一个 EasyRouter key（在 https://ezr.sh/ 申请）。key 放环境变量 `EASYROUTER_API_KEY` 或视频工程的 `.env`，不要提交。
+
+**用户在需求确认阶段选了要旁白时，就在那一刻索取 key。** 检查脚本只在传了 `--voiceover yes` 时才把它报成 `prereqs`——它是用户提供的凭据，装不了，只能索取；而它挡的是混音不是渲染，拖到最后才发现会让用户白等整轮制作。缺 key 时不要把旁白写成已完成，说明情况并等用户提供；用户不要旁白时整段可跳过，脚本也不提这件事。
+
+两个实测过的环境问题，先按它们排查，不要误判成 key 或配额问题：
+
+- **macOS 上优先用 Homebrew 的 python3 跑旁白脚本。** 系统自带的 `/usr/bin/python3`（3.9 + LibreSSL）访问网关会报 `EOF occurred in violation of protocol`；`/opt/homebrew/bin/python3`（OpenSSL 3）正常。
+- **`/audio/speech` 偶发首次请求被对端断开**，报 `Remote end closed connection without response`。重试即可；批量生成时带一次重试。
 
 ## 复查
 
 ```sh
-python3 <skill-dir>/scripts/check_environment.py --project <video-dir> --engine browser --force
+python3 <skill-dir>/scripts/check_environment.py --project <video-dir> --engine browser --voiceover <yes|no|undecided> --force
 ```
 
 HyperFrames 改为 `--engine hyperframes`。成功后继续原分镜工作；只有缺项才重新读取对应段落。平台安装语法来自上述官方来源，实机覆盖以验证记录为准。
