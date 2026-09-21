@@ -3,6 +3,7 @@ import contextlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import subprocess
@@ -153,7 +154,7 @@ class VoiceMix(unittest.TestCase):
 
 
 class Preflight(unittest.TestCase):
-    def probe(self,project,launch_ok=True):
+    def probe(self,project,launch_ok=True,extra=()):
         def fake_run(args,cwd=None,timeout=30):
             out=''
             if '--version' in args:out='v22.0.0' if 'node' in args[0] else '10.0.0'
@@ -168,7 +169,7 @@ class Preflight(unittest.TestCase):
                     self.assertNotIn('executablePath()',js)
                     out=json.dumps({k:{'version':'1.0','path':'/unavailable/'+k} for k in ['playwright','esbuild','react','react-dom']})
             return {'ok':True,'stdout':out,'stderr':'','output':out}
-        with patch.object(environment,'run',side_effect=fake_run),patch.object(environment.shutil,'which',side_effect=lambda n:'/bin/'+n),patch('sys.argv',['check_environment','--project',str(project)]),contextlib.redirect_stdout(io.StringIO()) as output:
+        with patch.object(environment,'run',side_effect=fake_run),patch.object(environment.shutil,'which',side_effect=lambda n:'/bin/'+n),patch('sys.argv',['check_environment','--project',str(project),*extra]),contextlib.redirect_stdout(io.StringIO()) as output:
             with self.assertRaises(SystemExit) as caught:environment.main()
         return caught.exception.code,json.loads(output.getvalue())
     def test_headless_only_and_cache_revalidation(self):
@@ -176,6 +177,43 @@ class Preflight(unittest.TestCase):
             code,result=self.probe(Path(d));self.assertEqual(code,0);self.assertTrue(result['ready']);self.assertTrue(result['browser']['launched'])
             code,result=self.probe(Path(d));self.assertTrue(result['cached'])
             code,result=self.probe(Path(d),False);self.assertEqual(code,1);self.assertFalse(result['cached']);self.assertIn('browser-launch',result['missing'])
+    def test_narration_decision_gates_the_key_and_nothing_else(self):
+        # The key depends on the step-1 answer, not on the machine, so it is reported
+        # separately and must never be read as a broken toolchain.
+        with tempfile.TemporaryDirectory() as d:
+            project=Path(d)
+            with patch.dict(os.environ,{},clear=False):
+                os.environ.pop('EASYROUTER_API_KEY',None)
+                code,result=self.probe(project)
+                self.assertEqual(code,0);self.assertEqual(result['prereqs'],[])
+                self.assertEqual(result['voiceover'],{'requested':False,'keyResolved':False,'keySource':None})
+                code,result=self.probe(project,extra=['--voiceover','no'])
+                self.assertEqual(result['prereqs'],[]);self.assertFalse(result['warnings'])
+                code,result=self.probe(project,extra=['--voiceover','undecided'])
+                self.assertEqual(code,0);self.assertEqual(result['prereqs'],[])
+                self.assertTrue(any('undecided' in w for w in result['warnings']))
+                code,result=self.probe(project,extra=['--voiceover','yes'])
+                self.assertEqual(code,1);self.assertEqual(result['prereqs'],['easyrouter-api-key']);self.assertFalse(result['ready'])
+                self.assertNotIn('easyrouter-api-key',result['missing'])
+                self.assertTrue(result['browser']['launched'])
+                self.assertIn('Ask the user',result['next'])
+    def test_narration_key_resolution_never_echoes_the_secret(self):
+        with tempfile.TemporaryDirectory() as d:
+            project=Path(d);secret='sk-must-not-appear-anywhere'
+            (project/'.env').write_text('# comment\nOTHER=1\nEASYROUTER_API_KEY="%s"\n'%secret)
+            with patch.dict(os.environ,{},clear=False):
+                os.environ.pop('EASYROUTER_API_KEY',None)
+                code,result=self.probe(project,extra=['--voiceover','yes'])
+                self.assertEqual(code,0)
+                self.assertEqual(result['voiceover'],{'requested':True,'keyResolved':True,'keySource':'.env'})
+                self.assertNotIn(secret,json.dumps(result,ensure_ascii=False))
+                self.assertNotIn(secret,(project/'evidence/environment.json').read_text())
+                with patch.dict(os.environ,{'EASYROUTER_API_KEY':'  '+secret+'  '}):
+                    code,result=self.probe(project,extra=['--voiceover','yes'])
+                    self.assertEqual(result['voiceover']['keySource'],'environment')
+                    self.assertNotIn(secret,json.dumps(result,ensure_ascii=False))
+
+
 class Starter(unittest.TestCase):
     def test_default_repo_and_unedited_demo_promotion(self):
         with tempfile.TemporaryDirectory() as d:
