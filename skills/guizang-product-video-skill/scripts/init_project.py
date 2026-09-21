@@ -52,10 +52,15 @@ export function FeatureVisual() {
         shot.update({'descriptionAt':0,'claim':False,'source':[], 'plainExplanation':shot['description'],
                      'actions':[{'id':shot['id']+'-enter','at':0,'action':'copy enters','soundRequired':False}]})
         shot.setdefault('component', None)
+    shots[0]['motion']={'ui':'none','camera':'hold'}
+    shots[1]['motion']={'ui':'state-change','camera':'hold'}
+    shots[2]['motion']={'ui':'none','camera':'hold'}
     shots[1]['actions'].append({'id':'component-appear','at':0.45,'action':'controls appear','soundRequired':True})
     shots[2]['actions'][0]['soundRequired']=True
     plan = {'demo':True,'product':'软件更新 · 技术样片','style':args.style,'width':1920,'height':1080,'fps':30,'duration':10,
             'repo':str(repo) if repo else None,'audioRequired':True,'sfxRequired':True,
+            'voiceoverRequired':False,'voiceoverExceptionReason':'技术样片只验证渲染与混音链路，未安排旁白',
+            'motion':{'uiEffects':True,'cameraMove':False,'exceptionReason':'技术样片只演示字卡与控件入场，不安排镜头推拉'},
             'typography':{'mode':'bilingual','zhFont':'PingFang SC / Noto Sans CJK SC','enFont':'Georgia','zhStyle':'sans-serif'},
             'audio':{'ducking':{'enabled':True},'music':{'file':'assets/music.wav','gain':0.65},'cues':[
               {'at':3.45,'actionId':'component-appear','file':'assets/sfx/click.wav','gain':0.8,'role':'sfx','kind':'click'},
@@ -65,13 +70,13 @@ export function FeatureVisual() {
     (target/'BRIEF.md').write_text(f"""# 视频 brief
 
 - 状态：技术起步，尚未完成产品调研与分镜。
-- 风格选择：{args.style}（应来自用户已确认的选择）
+- 风格选择：{args.style}；动效与旁白：见 plan.json 的 `motion` 与 `voiceoverRequired`（应来自用户已确认的选择）
 - 仓库：{repo or '未指定，制作真实产品内容前补充'}
 - 产品 / 更新范围 / 发布状态：待从用户输入和仓库确定。
 - 平台 / 画幅 / 时长 / 语言：待记录；plan.json 当前仅为 10 秒技术样片。
 - 品牌资源 / 字体：待审计。
 - 是否允许链接 / CTA：待记录用户要求。
-- 声音：音乐默认用代码原创；音效先找适合本片的素材，缺项才用 skill 内置 WAV。技术样片尚未配音轨；plan 已分别列出配乐和关键动作音效，须实际准备并混入。
+- 声音：音乐默认用代码原创；音效先找适合本片的素材，缺项才用 skill 内置 WAV；需要旁白时按 `audio.voiceover.lines` 逐句生成并混入。技术样片尚未配音轨；plan 已分别列出配乐和关键动作音效，须实际准备并混入。
 - 卖点证据、风格审计与素材来源：记录在 evidence/。
 
 保留原有用户决定；没有确认的字段不要伪装成已确认。正式成片完成后同步 plan.json 与实际时间线。

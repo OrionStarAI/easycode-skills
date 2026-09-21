@@ -86,6 +86,10 @@ npx hyperframes browser ensure
 
 锁定实际安装版本。doctor 按实际缺项解释：本地渲染需要 Node、FFmpeg、FFprobe、Chrome；未选择的 TTS、Whisper、MusicGen、Docker 不构成必装依赖。doctor schema 改变时更新检查适配器，而不是反复安装已存在的软件。只有使用 Docker 渲染时才处理其依赖。框架 CLI 与其他 skill 分开安装，按任务实际需要选择。
 
+## 旁白（可选）
+
+画外音不引入新的系统依赖，仍是 Python 与 FFmpeg，只多一个 EasyRouter key（在 https://ezr.sh/ 申请）。key 放环境变量 `EASYROUTER_API_KEY` 或视频工程的 `.env`，不要提交。缺 key 时不要把旁白写成已完成，说明情况并等用户提供；申请 key 不是必装步骤，用户不要旁白时整段可跳过。
+
 ## 复查
 
 ```sh

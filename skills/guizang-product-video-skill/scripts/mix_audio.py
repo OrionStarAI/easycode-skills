@@ -18,7 +18,7 @@ DUCK_PRESETS = {
     'click': (3,.10,.20), 'click-alt': (3,.10,.20), 'pop': (3.5,.12,.24),
     'toggle': (3,.12,.24), 'typing': (2.5,.35,.25), 'whoosh': (4,.16,.30),
     'sweep': (4,.20,.35), 'ding-dong': (6,.45,.40), 'success': (5,.35,.35),
-    'error': (5,.35,.35), 'resolve': (5,.55,.45),
+    'error': (5,.35,.35), 'resolve': (5,.55,.45), 'voice': (6,.40,.40),
 }
 
 def duck_windows(audio, cues, duration):
@@ -50,6 +50,53 @@ def duck_windows(audio, cues, duration):
             'end':min(duration,center+settings['hold']+settings['release']),'db':settings['db']})
     return windows
 
+def voice_lines(base, audio, duration):
+    """Validate the assembled voiceover and its per-line evidence; return (voiceover, lines)."""
+    voiceover=audio.get('voiceover')
+    if voiceover is None:return None,[]
+    if not isinstance(voiceover,dict):raise ValueError('audio.voiceover must be an object')
+    if not isinstance(voiceover.get('file'),str) or not (base/voiceover['file']).is_file():
+        raise ValueError('Missing assembled voiceover: '+str(voiceover.get('file')))
+    gain=voiceover.get('gain',1)
+    if not finite(gain) or not 0<gain<=4:raise ValueError('Voiceover gain must be finite and in (0,4]')
+    lines=voiceover.get('lines')
+    if not isinstance(lines,list) or not lines:raise ValueError('audio.voiceover needs the spoken lines that were generated')
+    previous_end=0
+    for index,line in enumerate(lines,start=1):
+        if not isinstance(line,dict):raise ValueError('Voiceover line '+str(index)+' must be an object')
+        if not finite(line.get('at')) or not finite(line.get('duration')) or line['at']<0 or line['duration']<=0:
+            raise ValueError('Voiceover line '+str(index)+' needs finite at/duration')
+        if line['at']<previous_end:raise ValueError('Voiceover lines must not overlap; fix the authored at times')
+        if line['at']+line['duration']>duration+.05:raise ValueError('Voiceover line '+str(index)+' ends after the film')
+        previous_end=line['at']+line['duration']
+        if not isinstance(line.get('file'),str) or not (base/line['file']).is_file():
+            raise ValueError('Missing voiceover line file: '+str(line.get('file')))
+    return voiceover,lines
+
+def voice_windows(audio, lines, duration):
+    """Music gives way to each spoken line; the voice itself is never attenuated."""
+    config=audio.get('ducking',{})
+    if isinstance(config,dict) and config.get('enabled') is False:return []
+    voiceover=audio.get('voiceover',{});override=voiceover.get('duck',{}) if isinstance(voiceover,dict) else {}
+    if not isinstance(override,dict):raise ValueError('audio.voiceover.duck must be an object')
+    settings={'db':DUCK_PRESETS['voice'][0],'attack':.15,'release':DUCK_PRESETS['voice'][2]}
+    settings.update({k:config[k] for k in settings if isinstance(config,dict) and k in config})
+    settings.update(override)
+    for key in ['db','attack','release']:
+        if not finite(settings.get(key)):raise ValueError('Voice duck parameters must be finite')
+    if not 0<=settings['db']<=12 or not .005<=settings['attack']<=.5 or not .02<=settings['release']<=2:
+        raise ValueError('Voice duck envelope outside useful bounds')
+    if settings['db']==0:
+        if not settings.get('reason'):raise ValueError('A zero voice duck depth needs a reason')
+        return []
+    windows=[]
+    for line in lines:
+        windows.append({'actionId':'voiceover:'+str(line.get('shot','line')),'kind':'voice',
+            'start':max(0,line['at']-settings['attack']),'attackEnd':line['at'],
+            'holdEnd':min(duration,line['at']+line['duration']),
+            'end':min(duration,line['at']+line['duration']+settings['release']),'db':settings['db']})
+    return windows
+
 def duck_expression(windows):
     expressions=[]
     for w in windows:
@@ -69,7 +116,8 @@ def mix(plan_path):
     duration=plan['duration'];audio=plan.get('audio',{});music=audio.get('music',{});cues=audio.get('cues',[])
     if not finite(duration) or duration<=0:raise ValueError('Invalid duration')
     if not isinstance(cues,list) or not cues:raise ValueError('No SFX cues. A BGM-only master is not a completed sound design.')
-    sources=[music,*cues]
+    voiceover,voiceLines=voice_lines(base,audio,duration)
+    sources=[music,*cues]+([voiceover] if voiceover else [])
     for item in sources:
         if not isinstance(item,dict) or not isinstance(item.get('file'),str):raise ValueError('Every music/cue item needs a file')
         file=(base/item['file']).resolve()
@@ -101,8 +149,8 @@ def mix(plan_path):
     if music_duration+.05<duration:raise ValueError('Music shorter than film; arrange/loop and end it deliberately before mixing')
     out=base/'assets';out.mkdir(exist_ok=True)
     evidence=base/'evidence';evidence.mkdir(exist_ok=True)
-    stem=out/'sfx-stem.wav';master=out/'master.wav';bgm_stem=out/'music-ducked.wav'
-    if any((base/s['file']).resolve() in [stem.resolve(),master.resolve(),bgm_stem.resolve()] for s in sources):
+    stem=out/'sfx-stem.wav';master=out/'master.wav';bgm_stem=out/'music-ducked.wav';voice_stem_path=out/'voice-stem.wav'
+    if any((base/s['file']).resolve() in [stem.resolve(),master.resolve(),bgm_stem.resolve(),voice_stem_path.resolve()] for s in sources):
         raise ValueError('Inputs must not be the generated master or stem')
     inputs=[];filters=[]
     for i,cue in enumerate(cues):
@@ -111,19 +159,29 @@ def mix(plan_path):
     filters.append(''.join(f'[c{i}]' for i in range(len(cues)))+f'amix=inputs={len(cues)}:normalize=0,apad,atrim=duration={duration}[sfx]')
     # Float stem preserves summed transients until mastering; no early hard clipping.
     run([*inputs,'-filter_complex',';'.join(filters),'-map','[sfx]','-c:a','pcm_f32le','-ar','48000',str(stem)])
-    windows=duck_windows(audio,cues,duration)
+    voice_stem=voice_stem_path if voiceLines else None
+    if voice_stem:
+        voice_inputs=[];voice_filters=[]
+        for i,line in enumerate(voiceLines):
+            voice_inputs += ['-i',str((base/line['file']).resolve())]
+            voice_filters.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo,volume={line.get('gain',1)},adelay={round(line['at']*1000)}:all=1[v{i}]")
+        voice_filters.append(''.join(f'[v{i}]' for i in range(len(voiceLines)))+f'amix=inputs={len(voiceLines)}:normalize=0,aformat=channel_layouts=stereo,apad,atrim=duration={duration}[voice]')
+        run([*voice_inputs,'-filter_complex',';'.join(voice_filters),'-map','[voice]','-c:a','pcm_f32le','-ar','48000',str(voice_stem)])
+    windows=duck_windows(audio,cues,duration)+voice_windows(audio,voiceLines,duration)
     envelope=duck_expression(windows)
     bg_filters=f"aresample=48000,asetnsamples=n=240:p=0,volume='{music.get('gain',1)}*({envelope})':eval=frame,afade=t=in:d=0.025,afade=t=out:st={max(0,duration-.5)}:d=0.5,atrim=duration={duration}"
     # 240 samples at 48 kHz = 5 ms steps: smoother gain automation around short click transients.
     run(['-i',str(music_path),'-af',bg_filters,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(bgm_stem)])
+    target=-14 if voiceover else -16
     with tempfile.TemporaryDirectory(prefix='film-mix-') as tmp:
         raw=Path(tmp)/'raw.wav'
-        graph=f'[0:a][1:a]amix=inputs=2:normalize=0,atrim=duration={duration}[mix]'
-        run(['-i',str(bgm_stem),'-i',str(stem),'-filter_complex',graph,'-map','[mix]','-ar','48000','-ac','2','-c:a','pcm_f32le',str(raw)])
-        measurement=subprocess.run(['ffmpeg','-v','info','-i',str(raw),'-af','loudnorm=I=-16:TP=-1.5:LRA=8:print_format=json','-f','null','-'],capture_output=True,text=True,check=True).stderr
+        layers=[str(bgm_stem),str(stem)]+([str(voice_stem)] if voice_stem else [])
+        graph=''.join(f'[{i}:a]' for i in range(len(layers)))+f'amix=inputs={len(layers)}:normalize=0,atrim=duration={duration}[mix]'
+        run([*[part for item in layers for part in ['-i',item]],'-filter_complex',graph,'-map','[mix]','-ar','48000','-ac','2','-c:a','pcm_f32le',str(raw)])
+        measurement=subprocess.run(['ffmpeg','-v','info','-i',str(raw),'-af',f'loudnorm=I={target}:TP=-1.5:LRA=8:print_format=json','-f','null','-'],capture_output=True,text=True,check=True).stderr
         stats=json.loads(measurement[measurement.rfind('{'):measurement.rfind('}')+1])
         if not all(math.isfinite(float(stats[k])) for k in ['input_i','input_tp','input_lra','input_thresh','target_offset']):raise ValueError('Silent/invalid mix')
-        norm='loudnorm=I=-16:TP=-1.5:LRA=8:linear=true:'+':'.join(f'{k}={stats[v]}' for k,v in [('measured_I','input_i'),('measured_TP','input_tp'),('measured_LRA','input_lra'),('measured_thresh','input_thresh'),('offset','target_offset')])
+        norm=f'loudnorm=I={target}:TP=-1.5:LRA=8:linear=true:'+':'.join(f'{k}={stats[v]}' for k,v in [('measured_I','input_i'),('measured_TP','input_tp'),('measured_LRA','input_lra'),('measured_thresh','input_thresh'),('offset','target_offset')])
         final_measurement=subprocess.run(['ffmpeg','-y','-v','info','-i',str(raw),'-af',norm+':print_format=json','-ar','48000','-ac','2','-c:a','pcm_s24le',str(master)],capture_output=True,text=True,check=True).stderr
         final_stats=json.loads(final_measurement[final_measurement.rfind('{'):final_measurement.rfind('}')+1])
     timing=[];beat=audio.get('beatGrid',{})
@@ -137,13 +195,19 @@ def mix(plan_path):
             step=60/bpm/division;nearest=origin+round((anchor-origin)/step)*step
             row.update(nearestBeat=nearest,beatErrorFrames=round((anchor-nearest)*plan['fps'],3))
         timing.append(row)
+    voiceover_entry=None
+    if voiceover:
+        voiceover_entry={**{k:v for k,v in voiceover.items() if k!='lines'},'sha256':sha((base/voiceover['file']).resolve()),
+                         'lines':[{**line,'sha256':sha((base/line['file']).resolve())} for line in voiceLines]}
     report={'planSha256':sha(plan_path),'music':{**music,'sha256':sha(music_path)},'cues':[{**c,'sha256':sha((base/c['file']).resolve())} for c in cues],
+            'voiceover':voiceover_entry,
             'master':{'file':'assets/master.wav','sha256':sha(master)},'sfxStem':{'file':'assets/sfx-stem.wav','sha256':sha(stem)},
-            'musicStem':{'file':'assets/music-ducked.wav','sha256':sha(bgm_stem)},'ducking':{'method':'cue-envelope','windows':windows,'overlap':'deepest-envelope-wins'},'timing':timing,
-            'warnings':warnings,'normalization':{'requested':'linear','normalization_type':final_stats.get('normalization_type'),'measurement':stats,'output':final_stats},
+            'musicStem':{'file':'assets/music-ducked.wav','sha256':sha(bgm_stem)},**({'voiceStem':{'file':'assets/voice-stem.wav','sha256':sha(voice_stem)}} if voice_stem else {}),
+            'ducking':{'method':'cue-envelope','windows':windows,'overlap':'deepest-envelope-wins'},'timing':timing,
+            'warnings':warnings,'normalization':{'requested':{'integratedLufs':target,'truePeak':-1.5,'lra':8,'mode':'linear'},'normalization_type':final_stats.get('normalization_type'),'measurement':stats,'output':final_stats},
             'listeningStatus':'Not auditioned by script; listen to isolated SFX, final mix and encoded MP4.'}
     (evidence/'audio-mix.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    print('Mixed BGM + '+str(len(cues))+' action cues with music ducking. Inspect assets/sfx-stem.wav and assets/master.wav before delivery.')
+    print('Mixed BGM + '+str(len(cues))+' action cues'+(' + '+str(len(voiceLines))+' voiceover lines' if voiceLines else '')+' with music ducking. Inspect assets/sfx-stem.wav and assets/master.wav before delivery.')
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('plan',type=Path);a=p.parse_args()

@@ -20,6 +20,8 @@ class Delivery(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name).resolve()
         (self.root/'evidence.md').write_text('Release evidence fixture')
         self.plan={'demo':False,'style':'repo','duration':5,'fps':30,'width':1920,'height':1080,'audioRequired':False,'audioExceptionReason':'User requested a silent version',
+            'voiceoverRequired':False,'voiceoverExceptionReason':'User requested a silent version',
+            'motion':{'uiEffects':True,'cameraMove':True},
             'typography':{'mode':'bilingual','zhStyle':'sans-serif','zhFont':'Noto Sans CJK','enFont':'Georgia'},
             'shots':[{'id':'feature','start':0,'end':5,'type':'detail','headline':'切换模型，继续对话','headlineEn':'Switch models','claim':True,'source':['file:evidence.md'],
                 'plainExplanation':'切换模型后，可以带着之前的对话继续工作。','description':'切换模型后，对话内容会保留。','component':'src/selector.tsx','actions':[]}]}
@@ -65,6 +67,35 @@ class Delivery(unittest.TestCase):
         self.assertEqual(delivery.source_file(str(repo/'release.md'),self.root,None),repo/'release.md')
     def test_external_evidence_not_treated_as_file(self):
         self.plan['shots'][0]['source']=['https://example.org/release.md','tag:v1.0','commit:abc123'];self.assertEqual(self.errors(),[])
+    def test_voiceover_exception_required(self):
+        self.plan['voiceoverRequired']=False
+        for value in [None,'','   ']:
+            self.plan['voiceoverExceptionReason']=value
+            self.assertTrue(any('voiceoverExceptionReason' in x for x in self.errors()))
+    def test_voiceover_needs_file_and_lines(self):
+        self.plan['voiceoverRequired']=True
+        self.assertTrue(any('audio.voiceover.file' in x for x in self.errors()))
+        self.plan['audio']={'voiceover':{'file':'assets/voice/voiceover.wav','lines':[]}}
+        self.assertTrue(any('audio.voiceover.lines' in x for x in self.errors()))
+    def test_voiceover_line_outside_its_shot_warns(self):
+        self.plan['voiceoverRequired']=True
+        self.plan['audio']={'voiceover':{'file':'assets/voice/voiceover.wav','lines':[
+            {'shot':'feature','at':4.0,'duration':2.5,'text':'切换模型后，对话会保留。','file':'assets/voice/line-01.wav'}]}}
+        result=delivery.check(self.plan,project_dir=self.root)
+        self.assertEqual(result['errors'],[])
+        self.assertTrue(any('shot' in w and ('outside' in w or 'longer' in w) for w in result['warnings']))
+    def test_motion_exception_required(self):
+        self.plan['motion']={'uiEffects':True,'cameraMove':False}
+        self.assertTrue(any('motion.exceptionReason' in x for x in self.errors()))
+    def test_shot_camera_move_conflicts_with_user_choice(self):
+        self.plan['motion']={'uiEffects':True,'cameraMove':False,'exceptionReason':'User asked for a static camera'}
+        self.plan['shots'][0]['motion']={'camera':'push-in'}
+        self.assertTrue(any('camera move the user declined' in x for x in self.errors()))
+    def test_motion_must_be_recorded(self):
+        del self.plan['motion']
+        self.assertTrue(any('plan.motion' in x for x in self.errors()))
+
+
 class Preflight(unittest.TestCase):
     def probe(self,project,launch_ok=True):
         def fake_run(args,cwd=None,timeout=30):

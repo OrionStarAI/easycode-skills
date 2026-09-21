@@ -118,6 +118,54 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
         if plan['duration']>=30 and len(kinds)<3:warnings.append('Long promo has fewer than three SFX roles; review sound variety rather than repeating one chime')
         if required-linked:issue.append('Key actions without SFX: '+', '.join(sorted(required-linked)))
         if production and final_video and mix_report is None:errors.append('Final video needs --mix-report evidence of BGM + SFX assembly; audio stream existence is insufficient')
+    motion=plan.get('motion')
+    if not isinstance(motion,dict):
+        issue.append('Record the user decision on UI motion and camera zoom in plan.motion');motion={}
+    elif not all(isinstance(motion.get(key),bool) for key in ['uiEffects','cameraMove']):
+        issue.append('plan.motion needs boolean uiEffects and cameraMove')
+    if (motion.get('uiEffects') is False or motion.get('cameraMove') is False) and not nonempty(motion.get('exceptionReason')):
+        issue.append('Declining UI motion or camera zoom needs motion.exceptionReason with the user basis')
+    camera_moves=0
+    for shot in plan['shots']:
+        if not isinstance(shot,dict):continue
+        label=str(shot.get('id','shot'))
+        declared=shot.get('motion')
+        if declared is None:continue
+        if not isinstance(declared,dict):issue.append(label+' motion must be an object');continue
+        if declared.get('camera') in ['push-in','pull-out']:
+            camera_moves+=1
+            if motion.get('cameraMove') is False:issue.append(label+' declares a camera move the user declined')
+        if declared.get('ui')=='state-change' and motion.get('uiEffects') is False:
+            issue.append(label+' declares a UI state animation the user declined')
+    if motion.get('cameraMove') is True and plan['duration']>=30 and not camera_moves:
+        warnings.append('Camera zoom in/out was confirmed but no shot records one; review the camera plan or record the change')
+    if not isinstance(plan.get('voiceoverRequired'),bool):
+        issue.append('voiceoverRequired must explicitly record the user decision on narration')
+    elif plan['voiceoverRequired'] is False:
+        if not nonempty(plan.get('voiceoverExceptionReason')):
+            issue.append('Declining voiceover needs voiceoverExceptionReason documenting the user request')
+    else:
+        voice=audio.get('voiceover') if isinstance(audio.get('voiceover'),dict) else {}
+        if not nonempty(voice.get('file')):issue.append('Narrated films need audio.voiceover.file')
+        lines=voice.get('lines')
+        if not isinstance(lines,list) or not lines:
+            issue.append('Narrated films need audio.voiceover.lines so every spoken line has evidence')
+        else:
+            spans={s.get('id'):(s.get('start'),s.get('end')) for s in plan['shots'] if isinstance(s,dict)}
+            for index,line in enumerate(lines,start=1):
+                label='voiceover line '+str(index)
+                if not isinstance(line,dict):issue.append(label+' must be an object');continue
+                if not nonempty(line.get('text')):issue.append(label+' needs its spoken text')
+                if not nonempty(line.get('file')):issue.append(label+' needs its generated file')
+                if not number(line.get('at')) or not number(line.get('duration')) or line['duration']<=0:
+                    issue.append(label+' needs measured at and duration');continue
+                span=spans.get(line.get('shot'))
+                if span is None:issue.append(label+' names an unknown shot');continue
+                if not all(number(value) for value in span):continue
+                if line['at']<span[0]-.05 or line['at']+line['duration']>span[1]+.05:
+                    warnings.append(label+' runs outside its shot; align the narration with the picture')
+                if line['duration']>span[1]-span[0]:
+                    warnings.append(label+' is longer than the shot it belongs to; shorten the copy or lengthen the shot')
     if mix_report is not None:
         try:
             report=json.loads(Path(mix_report).read_text())
@@ -129,8 +177,13 @@ def creative_checks(plan, errors, warnings, project_dir, mix_report, final_video
             if sfx_required and not report.get('ducking') and not audio.get('ducking',{}).get('reason'):errors.append('Missing music ducking evidence')
             for item in report.get('timing',[]):
                 if abs(item.get('beatErrorFrames',0))>2:warnings.append(item['actionId']+' is off its requested beat; adjust picture and audio together')
-            for entry in [report['master'],report['sfxStem'],report['music'],*([report['musicStem']] if 'musicStem' in report else []),*report['cues']]:
-                if digest(base/entry['file'])!=entry['sha256']:errors.append('Mix asset hash mismatch: '+entry['file'])
+            entries=[report['master'],report['sfxStem'],report['music'],*([report['musicStem']] if 'musicStem' in report else []),*([report['voiceStem']] if report.get('voiceStem') else []),*report['cues']]
+            if plan.get('voiceoverRequired'):
+                if not report.get('voiceover'):errors.append('Narrated film needs voiceover evidence in the mix report')
+                else:entries.extend([report['voiceover'],*report['voiceover'].get('lines',[])])
+            for entry in entries:
+                if not isinstance(entry.get('sha256'),str):errors.append('Mix asset is missing its hash: '+str(entry.get('file')))
+                elif digest(base/entry['file'])!=entry['sha256']:errors.append('Mix asset hash mismatch: '+entry['file'])
             warnings.append('Mix inputs/stem/master verified; listen to SFX audibility and verify this master was used in the final export')
         except (OSError,ValueError,KeyError,TypeError) as exc:errors.append('Invalid mix evidence: '+str(exc))
 
