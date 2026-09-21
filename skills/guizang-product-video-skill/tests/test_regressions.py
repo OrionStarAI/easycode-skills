@@ -139,6 +139,7 @@ class VoiceMix(unittest.TestCase):
                 stem=root/('stem-%s.wav'%gain);shutil.copy(root/'assets/voice-stem.wav',stem)
                 return report,stem
             loud,loud_stem=mix_with(1.0)
+            (root/'assets/voice/line-01.wav').unlink()
             quiet,quiet_stem=mix_with(0.4)
             self.assertTrue(loud.get('voiceStem'),'a narrated mix keeps an isolated voice stem')
             self.assertEqual(loud['normalization']['requested']['integratedLufs'],-14)
@@ -146,6 +147,7 @@ class VoiceMix(unittest.TestCase):
             self.assertEqual(loud['voiceover']['file'],'assets/voice/voiceover.wav')
             self.assertIn('sha256',loud['voiceover'])
             self.assertTrue(any(line.get('sha256') for line in loud['voiceover']['lines']),'per-line evidence keeps its hash')
+            self.assertFalse(any(line.get('sha256') for line in quiet['voiceover']['lines']),'missing per-line files remain optional evidence')
             # 1.0 versus 0.4 is about 8 dB, so the overall gain has to reach the mixed voice track.
             self.assertLess(mean_volume(quiet_stem),mean_volume(loud_stem)-5)
 

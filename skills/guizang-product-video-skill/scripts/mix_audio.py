@@ -69,8 +69,6 @@ def voice_lines(base, audio, duration):
         if line['at']<previous_end:raise ValueError('Voiceover lines must not overlap; fix the authored at times')
         if line['at']+line['duration']>duration+.05:raise ValueError('Voiceover line '+str(index)+' ends after the film')
         previous_end=line['at']+line['duration']
-        if not isinstance(line.get('file'),str) or not (base/line['file']).is_file():
-            raise ValueError('Missing voiceover line file: '+str(line.get('file')))
     return voiceover,lines
 
 def voice_windows(audio, lines, duration):

@@ -271,7 +271,7 @@ def main():
         snippet = {'file': str(assembled.relative_to(project)), 'gain': voiceover.get('gain', 1.0),
                    'provider': 'easyrouter', 'endpoint': base, 'model': model, 'voice': voice,
                    'duck': voiceover.get('duck', {'db': 6, 'attack': 0.15, 'release': 0.4}),
-                   'lines': [{key: record[key] for key in ['shot', 'at', 'duration', 'text', 'file']} for record in records]}
+                   'lines': [{key: record[key] for key in ['shot', 'at', 'duration', 'gain', 'text', 'file']} for record in records]}
         report = {'schema': 1, 'provider': 'easyrouter', 'endpoint': base, 'model': model, 'voice': voice,
                   'transport': used_transport, 'apiKeySource': key_source,
                   'generatedAt': time.strftime('%Y-%m-%dT%H:%M:%S%z'), 'lines': records,
