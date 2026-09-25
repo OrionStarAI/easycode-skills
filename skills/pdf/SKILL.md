@@ -10,8 +10,9 @@ description: Use this skill whenever the user wants to do anything with PDF file
 license: Proprietary. LICENSE.txt has complete terms
 upstream: anthropics/skills
 upstreamPath: skills/pdf
-upstreamSha: 34040c9c568585f6929bedeaad110ad08f079624
+upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
 author: anthropics
+---
 ---
 ---
 

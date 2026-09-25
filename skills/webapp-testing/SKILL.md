@@ -7,8 +7,9 @@ description: Toolkit for interacting with and testing local web applications usi
 license: Complete terms in LICENSE.txt
 upstream: anthropics/skills
 upstreamPath: skills/webapp-testing
-upstreamSha: 34040c9c568585f6929bedeaad110ad08f079624
+upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
 author: anthropics
+---
 ---
 ---
 
