@@ -1,13 +1,14 @@
 ---
 name: remotion-best-practices
 description: Router for all Remotion skills
-version: 4.0.526
+version: 4.0.528
 category: 视频创作
 tags: remotion, video, react, animation, composition
 upstream: remotion-dev/skills
 upstreamPath: skills/remotion-best-practices
-upstreamSha: bbb139d5ba3709b1ffeb27184e9579c681230a08
+upstreamSha: 41b22eec767aa77eb31df62ccb3bacf52ed771fb
 author: remotion-dev
+---
 ---
 ---
 ---
