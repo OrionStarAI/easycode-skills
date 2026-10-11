@@ -11,8 +11,6 @@ upstreamPath: skills/mcp-builder
 upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
 author: anthropics
 ---
----
----
 
 # MCP Server Development Guide
 

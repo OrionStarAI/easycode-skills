@@ -11,8 +11,6 @@ upstreamPath: skills/canvas-design
 upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
 author: anthropics
 ---
----
----
 
 These are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.
 

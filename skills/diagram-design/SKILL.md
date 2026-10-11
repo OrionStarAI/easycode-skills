@@ -10,7 +10,6 @@ author: cathrynlavery
 metadata:
   version: '2.6'
 ---
----
 
 # Diagram Design
 

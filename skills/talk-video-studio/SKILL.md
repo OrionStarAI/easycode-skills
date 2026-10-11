@@ -8,7 +8,6 @@ upstreamPath: talk-video-studio
 upstreamSha: 324c95d40bf57f73fdbf56220525b370ce9fa15f
 author: tangshuang
 ---
----
 
 # Talk Video Studio
 

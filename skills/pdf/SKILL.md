@@ -13,8 +13,6 @@ upstreamPath: skills/pdf
 upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
 author: anthropics
 ---
----
----
 
 # PDF Processing Guide
 

@@ -13,7 +13,6 @@ upstreamPath: "."
 upstreamSha: 2c9aa20ed7f4803cdb1c052af716f74c8aea78e1
 author: nevertoday
 ---
----
 
 # XXD Panel 116
 

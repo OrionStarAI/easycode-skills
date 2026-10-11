@@ -9,9 +9,6 @@ upstreamPath: skills/remotion-best-practices
 upstreamSha: 41b22eec767aa77eb31df62ccb3bacf52ed771fb
 author: remotion-dev
 ---
----
----
----
 
 ## Preserve user changes
 
