@@ -406,10 +406,13 @@ Dir.mktmpdir("easycode-skill-sync-") do |temporary_root|
             skill_changed = true
           else
             merged, _stderr, status = git_capture(nil, "merge-file", "-p", local_path, base_path, source_path)
-            raise SyncError, "#{target[:name]}: git merge-file failed for #{relative}" if status.exitstatus && status.exitstatus > 1
+            # git merge-file exits with the number of conflict hunks (capped at
+            # 127) and 255 on a real error. Multiple hunks are still an ordinary
+            # reviewable conflict; only a signal or 255 aborts the sync.
+            raise SyncError, "#{target[:name]}: git merge-file failed for #{relative}" if status.exitstatus.nil? || status.exitstatus > 127
             write_bytes(local_path, collapse_header_delimiters(merged))
             skill_changed = true
-            skill_conflict = true if status.exitstatus == 1
+            skill_conflict = true if status.exitstatus >= 1
           end
         else
           write_bytes(local_path, conflict_text(local_bytes, source_bytes, current_sha))
