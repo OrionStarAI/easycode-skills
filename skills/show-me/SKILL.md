@@ -3,7 +3,7 @@ name: show-me
 category: 演示与设计
 upstream: humanlayer/skills
 upstreamPath: plugins/show-me/skills/show-me
-upstreamSha: ca7c8088db69e315a8b2deea43820270457f8f3c
+upstreamSha: 653b6411c1f70c275a18e37673b042ff99f67ceb
 description: Help the user understand the current topic visually with concise diagrams,
   code-shape sketches, and focused HTML artifacts.
 disable-model-invocation: true

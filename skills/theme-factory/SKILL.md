@@ -8,7 +8,7 @@ description: Toolkit for styling artifacts with a theme. These artifacts can be 
 license: Complete terms in LICENSE.txt
 upstream: anthropics/skills
 upstreamPath: skills/theme-factory
-upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
+upstreamSha: dbd4588f9e1033efb41dad4bef2f7947c8993d44
 author: anthropics
 ---
 

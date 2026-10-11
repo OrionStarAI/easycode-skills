@@ -16,7 +16,7 @@ description: 'Use this skill any time a spreadsheet file is the primary input or
 license: Proprietary. LICENSE.txt has complete terms
 upstream: anthropics/skills
 upstreamPath: skills/xlsx
-upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
+upstreamSha: dbd4588f9e1033efb41dad4bef2f7947c8993d44
 author: anthropics
 ---
 
