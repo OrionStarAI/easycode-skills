@@ -68,7 +68,6 @@ python3 <skill-dir>/scripts/sfx_landmarks.py assets/sfx/*
 - 写入 plan：`syncOffset` = 所用的落点，`at` = 动作时间 − `syncOffset`。
 - 增益：让音效在出现那一刻的峰值不低于压低后的配乐峰值。录音素材接近 0 dBFS，内置音效约 −20 dBFS，同样的 gain 听感差很多。
 
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/references/audio-sourcing.md
 ## 需要旁白时按句生成
 
 需求确认阶段已经问过用户要不要旁白。只有用户要的时候才做，不要默认给每支片子加旁白。
@@ -116,10 +115,7 @@ python3 <skill-dir>/scripts/make_voiceover.py --plan plan.json --output <video-d
 
 用户不要旁白时，在 plan 里记 `voiceoverRequired: false` 和 `voiceoverExceptionReason`（写用户的依据），不要一声不响地跳过。
 
-## 4. 留下来源，再进入混音
-=======
 ## 留下来源
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/references/audio-sourcing.md
 
 `evidence/audio-selection.json` 记录：
 

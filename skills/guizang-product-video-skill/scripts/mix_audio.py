@@ -156,40 +156,26 @@ def mix(plan_path):
         filters.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo,volume={cue.get("gain",1)},adelay={round(cue["at"]*1000)}:all=1[c{i}]')
     filters.append(''.join(f'[c{i}]' for i in range(len(cues)))+f'amix=inputs={len(cues)}:normalize=0,apad,atrim=duration={duration}[sfx]')
     # Float stem preserves summed transients until mastering; no early hard clipping.
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/scripts/mix_audio.py
-    run([*inputs,'-filter_complex',';'.join(filters),'-map','[sfx]','-c:a','pcm_f32le','-ar','48000',str(stem)])
+    # Hard output cap: an unterminated filter graph (apad) must never write an unbounded file.
+    cap=['-t',f'{duration:.3f}']
+    run([*inputs,'-filter_complex',';'.join(filters),'-map','[sfx]',*cap,'-c:a','pcm_f32le','-ar','48000',str(stem)])
     voice_stem=voice_stem_path if voiceover else None
     if voice_stem:
         # The assembled track is the voice source that enters the mix; lines carry the timing map and the per-line evidence.
         voice_filters=f"aresample=48000,aformat=channel_layouts=stereo,volume={voiceover.get('gain',1)},apad,atrim=duration={duration}"
-        run(['-i',str((base/voiceover['file']).resolve()),'-af',voice_filters,'-c:a','pcm_f32le','-ar','48000',str(voice_stem)])
+        run(['-i',str((base/voiceover['file']).resolve()),'-af',voice_filters,*cap,'-c:a','pcm_f32le','-ar','48000',str(voice_stem)])
     windows=duck_windows(audio,cues,duration)+voice_windows(audio,voiceLines,duration)
     envelope=duck_expression(windows)
     bg_filters=f"aresample=48000,asetnsamples=n=240:p=0,volume='{music.get('gain',1)}*({envelope})':eval=frame,afade=t=in:d=0.025,afade=t=out:st={max(0,duration-.5)}:d=0.5,atrim=duration={duration}"
     # 240 samples at 48 kHz = 5 ms steps: smoother gain automation around short click transients.
-    run(['-i',str(music_path),'-af',bg_filters,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(bgm_stem)])
+    run(['-i',str(music_path),'-af',bg_filters,*cap,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(bgm_stem)])
     target=-14 if voiceover else -16
     with tempfile.TemporaryDirectory(prefix='film-mix-') as tmp:
         raw=Path(tmp)/'raw.wav'
         layers=[str(bgm_stem),str(stem)]+([str(voice_stem)] if voice_stem else [])
         graph=''.join(f'[{i}:a]' for i in range(len(layers)))+f'amix=inputs={len(layers)}:normalize=0,atrim=duration={duration}[mix]'
-        run([*[part for item in layers for part in ['-i',item]],'-filter_complex',graph,'-map','[mix]','-ar','48000','-ac','2','-c:a','pcm_f32le',str(raw)])
+        run([*[part for item in layers for part in ['-i',item]],'-filter_complex',graph,'-map','[mix]',*cap,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(raw)])
         measurement=subprocess.run(['ffmpeg','-v','info','-i',str(raw),'-af',f'loudnorm=I={target}:TP=-1.5:LRA=8:print_format=json','-f','null','-'],capture_output=True,text=True,check=True).stderr
-=======
-    # Hard output cap: an unterminated filter graph (apad) must never write an unbounded file.
-    cap=['-t',f'{duration:.3f}']
-    run([*inputs,'-filter_complex',';'.join(filters),'-map','[sfx]',*cap,'-c:a','pcm_f32le','-ar','48000',str(stem)])
-    windows=duck_windows(audio,cues,duration)
-    envelope=duck_expression(windows)
-    bg_filters=f"aresample=48000,asetnsamples=n=240:p=0,volume='{music.get('gain',1)}*({envelope})':eval=frame,afade=t=in:d=0.025,afade=t=out:st={max(0,duration-.5)}:d=0.5,atrim=duration={duration}"
-    # 240 samples at 48 kHz = 5 ms steps: smoother gain automation around short click transients.
-    run(['-i',str(music_path),'-af',bg_filters,*cap,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(bgm_stem)])
-    with tempfile.TemporaryDirectory(prefix='film-mix-') as tmp:
-        raw=Path(tmp)/'raw.wav'
-        graph=f'[0:a][1:a]amix=inputs=2:normalize=0,atrim=duration={duration}[mix]'
-        run(['-i',str(bgm_stem),'-i',str(stem),'-filter_complex',graph,'-map','[mix]',*cap,'-ar','48000','-ac','2','-c:a','pcm_f32le',str(raw)])
-        measurement=subprocess.run(['ffmpeg','-v','info','-i',str(raw),'-af','loudnorm=I=-16:TP=-1.5:LRA=8:print_format=json','-f','null','-'],capture_output=True,text=True,check=True).stderr
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/scripts/mix_audio.py
         stats=json.loads(measurement[measurement.rfind('{'):measurement.rfind('}')+1])
         if not all(math.isfinite(float(stats[k])) for k in ['input_i','input_tp','input_lra','input_thresh','target_offset']):raise ValueError('Silent/invalid mix')
         norm=f'loudnorm=I={target}:TP=-1.5:LRA=8:linear=true:'+':'.join(f'{k}={stats[v]}' for k,v in [('measured_I','input_i'),('measured_TP','input_tp'),('measured_LRA','input_lra'),('measured_thresh','input_thresh'),('offset','target_offset')])

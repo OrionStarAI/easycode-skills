@@ -1,16 +1,12 @@
 ---
 name: guizang-product-video-skill
 category: 视频创作
-description: 制作代码驱动的软件版本更新宣传片（release notes video、changelog promo）。默认先确认风格、界面动效与镜头推拉、是否要 Gemini 画外音，再从真实更新提炼卖点，复用产品组件和设计语言，完成分镜、代码原创配乐、动作音效、逐句旁白、渲染与验收。
 upstream: op7418/guizang-product-video-skill
 upstreamPath: .
-upstreamSha: ea9cf3a1b7207b1f8080ec90d089c2cc9aaf6866
+upstreamSha: 18842e0f49a9eb2b8c00cc065ec37b314e235aaa
 author: op7418
 license: "AGPL-3.0; CodePilot fallback assets: BUSL-1.1 (see README.md)"
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/SKILL.md
-=======
-description: 制作代码驱动的软件产品宣传片和版本更新片（product promo、release notes video、changelog promo）。从真实功能和产品设计出发定方向，用真实组件、GSAP/Three.js 动效、原创配乐和动作音效完成影片，每支片子的视觉手法都从产品本身推导，不套模板。
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/SKILL.md
+description: 制作代码驱动的软件产品宣传片和版本更新片（product promo、release notes video、changelog promo）。从真实功能和产品设计出发定方向，默认先确认范围与平台、风格、界面动效与镜头推拉、是否要 Gemini 画外音，再用真实组件、GSAP/Three.js 动效、原创配乐、动作音效和逐句旁白完成影片；每支片子的视觉手法都从产品本身推导，不套模板。
 ---
 
 # 归藏 product video skill
@@ -19,31 +15,12 @@ description: 制作代码驱动的软件产品宣传片和版本更新片（prod
 
 ## 流程
 
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/SKILL.md
-1. **确认范围、平台与三个选择。** 已有工程沿用 brief 和用户决定，只处理本次修改。新片先补齐产品/仓库、时长与画幅、语言和链接要求，再用一次 `ask_user_question` 问清**范围与平台**和三件会改变工作量的事。**范围与平台**：宣传片覆盖**全量产品介绍、最新一个版本周期，还是用户指定的版本区间**？覆盖**哪些平台面**（桌面端／CLI/TUI／移动端／服务端 API）？仓库记录只能说明「有哪些版本」，说明不了「用户想宣传哪个范围和面」——这一项必须由用户拍板，不要默认替用户决定；答案写入 `plan.json` 的 `scope`（如 `{"versions":"v0.10.12..v0.11.0","platforms":["cli-tui"]}`）并同步进 BRIEF，未纳入的平台面在交付时明确声明，避免观众误以为宣传片覆盖产品全貌。**风格**（`repo` 沿用产品设计／`default` 默认暖白炭黑／`hybrid` 保留产品识别并调整外层排版）、**动效**（界面操作动效 + 镜头 zoom in/out／只做界面动效／只做镜头推拉／全静态）、**旁白**（要 Gemini 画外音／只要字幕与音效／稍后再定）。这些决定用户已经指定、或已有工程里记过答案时不要重复问；范围与平台尚未确定时问一次，旧工程缺 `motion` 或 `voiceoverRequired` 时补问一次写进 plan 再继续（脚本对缺失只告警，对自相矛盾才报错）。三件选择的答案写进 `plan.json` 的 `motion.uiEffects`、`motion.cameraMove` 和 `voiceoverRequired`；用户否决的一项用 `motion.exceptionReason` 或 `voiceoverExceptionReason` 留下依据。旁白选定为「要」时**当场**解析 `EASYROUTER_API_KEY`（环境变量或视频工程 `.env`）：缺就立刻向用户索取，不要等画面做完——申请 key 要用户花时间，而它挡的是混音不是渲染，拖到最后才发现等于让用户白等整轮制作。普通场景可建议横版、45–60 秒、中文。
-2. **初始化后检查环境。** 风格确定后，按下方工具入口初始化独立视频目录，再运行环境检查。把第 1 步的旁白答案传给检查脚本（`--voiceover yes|no|undecided`）：只有 `yes` 时 `EASYROUTER_API_KEY` 会作为 `prereqs` 报出来，`undecided` 只给告警。**不要改用 `plan.json` 的 `voiceoverRequired`**——此刻 plan 还是起步工程的技术样片，那个字段是过期的，读它会静默压掉提示。仅对报告的缺项加载 [依赖安装](references/onboarding.md) 并补装（`prereqs` 是用户提供的凭据，你装不了，只能索取），随后 `--force` 复查；`ready:true` 继续制作。已有工程直接检查，无需再次初始化。Python 本身缺失时先按依赖安装文档补齐 Python。检查每次执行，安装文档按缺项加载；browser 每次重查环境并实际启动浏览器，`cached:true` 仅表示环境指纹匹配上次成功记录；HyperFrames 指纹匹配时可跳过 doctor。
-3. **调查更新并接通组件。** 按 [仓库与风格审计](references/repo-and-style.md) 确定日期/版本、发布状态和 3–5 组核心变化。找到对应业务组件、完整样式和所需状态，先接通一个功能镜头。React 项目的依赖解析、CSS/Tailwind 接入见 [起步工程](references/starter.md)，其他挂载路径见 [组件接入](references/component-pipeline.md)。
-4. **编排画面与文案。** 按 [分镜与文案](references/story-and-copy.md) 写解释、标题、动作及阅读时间，交替安排字卡、组件特写、工作区和细节。用真实渲染路径输出 3–6 张关键静帧自检；用户要求先看方向时等反馈，否则继续。默认样式可先看 [标题预览](assets/fallback/title-preview.png) 与 [组件预览](assets/fallback/preview.png)。
-5. **完成动效与声音。** 用主时间轴控制组件状态和镜头，支持前后 seek；界面动效与镜头推拉按 [分镜与文案](references/story-and-copy.md) 的镜头语言执行，动效对应真实状态变化，缩放后重新核对变换后的边界。按 [配乐与音效来源](references/audio-sourcing.md) 为当前影片代码原创配乐，先查找适合产品和动作的音效，缺项才用内置 WAV；用户要旁白时**先用候选音色各试一句、量出这部片子自己的语速**，再按它决定每句长度，然后用 `scripts/make_voiceover.py` 按镜头逐句生成并量出实际时长（旁白语速靠选音色和写短句子来调，见 [配乐与音效来源](references/audio-sourcing.md)）。按 [混音与验收](references/audio-and-qa.md) 对齐 `audio.cues` 与 `audio.voiceover`、压低关键音效与人声期间的音乐并完成混音。
-6. **验证并交付。** 检查最终 MP4 的裁切、字体、图片、Logo、阅读时间、声音和用户指定的链接处理。修改后重新导出并复查相关镜头。交付 MP4、可复现工程和少量预览；区分自动检查、实际观看/试听及仍受限部分。遇到历史同类问题可查 [案例复盘](references/case-study.md)。
-
-## 硬约束
-
-- **真实功能。** 正式片至少一项可追溯的更新主张；每项记录发布状态、来源和白话解释。演示数据可固定，功能效果与数字应有证据。范围与平台以 `plan.scope` 为准，交付时声明未覆盖的平台面。
-- **原组件。** 功能镜头优先接入实际业务组件、原样式及状态；抽象化用于取景、布局和外层动画。逐镜头核对导入图、来源与静帧。平台确实无法接入时记录阻碍和替代方式，遵从已有授权。
-- **清楚排版。** 宣传标题默认有意义的英文与中文各占一个 span、分别指定字体，中文无衬线；中文说明交代对象、动作和结果。原产品内部字体保持其设计；用户指定的语言/字体优先。
-- **完整声音。** 默认代码原创音乐与独立动作音效均入轨，关键反馈可闻、音画同步。用户要求静音或省略音效时，记录 `audioExceptionReason`；该字段保存用户依据。
-- **旁白服务于画面。** 用户要旁白时按镜头逐句生成，人声清楚、音乐在其间让位；每句的 `at` 默认落在所属镜头内、`duration` 用实测值，越界或超长时脚本给出告警、需要人确认是否有意为之；每句只讲一个有来源的信息点，不照抄标题；语速用该音色的自然语速，要调整就换音色或删词。用户不要旁白时记录 `voiceoverExceptionReason`，不静默跳过。
-- **动效有依据。** 界面动效对应选中、展开、切换、完成等真实状态变化，镜头推拉服务“要让观众看哪里”；用户选全静态时不要为了“看起来在动”加无意义晃动，并记录 `motion.exceptionReason`。
-- **隔离工程。** 源码适配、展示依赖和构建配置放视频工程；原产品代码和依赖保持不动。读取产品已安装依赖，必要时在视频工程固定版本补装适配所需包。
-- **授权与真实验收。** 使用素材时保留来源和适用许可。默认样式仍受 [BSL 授权](assets/fallback/SOURCE.md) 约束。自动检查证明结构与文件一致性，视觉、语义和听感由实际审阅补充。
-=======
-1. **确认范围、平台与风格。** 已有工程沿用 brief 和用户决定，只处理本次修改。新片补齐：产品/仓库、发布渠道、时长与画幅、语言、是否允许链接，以及用户有没有参考视频。**范围与产品平台面必须由用户拍板**，仓库只能说明有哪些版本，说明不了用户想宣传什么：覆盖全量产品、最新一个版本周期，还是指定版本区间？覆盖哪些平台面（桌面端／CLI·TUI／移动端／服务端 API）？没指定时问一次，答案写入 `plan.json` 的 `scope`（如 `{"versions":"v0.10.12..v0.11.0","platforms":["cli-tui"]}`）并同步进 BRIEF。风格没定时问一次："沿用代码库自己的设计风格（推荐），还是默认的暖白／炭黑风格？"`repo` 用产品设计；`default` 用默认样式包装；`hybrid` 保留产品识别、调整外层排版。常见起点：横版、45–60 秒、中文。
-2. **初始化并检查环境。** 按下方工具入口初始化独立视频目录，再运行环境检查；只对报告的缺项加载 [依赖安装](references/onboarding.md)，装完复查。已有工程直接检查，不重新初始化。
+1. **确认范围、平台、风格与三个选择。** 已有工程沿用 brief 和用户决定，只处理本次修改。新片补齐：产品/仓库、发布渠道、时长与画幅、语言、是否允许链接，以及用户有没有参考视频。**范围与产品平台面必须由用户拍板**，仓库只能说明有哪些版本，说明不了用户想宣传什么：覆盖全量产品、最新一个版本周期，还是指定版本区间？覆盖哪些平台面（桌面端／CLI·TUI／移动端／服务端 API）？没指定时问一次，答案写入 `plan.json` 的 `scope`（如 `{"versions":"v0.10.12..v0.11.0","platforms":["cli-tui"]}`）并同步进 BRIEF。风格没定时问一次："沿用代码库自己的设计风格（推荐），还是默认的暖白／炭黑风格？"`repo` 用产品设计；`default` 用默认样式包装；`hybrid` 保留产品识别、调整外层排版。同一轮再问清两件会改变工作量的事：**动效**（界面操作动效 + 镜头 zoom in/out／只做界面动效／只做镜头推拉／全静态）、**旁白**（要 Gemini 画外音／只要字幕与音效／稍后再定）。这些决定用户已经指定、或已有工程里记过答案时不要重复问；旧工程缺 `motion` 或 `voiceoverRequired` 时补问一次写进 plan 再继续（脚本对缺失只告警，对自相矛盾才报错）。答案写进 `plan.json` 的 `motion.uiEffects`、`motion.cameraMove` 和 `voiceoverRequired`；用户否决的一项用 `motion.exceptionReason` 或 `voiceoverExceptionReason` 留下依据。旁白选定为「要」时**当场**解析 `EASYROUTER_API_KEY`（环境变量或视频工程 `.env`）：缺就立刻向用户索取，不要等画面做完——申请 key 要用户花时间，而它挡的是混音不是渲染，拖到最后才发现等于让用户白等整轮制作。常见起点：横版、45–60 秒、中文。
+2. **初始化并检查环境。** 按下方工具入口初始化独立视频目录，再运行环境检查。把第 1 步的旁白答案传给检查脚本（`--voiceover yes|no|undecided`）：只有 `yes` 时 `EASYROUTER_API_KEY` 会作为 `prereqs` 报出来，`undecided` 只给告警；**不要改用 `plan.json` 的 `voiceoverRequired`**——此刻 plan 还是起步工程的技术样片，那个字段是过期的。只对报告的缺项加载 [依赖安装](references/onboarding.md)，装完用 `--force` 复查（`prereqs` 是用户提供的凭据，你装不了，只能索取）。已有工程直接检查，不重新初始化。
 3. **调查产品，接通组件。** 按 [仓库与风格审计](references/repo-and-style.md) 确定功能、发布状态和证据，记下设计语言、暗色主题和可做母题的产品元素。在浏览器里挂载真实业务组件：补 provider，接口用 fixture，交互用真实点击和输入，放大到视频尺度（[起步工程](references/starter.md)、[组件接入](references/component-pipeline.md)）。先接通一个功能镜头并出静帧。
 4. **定方向，写 `DIRECTION.md`。** 按 [影片方向](references/direction.md)：拆解参考，提炼产品气质，沿不同的轴提出三个方向，选一个并写出理由；列出 3–5 个"因为产品有 X、所以用 Y"的专属手法，并避开本工作区上一支片子的手法；把画面规范写成具体数字；写到每一秒的镜头表。用户想先看方向时，给三个方向和 3–6 张关键静帧，等反馈；否则继续。
-5. **逐镜头搭建。** 每个镜头 = 视图组件 + builder（GSAP 主时间轴、`onRender` 画布层、`onDrive` 真实交互），时间只从 `plan.json` 读。手法从 [视觉手法词汇](references/visual-vocabulary.md) 里选能从产品推导的，`assets/fx-lab/` 的样例改写后再用。每搭完一个镜头就出静帧，对照镜头表（[审片](references/review.md)）。
-6. **配乐与音效。** 按 [配乐与音效](references/audio-sourcing.md) 选音乐来源（用户提供 → 本机可用的生成模型 → 代码合成），编曲从镜头边界推出来，音色从产品气质推出来；音效先用录音素材，缺项再用内置 WAV。用 `sfx_landmarks.py` 实测落点和电平，按 [混音与验收](references/audio-and-qa.md) 对位、让位、混音。
+5. **逐镜头搭建。** 每个镜头 = 视图组件 + builder（GSAP 主时间轴、`onRender` 画布层、`onDrive` 真实交互），时间只从 `plan.json` 读。手法从 [视觉手法词汇](references/visual-vocabulary.md) 里选能从产品推导的，`assets/fx-lab/` 的样例改写后再用。界面动效与镜头推拉按镜头表执行，动效对应真实状态变化，缩放后重新核对变换后的边界。每搭完一个镜头就出静帧，对照镜头表（[审片](references/review.md)）。
+6. **配乐、音效与旁白。** 按 [配乐与音效](references/audio-sourcing.md) 选音乐来源（用户提供 → 本机可用的生成模型 → 代码合成），编曲从镜头边界推出来，音色从产品气质推出来；音效先用录音素材，缺项再用内置 WAV，用 `sfx_landmarks.py` 实测落点和电平。用户要旁白时**先用候选音色各试一句、量出这部片子自己的语速**，再按它决定每句长度，然后用 `scripts/make_voiceover.py` 按镜头逐句生成并量出实际时长（旁白语速靠选音色和写短句子来调）。按 [混音与验收](references/audio-and-qa.md) 对位、让位，对齐 `audio.cues` 与 `audio.voiceover`，压低关键音效与人声期间的音乐并完成混音。
 7. **审片并交付。** 导出全片，看 2 fps 联系表、每个转场的 10 fps 条带和信息密集镜头的全尺寸帧，按 [审片](references/review.md) 修改后重新导出。运行 `check_delivery.py`（`pacing` 只提示该去看哪一段）。交付 MP4、可复现工程和少量预览；说清哪些是自动检查、哪些实际看过/听过、哪些仍未验证。要发布时按 [封面](references/cover.md) 做 3:4 / 4:3 / 16:9 封面，用户没提就用一句话问一下。历史问题查 [案例复盘](references/case-study.md)。
 
 ## 硬约束
@@ -55,9 +32,10 @@ description: 制作代码驱动的软件产品宣传片和版本更新片（prod
 - **清楚排版。** 宣传标题默认英文、中文各一个 span，分别指定字体，中文无衬线；中文说明交代对象、动作和结果。产品内部字体保持原设计；用户指定的语言/字体优先。
 - **首帧就是完整画面。** 没有单独上传封面时，X / Threads 等平台会直接抓第一帧当缩略图。所以片子的前 5–10 帧要放一个完整画面，通常是开场段落的完成态；之后再淡出，开场动画照常播放。第一帧不能是空白底色，也不能是等待入场的背景。`check_delivery.py` 会测前 5 帧。
 - **完整声音。** 默认音乐与独立动作音效都进音轨，关键反馈听得见、音画同步。用户要求静音或省略音效时，记录 `audioExceptionReason`。
+- **旁白服务于画面。** 用户要旁白时按镜头逐句生成，人声清楚、音乐在其间让位；每句的 `at` 默认落在所属镜头内、`duration` 用实测值，越界或超长时脚本给出告警、需要人确认是否有意为之；每句只讲一个有来源的信息点，不照抄标题；语速用该音色的自然语速，要调整就换音色或删词。用户不要旁白时记录 `voiceoverExceptionReason`，不静默跳过。
+- **动效有依据。** 界面动效对应选中、展开、切换、完成等真实状态变化，镜头推拉服务"要让观众看哪里"；用户选全静态时不要为了"看起来在动"加无意义晃动，并记录 `motion.exceptionReason`。
 - **隔离工程。** 源码适配、展示依赖和构建配置放在视频工程；原产品代码和依赖不动。
 - **授权与真实验收。** 素材保留来源和许可。默认样式受 [BSL 授权](assets/fallback/SOURCE.md) 约束。自动检查只证明结构与文件一致；视觉、语义和听感靠实际审阅，没有试听就如实说明。
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/SKILL.md
 
 ## 工具入口
 
@@ -69,14 +47,6 @@ python3 <skill-dir>/scripts/check_environment.py --project <video-dir> --engine 
 # 缺项 / prereqs → 按 references/onboarding.md 处理 → 使用 --force 复查。
 ```
 
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/SKILL.md
-HyperFrames 工程使用 `--engine hyperframes`。新工程附 10 秒技术样片，用于验证链路；正式制作按实际产品替换内容。
-
-- [起步工程](references/starter.md)：依赖接入、CSS、编译、静帧和导出耗时。
-- [配乐源码](assets/audio/codepilot-score-example.py)：48 秒、120 BPM、48 kHz 示例，复制进工程按本片改编。
-- [内置音效](assets/audio/SOURCE.md)：11 个 WAV；需改音色时运行 `scripts/make_sfx.py --output <new-sfx-dir>`。
-- `scripts/make_voiceover.py --plan plan.json --output <video-dir>`：按 `audio.voiceover.lines` 逐句生成旁白；key 只从 `EASYROUTER_API_KEY` 或工程 `.env` 读取，`--list-models` 可查实际 TTS 模型 id。
-=======
 HyperFrames 工程使用 `--engine hyperframes`。新工程附 10 秒技术样片（刻意没有风格，只验证链路）和一份只有问题的 `DIRECTION.md`。
 
 - [影片方向](references/direction.md)：参考拆解、产品气质、三个方向与差异轴、专属手法推导、反重复、画面规范、镜头表。
@@ -88,7 +58,7 @@ HyperFrames 工程使用 `--engine hyperframes`。新工程附 10 秒技术样�
 - `assets/audio/score-example-keys.py`、`score-example-cinematic.py`：两种气质的代码合成配乐示例，借手法，不照搬曲子。
 - [内置音效](assets/audio/SOURCE.md)：11 个原创 WAV；需要改音色时运行 `scripts/make_sfx.py --output <new-sfx-dir>`。
 - `scripts/sfx_landmarks.py <files>`：实测音效的起音点、峰值时间和峰值电平。
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/SKILL.md
+- `scripts/make_voiceover.py --plan plan.json --output <video-dir>`：按 `audio.voiceover.lines` 逐句生成旁白；key 只从 `EASYROUTER_API_KEY` 或工程 `.env` 读取，`--list-models` 可查实际 TTS 模型 id。
 - `scripts/mix_audio.py <plan.json>`：混音、音乐让位、独立音轨和证据报告。
 - `scripts/check_delivery.py <plan.json> [--video <final.mp4>] [--mix-report <audio-mix.json>]`：结构、文件、时间线、方向文件、媒体与画面节奏提示。
 - `python3 -m unittest discover -s <skill-dir>/tests` 与 `node <skill-dir>/tests/integration.mjs --modules <video-dir>/node_modules`：维护此 skill 时运行；日常制片不需要读测试源码。

@@ -9,12 +9,8 @@
 ```sh
 python3 <skill-dir>/scripts/init_project.py --output <video-dir> --style repo --repo <repo-dir>
 cd <video-dir>
-<<<<<<< /home/runner/work/easycode-skills/easycode-skills/skills/guizang-product-video-skill/references/starter.md
 python3 <skill-dir>/scripts/check_environment.py --project . --engine browser --voiceover <yes|no|undecided>
 # ready:true 跳过安装；缺项时按 references/onboarding.md 补齐后复查。
-=======
-python3 <skill-dir>/scripts/check_environment.py --project . --engine browser
->>>>>>> /tmp/easycode-skill-sync-20261011-2184-jk95nv/op7418_guizang-product-video-skill-current/references/starter.md
 npm run build
 node stills.mjs evidence/stills 1.5 5 8.5          # 一次会话批量出静帧，并打印页面错误和 API 请求
 node render.mjs --from 4 --to 7 --output renders/draft.mp4   # 局部草稿，不需要音频
