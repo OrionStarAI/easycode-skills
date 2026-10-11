@@ -8,7 +8,7 @@ description: Suite of tools for creating elaborate, multi-component claude.ai HT
 license: Complete terms in LICENSE.txt
 upstream: anthropics/skills
 upstreamPath: skills/web-artifacts-builder
-upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
+upstreamSha: dbd4588f9e1033efb41dad4bef2f7947c8993d44
 author: anthropics
 ---
 

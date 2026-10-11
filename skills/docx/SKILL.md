@@ -15,7 +15,7 @@ description: 'Use this skill whenever the user wants to create, read, edit, or m
 license: Proprietary. LICENSE.txt has complete terms
 upstream: anthropics/skills
 upstreamPath: skills/docx
-upstreamSha: 33375500bcea98d610eb30ce10ac4e59b89c390d
+upstreamSha: dbd4588f9e1033efb41dad4bef2f7947c8993d44
 author: anthropics
 ---
 
