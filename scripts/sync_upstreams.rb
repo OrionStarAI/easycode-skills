@@ -183,6 +183,26 @@ def normalize_for_conflict(bytes)
   value.end_with?("\n") ? value : "#{value}\n"
 end
 
+# git merge-file can emit the frontmatter closing delimiter twice: when both
+# sides edit the header region with different line counts, each side's `---`
+# lands as its own added line, and one stray delimiter accumulates on every
+# sync. Collapse any run of `---` lines that immediately follows the closing
+# delimiter back down to one; horizontal rules elsewhere in the body are
+# untouched.
+def collapse_header_delimiters(bytes)
+  lines = bytes.dup.force_encoding("UTF-8").lines
+  return bytes unless lines.first&.strip == "---"
+
+  closing = lines[1..]&.index { |line| line.strip == "---" }
+  return bytes unless closing
+
+  head = lines[0, closing + 2]
+  rest = lines.drop(closing + 2)
+  rest.shift while rest.first&.strip == "---"
+  collapsed = head + rest
+  collapsed == lines ? bytes : collapsed.join
+end
+
 def conflict_text(local_bytes, upstream_bytes, upstream_ref)
   [
     "<<<<<<< local",
@@ -271,7 +291,14 @@ def run_self_test
   raise "local category was not preserved" unless merged_data["category"] == "视频创作"
   raise "local upstream metadata was not preserved" unless merged_data["upstream"] == "example/skills"
   raise "upstream body was not selected" unless merged.end_with?("upstream body\n")
+
+  stacked = "---\nname: sample\n---\n---\n---\n\nbody\n"
+  collapsed = collapse_header_delimiters(stacked)
+  raise "stacked frontmatter delimiters were not collapsed" unless collapsed == "---\nname: sample\n---\n\nbody\n"
+  clean = "---\nname: sample\n---\n\nintro\n\n---\n\nmore\n"
+  raise "delimiter collapse touched a clean header or body rules" unless collapse_header_delimiters(clean) == clean
   puts "[self-test] safe_join root normalization and traversal guard passed"
+  puts "[self-test] frontmatter delimiter collapse passed"
 end
 
 if ARGV.delete("--self-test")
@@ -375,12 +402,12 @@ Dir.mktmpdir("easycode-skill-sync-") do |temporary_root|
         if File.file?(base_path)
           semantic = relative == "SKILL.md" && semantic_skill_text_merge(local_bytes, bytes_for(base_path), source_bytes)
           if semantic
-            write_bytes(local_path, semantic)
+            write_bytes(local_path, collapse_header_delimiters(semantic))
             skill_changed = true
           else
             merged, _stderr, status = git_capture(nil, "merge-file", "-p", local_path, base_path, source_path)
             raise SyncError, "#{target[:name]}: git merge-file failed for #{relative}" if status.exitstatus && status.exitstatus > 1
-            write_bytes(local_path, merged)
+            write_bytes(local_path, collapse_header_delimiters(merged))
             skill_changed = true
             skill_conflict = true if status.exitstatus == 1
           end
