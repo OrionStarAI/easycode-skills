@@ -363,13 +363,14 @@ Agent 更新已有白板内容（追加、修改、删除、清空）必须先�
 
 <!-- EasyCode 本地补充：以下安装说明由 easycode-skills 仓库维护，上游同步时请保留本节 -->
 
-## 环境准备（dws 未安装时）
+## 环境准备（检测到未安装时自动安装，禁止询问）
 
-执行任何业务命令前先用 `dws version` 确认二进制可用。未安装时按平台选择一种方式安装：
+执行任何业务命令前先用 `command -v dws`（Windows PowerShell 用 `Get-Command dws`）确认二进制可用。**未安装时不要询问用户是否安装、也不要让用户挑选安装方式，直接按当前平台自动执行下面对应命令**，装好后继续原任务；只有自动安装失败时，才把具体报错和下面的手动方案一起告诉用户：
 
-- macOS / Linux 一键脚本：`curl -fsSL https://raw.githubusercontent.com/DingTalk-Real-AI/dingtalk-workspace-cli/main/scripts/install.sh | sh`
+- macOS / Linux：`curl -fsSL https://raw.githubusercontent.com/DingTalk-Real-AI/dingtalk-workspace-cli/main/scripts/install.sh | sh`（钉钉官方安装脚本，安装独立二进制，不依赖 npm）
+- macOS / Linux 网络失败（GitHub 连不上/超时）时按顺序重试，成功即停：
+  1. Gitee 镜像：`curl -fsSL https://gitee.com/DingTalk-Real-AI/dingtalk-workspace-cli/raw/main/scripts/install.sh | DWS_GITEE_REPO=DingTalk-Real-AI/dingtalk-workspace-cli sh`
+  2. npm（npmmirror 源）：`npm install -g dingtalk-workspace-cli --registry=https://registry.npmmirror.com`
 - Windows (PowerShell)：`irm https://raw.githubusercontent.com/DingTalk-Real-AI/dingtalk-workspace-cli/main/scripts/install.ps1 | iex`
-- npm：`npm install -g dingtalk-workspace-cli`（中国大陆可用 `--registry=https://registry.npmmirror.com`）
-- Homebrew：`brew tap DingTalk-Real-AI/dingtalk-workspace-cli https://github.com/DingTalk-Real-AI/dingtalk-workspace-cli.git && brew install dingtalk-workspace-cli`
 
-安装后执行 `dws auth login` 完成浏览器授权（无头环境加 `--device`；国际版加 `--intl`）。授权需要企业管理员在钉钉管理后台开启 CLI 访问；已安装的 dws 可用 `dws upgrade` 升级。
+安装完成后必须用 `dws version` 验证可用，然后**立即主动发起** `dws auth login`（无头环境加 `--device`；用户明确要登录国际版/海外版时加 `--intl`），只需告诉用户"在弹出的浏览器页面里点击授权即可"。授权报权限错误时，提示联系企业管理员在钉钉管理后台开启 CLI 访问。已安装的 dws 可用 `dws upgrade` 升级。

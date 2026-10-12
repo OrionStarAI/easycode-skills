@@ -6,15 +6,15 @@
       "zh": "钉钉",
       "en": "DingTalk Workspace"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "usageExample": "帮我查一下今天钉钉日历上的日程，把下午 3 点的会议改到 4 点，然后在项目群里发一条改动通知。",
     "description": {
-      "zh": "通过钉钉官方 dws 命令行工具操作钉钉：管理日程会议、群聊与机器人消息、待办、审批、考勤、日报周报，读写钉钉文档、云盘、在线电子表格、AI 表格和知识库，收发邮件，查询通讯录与听记纪要，还可以实时监听群成员变动、审批流转等个人事件。首次使用需要安装 dws 并完成 dws auth login 授权，企业需管理员开启 CLI 访问。",
-      "en": "Operate DingTalk through the official dws CLI: manage calendar events, group chats and bot messages, todos, approvals, attendance and daily/weekly reports; read and write DingTalk docs, drive files, spreadsheets, AI tables and wiki; send and read mail; look up contacts and meeting minutes; and subscribe to personal events such as group membership changes and approval flows. First-time setup requires installing dws and finishing dws auth login with CLI access enabled by your organization admin."
+      "zh": "通过钉钉官方 dws 命令行工具操作钉钉：管理日程会议、群聊与机器人消息、待办、审批、考勤、日报周报，读写钉钉文档、云盘、在线电子表格、AI 表格和知识库，收发邮件，查询通讯录与听记纪要，还可以实时监听群成员变动、审批流转等个人事件。检测到未安装 dws 时会自动完成安装（官方脚本，失败自动切国内镜像），并引导你在浏览器里一键完成授权；使用前需企业管理员在钉钉后台开启 CLI 访问。",
+      "en": "Operate DingTalk through the official dws CLI: manage calendar events, group chats and bot messages, todos, approvals, attendance and daily/weekly reports; read and write DingTalk docs, drive files, spreadsheets, AI tables and wiki; send and read mail; look up contacts and meeting minutes; and subscribe to personal events such as group membership changes and approval flows. If dws is missing it is installed automatically (official installer with an automatic China-mirror fallback), followed by one-click browser authorization; your organization admin must enable CLI access first."
     }
   },
   "storage": {
-    "packageKey": "skills/dws/dws_1.0.0.zip"
+    "packageKey": "skills/dws/dws_1.0.1.zip"
   },
   "media": {
     "icon": {
