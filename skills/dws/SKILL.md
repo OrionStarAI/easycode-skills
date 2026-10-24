@@ -8,7 +8,7 @@ category: 文档办公
 tags: 钉钉, dingtalk, dws, 日历, 待办, 群聊, 审批, 考勤, 文档, 邮箱, 知识库, AI表格
 upstream: DingTalk-Real-AI/dingtalk-workspace-cli
 upstreamPath: skills/mono
-upstreamSha: 1deba2591cbead4584f3690eadd73350b239b473
+upstreamSha: 52f38a4a6997da07fd9159fa643d313ca9b83409
 author: DingTalk-Real-AI
 metadata:
   internal: true
